@@ -1,3 +1,6 @@
+// using array of function
+// pointers:https://stackoverflow.com/questions/252748/how-can-i-use-an-array-of-function-pointers
+
 #define _USE_MATH_DEFINES
 
 #include <math.h>
@@ -39,7 +42,7 @@ void arctangent(double number) {
 }
 
 int main(void) {
-  // array of functions
+  // array of functions pointers
   void (*functions[11])(double number) = {
       exponential, naturalLog, logBase2,  logBase10, squareRoot, sine,
       cosine,      tangent,    arccosine, arcsine,   arctangent};
