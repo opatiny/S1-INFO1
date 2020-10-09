@@ -44,18 +44,22 @@ void arctangent(double number) {
 int main(void) {
   // array of functions pointers
   void (*functions[11])(double number) = {
-      exponential, naturalLog, logBase2,  logBase10, squareRoot, sine,
-      cosine,      tangent,    arccosine, arcsine,   arctangent};
+      exponential, naturalLog, logBase2, logBase10, squareRoot, arccosine,
+      arcsine,     arctangent, sine,     cosine,    tangent};
 
   int function;
   printf(
       "Enter number of desired function: 1) exp, 2) ln,  3) log2, 4) log10, 5) "
-      "sqrt, 6) sin, 7) cos, 8) tan,  9) asin,  10) acos, 11) atan\n");
+      "sqrt,  6) asin, 7) acos, 8) atan, 9) sin, 10) cos, 11) tan\n");
   scanf("%i", &function);
 
   double number;
   printf("Enter desired number: ");
   scanf("%lf", &number);
+
+  if (function > 8) {
+    number = number * M_PI / 180;
+  }
 
   // executing correct function from array, with index function-1
   (*functions[function - 1])(number);
