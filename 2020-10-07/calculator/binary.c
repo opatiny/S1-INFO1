@@ -7,11 +7,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main(void) {
+int binary(void);
+
+int binary(void) {
   int operator;
   printf(
-      "Enter number of desired binary operator: 1) +, 2) -, 3) *, "
-      "4) /, 5) ^\n");
+      "Enter the desired binary operator:\n 1) +\n 2) -\n 3) *\n "
+      "4) /\n 5) ^\n");
   scanf("%i", &operator);
 
   double number1;

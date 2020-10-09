@@ -7,6 +7,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+int unary(void);
+
 void exponential(double number) {
   printf("exp(%lf) = %lf", number, exp(number));
 }
@@ -41,7 +43,7 @@ void arctangent(double number) {
   printf("atan(%lf) = %lf", number, atan(number));
 }
 
-int main(void) {
+int unary(void) {
   // array of functions pointers
   void (*functions[11])(double number) = {
       exponential, naturalLog, logBase2, logBase10, squareRoot, arccosine,
@@ -49,8 +51,9 @@ int main(void) {
 
   int function;
   printf(
-      "Enter number of desired function: 1) exp, 2) ln,  3) log2, 4) log10, 5) "
-      "sqrt,  6) asin, 7) acos, 8) atan, 9) sin, 10) cos, 11) tan\n");
+      "Enter the desired function:\n 1) exp\n 2) ln\n  3) log2\n 4) "
+      "log10\n 5) sqrt\n  6) asin\n 7) acos\n 8) atan\n 9) sin\n 10) cos\n 11) "
+      "tan\n");
   scanf("%i", &function);
 
   double number;
