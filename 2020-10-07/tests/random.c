@@ -14,7 +14,12 @@ int main(void) {
 
   printf("\nRandom values between 0 and 1:\n");
   for (size_t i = 0; i < 10; i++) {
-    printf("%i ", rand() / RAND_MAX);
+    printf("%lf ", (double)rand() / RAND_MAX);
+  }
+
+  printf("\nRandom values between -1 and 1:\n");
+  for (size_t i = 0; i < 10; i++) {
+    printf("%lf ", 2 * (double)rand() / RAND_MAX - 1);
   }
 
   printf("\nRandom values between 1 and 10:\n");
