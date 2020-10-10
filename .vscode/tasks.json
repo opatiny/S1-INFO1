@@ -1,3 +1,4 @@
+// this is run when using Run -> Run without debuging (F5), but not the play button!
 {
     "tasks": [
         {
@@ -6,9 +7,10 @@
             "command": "/usr/bin/gcc",
             "args": [
                 "-g",
-                "${file}",
+                "${fileDirname}/*.c",
+                "-lm",
                 "-o",
-                "${fileDirname}/${fileBasenameNoExtension}"
+                "${fileDirname}/${fileBasenameNoExtension}.out"
             ],
             "options": {
                 "cwd": "${workspaceFolder}"
