@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-int main(void) {
+int harmonicOscillation(void) {
   srand(time(0));  // to do once, we "seed" the rand function
 
   printf(
@@ -32,8 +32,7 @@ int main(void) {
   double result = amplitude * cos((omega * t + phi) * M_PI / 180) + noise;
 
   // converting degrees to rad
-  printf("The result of the operation %lf * cos(%lf * %lf + %lf) + %lf is %lf",
-         amplitude, omega, t, phi, noise, result);
+  printf("The result of the operation is %lf", result);
 
   printf("\n");
   return EXIT_SUCCESS;
