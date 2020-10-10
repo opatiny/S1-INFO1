@@ -3,6 +3,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 int main(void) {
   srand(time(0));  // to do once, we "seed" the rand function
@@ -24,15 +25,15 @@ int main(void) {
   scanf("%lf", &t);
 
   double phi;
-  printf("Enter the phaseShift in degrees (phi): \n");
+  printf("Enter the phase shift in degrees (phi): \n");
   scanf("%lf", &phi);
 
-  double noise = amplitude * rand() / RAND_MAX / 10;
+  double noise = amplitude * (2 * (double)rand() / RAND_MAX - 1) / 10;
   double result = amplitude * cos((omega * t + phi) * M_PI / 180) + noise;
 
   // converting degrees to rad
-  printf("The result of the operation %lf * cos(%lf * %lf + %lf) is %lf",
-         amplitude, omega, t, phi, result);
+  printf("The result of the operation %lf * cos(%lf * %lf + %lf) + %lf is %lf",
+         amplitude, omega, t, phi, noise, result);
 
   printf("\n");
   return EXIT_SUCCESS;
