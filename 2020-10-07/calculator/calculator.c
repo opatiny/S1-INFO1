@@ -21,7 +21,9 @@ int main(void) {
 
   while (continueCalculation) {
     int operator;
-    printf("Specify the type of operator:\n 1) binary\n 2) unary\n");
+    printf(
+        "Specify the type of operator:\n 1) binary\n 2) unary \n 3) harmonic "
+        "oscillation\n");
     scanf("%i", &operator);
 
     switch (operator) {
@@ -30,6 +32,9 @@ int main(void) {
         break;
       case (2):
         unary();
+        break;
+      case (3):
+        harmonicOscillation();
         break;
       default:
         break;

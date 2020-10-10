@@ -51,8 +51,8 @@ int unary(void) {
 
   int function;
   printf(
-      "Enter the desired function:\n 1) exp\n 2) ln\n  3) log2\n 4) "
-      "log10\n 5) sqrt\n  6) asin\n 7) acos\n 8) atan\n 9) sin\n 10) cos\n 11) "
+      "Enter the desired function:\n 1) exp\n 2) ln\n 3) log2\n 4) "
+      "log10\n 5) sqrt\n 6) asin\n 7) acos\n 8) atan\n 9) sin\n 10) cos\n 11) "
       "tan\n");
   scanf("%i", &function);
 
