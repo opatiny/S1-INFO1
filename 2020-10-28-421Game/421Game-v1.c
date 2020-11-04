@@ -46,15 +46,16 @@ int main(void) {
       continueGame = 0;
       youWin = 1;
     } else {
-      int previous = 0;
+      int previousDice = 0;
       for (int i = 0; i < NUMBER_DICES; i++) {
         int currentDice = dicesWithIndex[i] >> 2;
-        if (currentDice == previous ||
+        if (currentDice == previousDice ||
             (currentDice != 1 && currentDice != 2 && currentDice != 4)) {
-          previous = currentDice;
-          dices[dicesWithIndex[i] & 3] = diceSimulator();
+          int currentIndex = dicesWithIndex[i] & 3;
+          dices[currentIndex] = diceSimulator();
           stats[dices[i] - 1]++;
         }
+        previousDice = currentDice;
       }
       printf("Do you want to continue the game (0 = no, 1 = yes)? ");
       scanf("%i", &continueGame);
@@ -62,10 +63,10 @@ int main(void) {
   }
 
   if (youWin == 0) {
-    printf("YOU LOST! :( \n");
+    printf("\nYOU LOST! :( \n\n");
     printStats(stats);
   } else if (youWin == 1) {
-    printf("YOU WON! :) \n");
+    printf("\nYOU WON! :) \n\n");
     printStats(stats);
   }
 
@@ -119,8 +120,8 @@ void printDices(int* dices_p) {
 }
 
 void printStats(int* stats_p) {
-  printf("Dice value  Occurences");
+  printf("Dice value  Occurences\n");
   for (int i = 0; i < 6; i++) {
-    printf("%i %i", i + 1, stats_p[i]);
+    printf("%i%12i \n", i + 1, stats_p[i]);
   }
 }
