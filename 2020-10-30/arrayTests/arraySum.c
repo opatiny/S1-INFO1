@@ -14,7 +14,8 @@ int main(void) {
   printf("The sum of the elements of the table is: %i \n", sum(values, SIZE));
   return EXIT_SUCCESS;
 }
-
+// first syntax to pass array as function parameter. The second one is using
+// pointers.
 int sum(int table[], int size) {
   int i;
   int sum = 0;
