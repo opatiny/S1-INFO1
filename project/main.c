@@ -4,6 +4,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// prototypes
+int Scheduler(void);
+
 int main(void) {
   printf("inside main\n");
   Scheduler();

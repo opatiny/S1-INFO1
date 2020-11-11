@@ -4,6 +4,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// prototypes
+int extLuminosity(void);
+int extTemperature(void);
+int tempProbe(void);
+int lightProbe(void);
+int temperatureControl(void);
+int phControl(void);
+int dataHandler(void);
+
 #define SIMULATION_SPAN  // length of the simulaton => in what unit?
 #define TIC 60           // in seconds
 #define NUMBER_TICS 10
@@ -18,21 +27,29 @@
 #define DATA_HANDLER_SAMPLING 7
 
 int Scheduler(void) {
-  printf("entering scheduler\n");
-  for (int currentTIC = 0; currentTIC < NUMBER_TICS; currentTIC++) {
+  printf("inside scheduler\n");
+
+  for (int currentTIC = 1; currentTIC < NUMBER_TICS + 1; currentTIC++) {
+    printf("\nTIC %i\n", currentTIC);
     if (!(currentTIC % WEATHER_LIGHT_SAMPLING)) {
       extLuminosity();
-    } else if (!(currentTIC % WEATHER_TEMP_SAMPLING)) {
+    }
+    if (!(currentTIC % WEATHER_TEMP_SAMPLING)) {
       extTemperature();
-    } else if (!(currentTIC % PROBE_TEMP_SAMPLING)) {
+    }
+    if (!(currentTIC % PROBE_TEMP_SAMPLING)) {
       tempProbe();
-    } else if (!(currentTIC % PROBE_LIGHT_SAMPLING)) {
+    }
+    if (!(currentTIC % PROBE_LIGHT_SAMPLING)) {
       lightProbe();
-    } else if (!(currentTIC % CONTROLLER_LIGHT_SAMPLING)) {
+    }
+    if (!(currentTIC % CONTROLLER_LIGHT_SAMPLING)) {
       temperatureControl();
-    } else if (!(currentTIC % CONTROLLER_PH_SAMPLING)) {
+    }
+    if (!(currentTIC % CONTROLLER_PH_SAMPLING)) {
       phControl();
-    } else if (!(currentTIC % DATA_HANDLER_SAMPLING)) {
+    }
+    if (!(currentTIC % DATA_HANDLER_SAMPLING)) {
       dataHandler();
     }
   }
