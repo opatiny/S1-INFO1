@@ -1,3 +1,5 @@
+// testing string functions
+
 #define _USE_MATH_DEFINES
 
 #include <stdio.h>
@@ -31,6 +33,12 @@ int main(void) {
   strcat(hello, "!");  // concatenation -> adding "!" at the end of string hello
 
   printf("%s \n", hello);  // printf format for string is %s
+
+  char word[10] = "ABCDE";
+  char substring[10];
+  strncpy(substring, word, 3);  // allows to get substrings
+
+  printf("%s \n", substring);
 
   return EXIT_SUCCESS;
 }
