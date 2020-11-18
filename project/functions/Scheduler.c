@@ -13,9 +13,9 @@ int temperatureControl(void);
 int phControl(void);
 int dataHandler(void);
 
-#define SIMULATION_SPAN  // length of the simulaton => in what unit?
-#define TIC 60           // in seconds
-#define NUMBER_TICS 10
+#define SIMULATION_LENGTH  // length of the simulaton => in seconds
+#define TIC_LENGTH 60      // in seconds
+#define NUMBER_TICS 10     // will depend on SIMULATION_SPAN
 
 // defining the number of tics to wait between each cal of every function
 #define WEATHER_LIGHT_SAMPLING 1
