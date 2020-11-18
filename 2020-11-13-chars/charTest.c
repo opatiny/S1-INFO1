@@ -8,11 +8,13 @@ int main(void) {
   char letter = 'A';
   printf("%c\n", letter + 32);
 
-  char hello[6] = "hello";
+  char hello[100] = "hello";
 
   char hi[] = {
       'h', 'i',
       '\0'};  // array of chars syntax -> array lentgh is not given initially
+
+  char name[5] = "Marc";
 
   printf("string hello is: %s \n", hello);  // printf format for string is %s
 
@@ -20,6 +22,15 @@ int main(void) {
 
   printf("string hi was copied to string hello: %s \n",
          hello);  // printf format for string is %s
+
+  strcat(hello,
+         " ");  // concatenation -> adding space at the end of string hello
+
+  strcat(hello, name);  // concatenation -> adding the name string at the end of
+                        // hello string
+  strcat(hello, "!");  // concatenation -> adding "!" at the end of string hello
+
+  printf("%s \n", hello);  // printf format for string is %s
 
   return EXIT_SUCCESS;
 }
