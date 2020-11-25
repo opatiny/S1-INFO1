@@ -4,18 +4,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// prototypes
-int extLuminosity(void);
-int extTemperature(void);
-int tempProbe(void);
-int lightProbe(void);
-int temperatureControl(void);
-int phControl(void);
-int dataHandler(void);
+// our basic time unit is the second
 
-#define SIMULATION_LENGTH  // length of the simulaton => in seconds
-#define TIC_LENGTH 60      // in seconds
-#define NUMBER_TICS 10     // will depend on SIMULATION_SPAN
+#define SIMULATION_LENGTH   // length of the simulaton => in seconds
+#define TIC_LENGTH 60 * 60  // in seconds
+#define NUMBER_TICS 10      // will depend on SIMULATION_LENGTH
 
 // defining the number of tics to wait between each cal of every function
 #define WEATHER_LIGHT_SAMPLING 1
@@ -26,16 +19,28 @@ int dataHandler(void);
 #define CONTROLLER_PH_SAMPLING 6
 #define DATA_HANDLER_SAMPLING 7
 
+// prototypes
+int updateExtLuminosity(void);
+int updateExtTemperature(int currentTime, int index);
+int tempProbe(void);
+int lightProbe(void);
+int temperatureControl(void);
+int phControl(void);
+int dataHandler(void);
+
 int Scheduler(void) {
   printf("inside scheduler\n");
 
   for (int currentTIC = 1; currentTIC < NUMBER_TICS + 1; currentTIC++) {
     printf("\nTIC %i\n", currentTIC);
+
+    int currentTime = currentTIC * TIC_LENGTH;  // current time in seconds
+
     if (!(currentTIC % WEATHER_LIGHT_SAMPLING)) {
-      extLuminosity();
+      updateExtLuminosity();
     }
     if (!(currentTIC % WEATHER_TEMP_SAMPLING)) {
-      extTemperature();
+      updateExtTemperature(currentTime, 0);
     }
     if (!(currentTIC % PROBE_TEMP_SAMPLING)) {
       tempProbe();
