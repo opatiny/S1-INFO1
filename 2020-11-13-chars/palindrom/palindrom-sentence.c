@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-int isAlphanumeric(char character);
+bool isAlphanumeric(char character);
 
 int main(void) {
   char sentence[100];
@@ -18,24 +18,21 @@ int main(void) {
   printf("%s", sentence);
 
   bool isPalindrom = true;
-  int length = strlen(sentence);
 
   char onlyChars[100] = "";
-  for (int i; i < length; i) {
+
+  for (int i = 0; i < strlen(sentence); i++) {
     if (isAlphanumeric(sentence[i])) {
-      char oneCharacter[1];
+      char oneCharacter[2];
       oneCharacter[0] = sentence[i];
       strcat(onlyChars, oneCharacter);
     }
   }
 
-  printf("%s \n", onlyChars);
-
-  printf("%s \n", onlyChars);
-
+  int length = strlen(onlyChars);
   for (int i = 0; i < length / 2; i++) {
-    if (sentence[i] != sentence[length - 1 - i]) {
-      isPalindrom = 0;
+    if (onlyChars[i] != onlyChars[length - 1 - i]) {
+      isPalindrom = false;
     }
   }
 
@@ -48,12 +45,12 @@ int main(void) {
   return EXIT_SUCCESS;
 }
 
-int isAlphanumeric(char character) {
+bool isAlphanumeric(char character) {
   if (character >= 65 && character <= 65 + 25 ||  // uppercase
       character >= 97 && character <= 97 + 25 ||  // lowercase
-      character >= 48 && character <= 48 + 10) {  // numbers
-    return 1;
+      character >= 48 && character <= 48 + 9) {   // numbers
+    return true;
   } else {
-    return 0;
+    return false;
   }
 }
