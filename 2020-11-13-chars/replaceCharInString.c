@@ -7,8 +7,9 @@
 int main(void) {
   char buffer[100];
   printf("Enter a text: ");
-  // scan all characters until \n or eof (\0) is encountered
-  scanf("%[^\n]%*c", buffer);
+  // scan all characters until \n is encountered => the /n remains in the
+  // buffer!
+  scanf("%[^\n]", buffer);
 
   printf("%s \n", buffer);
 
