@@ -1,2 +1,2 @@
-int testProbeTemperature(void);
-int testProbeLight(void);
+int test_updateRoomTemperature(void);
+int test_updateRoomTemperature(void);

@@ -26,12 +26,12 @@ typedef struct temperature {
 TEMPERATURE temperatures[2] = {{.offset = 10, .amplitude = 5, .phase = -150},
                                {.offset = 20, .amplitude = 5, .phase = -150}};
 
-int updateExtLuminosity(void) {
-  printf("external luminosity\n");
+double updateWeatherLuminosity(void) {
+  // printf("external luminosity\n");
   return 0;
 }
 
-int updateExtTemperature(int currentTime, int index) {
+double updateWeatherTemperature(int currentTime, int index) {
   double offset = temperatures[index].offset;
   double amplitude = temperatures[index].amplitude;
   double period = 60 * 60 * 24;  // number of seconds in one day
@@ -41,9 +41,10 @@ int updateExtTemperature(int currentTime, int index) {
   temperatures[index].currentTemperature =
       noisySinusoid(offset, amplitude, period, time, phase);
 
-  printf("external temperature: %lf\n", temperatures[index].currentTemperature);
+  // printf("external temperature: %lf\n",
+  // temperatures[index].currentTemperature);
 
-  return 0;
+  return temperatures[index].currentTemperature;
 }
 
 // phase is in degrees!
@@ -59,6 +60,7 @@ double noisySinusoid(double offset,
   return result;
 }
 
+// returns random value between 0 and 10% of amplitude
 double getNoise(double amplitude) {
   return amplitude * (2 * (double)rand() / RAND_MAX - 1) / 10;
 }

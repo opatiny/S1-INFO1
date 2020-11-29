@@ -1,12 +1,12 @@
 
 #include "../probes.h"
 
-int testProbeTemperature(void) {
-  int result = tempProbe();
+int test_updateRoomTemperature(void) {
+  double result = updateRoomTemperature(1);
   return result == 0;
 }
 
-int testProbeLight(void) {
-  int result = lightProbe();
+int test_updateRoomLuminosity(void) {
+  int result = updateRoomLuminosity();
   return result == 1;
 }

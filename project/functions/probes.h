@@ -1,7 +1,7 @@
 #ifndef PROBES_H
 #define PROBES_H
 
-int tempProbe(void);
-int lightProbe(void);
+double updateRoomTemperature(int roomNumber);
+double updateRoomLuminosity(void);
 
 #endif

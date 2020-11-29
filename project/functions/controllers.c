@@ -5,11 +5,11 @@
 #include <stdlib.h>
 
 int temperatureControl(void) {
-  printf("room temperature controlled\n");
+  // printf("room temperature controlled\n");
   return 0;
 }
 
 int phControl(void) {
-  printf("aquarium PH controlled\n");
+  // printf("aquarium PH controlled\n");
   return 0;
 }
