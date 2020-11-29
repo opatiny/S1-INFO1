@@ -13,3 +13,10 @@ Throuought the project, a top-down approach is prefered.
 # Phase 1 (11-18.11.2020)
 
 Implementation of the general structure of the program. The prototypes and definitions of the functions are written. The scheduler is implemented, and it calls all the functions at the appropriate TICs. The TIC is the time unit. It is defined by the user at the beginning of the program. The length of the simulation is also defined by the user. The frequency at which each function is called is defined using a modulo.
+
+# Phase 2.a (11-18.11.2020)
+
+- Defining the structures that will contain the data
+    - weather
+    - rooms
+- Implemeting the weather temperature
