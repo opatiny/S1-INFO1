@@ -21,11 +21,10 @@ int main(void) {
 
   char onlyChars[100] = "";
 
+  int position = 0;
   for (int i = 0; i < strlen(sentence); i++) {
     if (isAlphanumeric(sentence[i])) {
-      char oneCharacter[2];
-      oneCharacter[0] = sentence[i];
-      strcat(onlyChars, oneCharacter);
+      onlyChars[position++] = sentence[i];
     }
   }
 
