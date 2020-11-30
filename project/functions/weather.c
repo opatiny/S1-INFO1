@@ -4,16 +4,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// STRUCTURES
-
 // PROTOTYPES
-double getNoise(double amplitude);
+double randomTenPercentNoise(double amplitude);
 double noisySinusoid(double offset,
                      double amplitude,
                      double period,
                      double time,
-                     double phase);
+                     double phase,
+                     double noiseFunction(double));
 
+// STRUCTURES
 typedef struct temperature {
   double offset;              // in °C
   double amplitude;           // in °C
@@ -38,8 +38,8 @@ double updateWeatherTemperature(int currentTime, int index) {
   double time = currentTime;
   double phase = temperatures[index].phase;
 
-  temperatures[index].currentTemperature =
-      noisySinusoid(offset, amplitude, period, time, phase);
+  temperatures[index].currentTemperature = noisySinusoid(
+      offset, amplitude, period, time, phase, &randomTenPercentNoise);
 
   // printf("external temperature: %lf\n",
   // temperatures[index].currentTemperature);
@@ -52,15 +52,16 @@ double noisySinusoid(double offset,
                      double amplitude,
                      double period,
                      double time,
-                     double phase) {
+                     double phase,
+                     double noiseFunction(double)) {
   double omega = 2 * M_PI / period;
-  double noise = getNoise(amplitude);
+  double noise = noiseFunction(amplitude);
   double result =
       offset + amplitude * sin(omega * time + phase * M_PI / 180) + noise;
   return result;
 }
 
 // returns random value between 0 and 10% of amplitude
-double getNoise(double amplitude) {
+double randomTenPercentNoise(double amplitude) {
   return amplitude * (2 * (double)rand() / RAND_MAX - 1) / 10;
 }
