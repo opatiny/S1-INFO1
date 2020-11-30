@@ -10,13 +10,17 @@ Each function of the program is called at different times, but some can run "sim
 
 Throuought the project, a top-down approach is prefered.
 
-# Phase 1 (11-18.11.2020)
+## Phase 1 (11-18.11.2020)
 
-Implementation of the general structure of the program. The prototypes and definitions of the functions are written. The scheduler is implemented, and it calls all the functions at the appropriate TICs. The TIC is the time unit. It is defined by the user at the beginning of the program. The length of the simulation is also defined by the user. The frequency at which each function is called is defined using a modulo.
+Implementation of the general layout of the program. The prototypes and definitions of the functions are written. The scheduler is implemented, and it calls all the functions at the appropriate TICs. The TIC defines how many times the simulation must run. It is defined by the user at the beginning of the program. The length of the simulation is also defined by the user. The frequency at which each function is called is defined using a modulo.
 
-# Phase 2.a (11-18.11.2020)
+__Remark:__ We decided to set the project time unit to **one second**. Every function using the time expects a time in seconds.
+
+## Phase 2.a (19.11.2020-02.12.2020)
 
 - Defining the structures that will contain the data
-    - weather
+    - weather, which contains temperature and luminosity
     - rooms
-- Implemeting the weather temperature
+- Implementing the weather temperature model
+- Implementing the room temperature model
+- Created test infrastructure
