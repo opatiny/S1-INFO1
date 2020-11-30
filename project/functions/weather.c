@@ -31,6 +31,17 @@ double updateWeatherLuminosity(void) {
   return 0;
 }
 
+/* updateWeatherTemperature(): updates weather temperature
+
+  PARAMETERS:
+    -  currentTime (int): current time in [s]
+    -  index (int): index of the temperature struct to modify in "temperatures"
+
+  RETURNS:
+    - (double): new weather temperature
+
+  Author: Océane Patiny
+ */
 double updateWeatherTemperature(int currentTime, int index) {
   double offset = temperatures[index].offset;
   double amplitude = temperatures[index].amplitude;
@@ -41,13 +52,26 @@ double updateWeatherTemperature(int currentTime, int index) {
   temperatures[index].currentTemperature = noisySinusoid(
       offset, amplitude, period, time, phase, &randomTenPercentNoise);
 
-  // printf("external temperature: %lf\n",
-  // temperatures[index].currentTemperature);
-
   return temperatures[index].currentTemperature;
 }
 
-// phase is in degrees!
+/* noisySinusoid(): returns the value of a noisy sinusoidal signal at a given
+  time
+
+  PARAMETERS:
+    -  offset (double): constant value added to the sinusoid
+    -  amplitude (double): amplitude of the signal
+    -  period (double): period of the sinusoid in [s]
+    -  time (double): time in [s]
+        -  phase (double): phase in [°]
+    -  controllerImpact (*)(double): pointer on function that generates noise
+  based on amplitude
+
+  RETURNS:
+    - (double)
+
+  Author: Océane Patiny
+ */
 double noisySinusoid(double offset,
                      double amplitude,
                      double period,
