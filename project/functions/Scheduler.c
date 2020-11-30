@@ -40,10 +40,15 @@ int Scheduler(void) {
       updateWeatherLuminosity();
     }
     if (!(currentTIC % WEATHER_TEMP_SAMPLING)) {
-      updateWeatherTemperature(currentTime, 0);
+      double weatherTemperature;
+      weatherTemperature = updateWeatherTemperature(currentTime, 0);
+      printf("weather temperature updated: %lf \n", weatherTemperature);
     }
     if (!(currentTIC % PROBE_TEMP_SAMPLING)) {
-      updateRoomTemperature(1);
+      double roomTemperature;
+
+      roomTemperature = updateRoomTemperature(1);
+      printf("room temperature updated: %lf \n", roomTemperature);
     }
     if (!(currentTIC % PROBE_LIGHT_SAMPLING)) {
       updateRoomLuminosity();
