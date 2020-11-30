@@ -1,7 +1,7 @@
 
 #include "../controllers.h"
 
-int testController(void) {
+int test_temperatureControl(void) {
     int result = temperatureControl();
-    return result == 0;
+    return 0;
 }

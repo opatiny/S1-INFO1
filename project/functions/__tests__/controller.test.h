@@ -1,1 +1,1 @@
-int testController(void);
+int test_temperatureControl(void);
