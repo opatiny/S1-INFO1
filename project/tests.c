@@ -11,11 +11,11 @@ printf("%-40s %10s\n", "testController",
 printf("%-40s %10s\n", "test_updateWeatherTemperature",
         test_updateWeatherTemperature() ? "\033[0;32mPASSING\033[0m"
                          : "\033[0;31mFAILING\033[0m");
-printf("%-40s %10s\n", "test_updateRoomTemperature",
-        test_updateRoomTemperature() ? "\033[0;32mPASSING\033[0m"
+printf("%-40s %10s\n", "test_noisySinusoid",
+        test_noisySinusoid() ? "\033[0;32mPASSING\033[0m"
                          : "\033[0;31mFAILING\033[0m");
-printf("%-40s %10s\n", "test_updateRoomTemperature",
-        test_updateRoomTemperature() ? "\033[0;32mPASSING\033[0m"
+printf("%-40s %10s\n", "test_roomTemperatureModel",
+        test_roomTemperatureModel() ? "\033[0;32mPASSING\033[0m"
                          : "\033[0;31mFAILING\033[0m");
   return EXIT_SUCCESS;
 }

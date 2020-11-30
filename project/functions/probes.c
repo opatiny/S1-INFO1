@@ -55,9 +55,6 @@ double updateRoomTemperature(int roomNumber) {
       &rooms[roomNumber - 1].temperature.weatherImpact, &controllerTemperature,
       &rooms[roomNumber - 1].temperature.controllerImpact);
 
-  printf("room temperature updated: %lf °C\n",
-         rooms[roomNumber - 1].temperature.current);
-
   return rooms[roomNumber - 1].temperature.current;
 }
 
