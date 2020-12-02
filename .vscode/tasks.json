@@ -8,7 +8,7 @@
             "args": [
                 "-g",
                 "${fileDirname}/**/*.c",
-                "${fileDirname}/*.c",
+                "${fileDirname}/main.c",
                 "-lm",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}.out"
