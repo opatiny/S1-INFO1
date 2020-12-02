@@ -19,9 +19,9 @@ typedef struct temperature {
 } TEMPERATURE;
 
 typedef struct luminosity {
-  double current;           //
+  double current;           // in lux
   double weatherImpact;     // from 0 to 1
-  double controllerImpact;  // from 0 to 1
+  double controllerImpact;  // from 0 to 1 -> will not be implemented
 } LUMINOSITY;
 
 typedef struct room {
@@ -34,13 +34,13 @@ typedef struct room {
 ROOM rooms[2] = {{.temperature = {.current = 15,
                                   .weatherImpact = 0.2,
                                   .controllerImpact = 0.5},
-                  .luminosity = {.current = 200,
+                  .luminosity = {.current = 10000,
                                  .weatherImpact = 0.9,
                                  .controllerImpact = 0.8}},
                  {.temperature = {.current = 20,
                                   .weatherImpact = 0.2,
                                   .controllerImpact = 0.5},
-                  .luminosity = {.current = 200,
+                  .luminosity = {.current = 11000,
                                  .weatherImpact = 0.9,
                                  .controllerImpact = 0.8}}};
 
@@ -86,6 +86,10 @@ void roomTemperatureModel(double* currentTemperature,
 }
 
 double updateRoomLuminosity(int roomNumber) {
-  // printf("room luminosity updated\n");
-  return 0;
+  double weatherLuminosity = 20000;  // temporary value
+
+  rooms[roomNumber - 1].luminosity.current =
+      weatherLuminosity * rooms[roomNumber - 1].luminosity.weatherImpact;
+
+  return rooms[roomNumber - 1].luminosity.current;
 }

@@ -15,19 +15,50 @@ double noisySinusoid(double offset,
 
 // STRUCTURES
 typedef struct temperature {
-  double offset;              // in °C
-  double amplitude;           // in °C
-  double phase;               // in degrees
-  double currentTemperature;  // in °C
+  double current;    // in °C
+  double offset;     // in °C
+  double amplitude;  // in °C
+  double phase;      // in degrees
+
 } TEMPERATURE;
 
-// actual weather temperature model parameters first element is for winter,
-// second element for summer
-TEMPERATURE temperatures[2] = {{.offset = 10, .amplitude = 5, .phase = -150},
-                               {.offset = 20, .amplitude = 5, .phase = -150}};
+typedef struct luminosity {
+  double current;  // in lux
+  double max;      // in lux (typically 20000 lux at midday with clear sky)
+  double min;      // in lux (typically <0 lux at night)
+  double slopeIncreasing;  // no unit
+  double slopeDecreasing;  // no unit
+  double intervals[4];     // intervals for each segment in seconds
+} LUMINOSITY;
 
-double updateWeatherLuminosity(void) {
-  // printf("external luminosity\n");
+typedef struct weather {
+  TEMPERATURE temperature;
+  LUMINOSITY luminosity;  // in cd
+} WEATHER;
+
+WEATHER weathers[2] = {
+    {
+        .temperature = {.offset = 23, .amplitude = 5, .phase = -150},  // summer
+        .luminosity = {.max = 100000,  // bright sunlight
+                       .min = 0.25,
+                       .slopeIncreasing = 0.3,
+                       .slopeDecreasing = 0.5,
+                       .intervals = {4 * 3600, 5 * 3600, 21.5 * 3600,
+                                     23 * 3600}},
+    },
+    {.temperature = {.offset = 5, .amplitude = 5, .phase = -150},  // winter
+     .luminosity = {.max = 20000,
+                    .min = 0.25,
+                    .slopeIncreasing = 0.3,
+                    .slopeDecreasing = 0.5,
+                    .intervals = {7 * 3600, 8.25 * 3600, 16.8 * 3600,
+                                  18 * 3600}}}
+
+};
+
+// PUBLIC FUNCTIONS
+
+double updateWeatherLuminosity(int currentTime, int index) {
   return 0;
 }
 
@@ -43,16 +74,57 @@ double updateWeatherLuminosity(void) {
   Author: Océane Patiny
  */
 double updateWeatherTemperature(int currentTime, int index) {
-  double offset = temperatures[index].offset;
-  double amplitude = temperatures[index].amplitude;
+  double offset = weathers[index].temperature.offset;
+  double amplitude = weathers[index].temperature.amplitude;
   double period = 60 * 60 * 24;  // number of seconds in one day
   double time = currentTime;
-  double phase = temperatures[index].phase;
+  double phase = weathers[index].temperature.phase;
 
-  temperatures[index].currentTemperature = noisySinusoid(
+  weathers[index].temperature.current = noisySinusoid(
       offset, amplitude, period, time, phase, &randomTenPercentNoise);
 
-  return temperatures[index].currentTemperature;
+  return weathers[index].temperature.current;
+}
+
+// PRIVATE FUNCTIONS
+int setTwilightLuminosity(double currentTime,
+                          LUMINOSITY* luminosity,
+                          char dayPhase) {
+  int index = 0;
+  int offset = 0;
+  switch (dayPhase) {
+    case 'r':  // for sunRise
+      index = 0;
+      offset = luminosity->min;
+      break;
+    case 's':  // for sunSet
+      index = 2;
+      offset = luminosity->max;
+      break;
+    default:
+      return 1;
+  }
+
+  double slope =
+      luminosity->max - luminosity->min / (luminosity->intervals[index + 1] -
+                                           luminosity->intervals[index]);
+
+  luminosity->current = line(currentTime, slope, offset);
+
+  return 0;
+}
+
+/* line(): evaluates an affine function at a given point
+  PARAMETERS:
+    -  x (double): point at which to evaluate the function
+    -  slope (double): slope of the line
+    -  offset (double): y offset of the line
+  RETURNS:
+    - (double)
+  Author: Océane Patiny
+ */
+double line(double x, double slope, double offset) {
+  return slope * x + offset;
 }
 
 /* noisySinusoid(): returns the value of a noisy sinusoidal signal at a given
