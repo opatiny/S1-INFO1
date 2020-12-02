@@ -5,6 +5,7 @@
 #include <stdlib.h>
 
 // PROTOTYPES
+double line(double x, double slope, double offset);
 double randomTenPercentNoise(double amplitude);
 double noisySinusoid(double offset,
                      double amplitude,
@@ -59,6 +60,17 @@ WEATHER weathers[2] = {
 // PUBLIC FUNCTIONS
 
 double updateWeatherLuminosity(int currentTime, int index) {
+  if (currentTime < weathers[index].luminosity.intervals[0]) {
+    weathers[index].luminosity.current = weathers[index].luminosity.min;
+  } else if (weathers[index].luminosity.intervals[0] <= currentTime <
+             weathers[index].luminosity.intervals[1]) {
+  } else if (weathers[index].luminosity.intervals[1] <= currentTime <
+             weathers[index].luminosity.intervals[2]) {
+    weathers[index].luminosity.current = weathers[index].luminosity.max;
+
+  } else if (weathers[index].luminosity.intervals[2] <= currentTime <
+             weathers[index].luminosity.intervals[3]) {
+  }
   return 0;
 }
 

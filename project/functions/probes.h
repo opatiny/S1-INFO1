@@ -9,6 +9,6 @@ void roomTemperatureModel(
     double* controllerImpact);  // public only for testing!!
 
 double updateRoomTemperature(int roomNumber);
-double updateRoomLuminosity(void);
+double updateRoomLuminosity(int roomNumber);
 
 #endif

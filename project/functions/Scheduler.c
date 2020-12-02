@@ -4,8 +4,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// our basic time unit is the second
+#include "Scheduler.h"
 
+// DEFINES
+// our basic time unit is the second
 #define SIMULATION_LENGTH   // length of the simulaton => in seconds
 #define TIC_LENGTH 60 * 60  // in seconds (one hour)
 #define NUMBER_TICS 24      // will depend on SIMULATION_LENGTH
@@ -19,14 +21,10 @@
 #define CONTROLLER_PH_SAMPLING 6
 #define DATA_HANDLER_SAMPLING 7
 
-// prototypes
-double updateWeatherLuminosity(void);
-double updateWeatherTemperature(int currentTime, int index);
-double updateRoomTemperature(int roomNumber);
-double updateRoomLuminosity(void);
-int temperatureControl(void);
-int phControl(void);
-int dataHandler(void);
+#define ROOM_1 1
+#define ROOM_2 2
+#define LAUSANNE_SUMMER 0
+#define LAUSANNE_WINTER 1
 
 int Scheduler(void) {
   printf("inside scheduler\n");
@@ -37,7 +35,7 @@ int Scheduler(void) {
     int currentTime = currentTIC * TIC_LENGTH;  // current time in seconds
 
     if (!(currentTIC % WEATHER_LIGHT_SAMPLING)) {
-      updateWeatherLuminosity();
+      updateWeatherLuminosity(currentTime, 0);
     }
     if (!(currentTIC % WEATHER_TEMP_SAMPLING)) {
       double weatherTemperature;
@@ -51,7 +49,7 @@ int Scheduler(void) {
       printf("room temperature updated: %lf \n", roomTemperature);
     }
     if (!(currentTIC % PROBE_LIGHT_SAMPLING)) {
-      updateRoomLuminosity();
+      updateRoomLuminosity(1);
     }
     if (!(currentTIC % CONTROLLER_LIGHT_SAMPLING)) {
       temperatureControl();
