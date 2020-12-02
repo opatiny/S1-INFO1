@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "controllers.h"
+
 int temperatureControl(void) {
   // printf("room temperature controlled\n");
   return 0;

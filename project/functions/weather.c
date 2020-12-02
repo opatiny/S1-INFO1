@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "weather.h"
+
 // PROTOTYPES
 double line(double x, double slope, double offset);
 double randomTenPercentNoise(double amplitude);

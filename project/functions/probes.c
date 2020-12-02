@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "probes.h"
+
 // PROTOTYPES
 void roomTemperatureModel(double* currentTemperature,
                           double* weatherTemperature,
