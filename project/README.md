@@ -16,7 +16,7 @@ Implementation of the general layout of the program. The prototypes and definiti
 
 __Remark:__ We decided to set the project time unit to **one second**. Every function using the time expects a time in seconds.
 
-## Phase 2.a (19.11.2020-02.12.2020)
+## Phase 2.a (19.11.2020-01.12.2020)
 
 - Defining the structures that will contain the data
     - weather, which contains temperature and luminosity
@@ -24,3 +24,68 @@ __Remark:__ We decided to set the project time unit to **one second**. Every fun
 - Implementing the weather temperature model
 - Implementing the room temperature model
 - Created test infrastructure
+
+## Phase 2.b (02.12.2020)
+
+### Weather luminosity model
+
+- the model will be made of five segments:
+    - constant luminosity at night/morning
+    - luminosity going up
+    - luminosity constant during the day
+    - luminosity decreasing
+    - luminosity constant during evening/night
+- we need a structure containing all the luminosity data:
+    - current weather luminosity
+    - array of ints defining the intervals where we change of segment
+    - minimal luminosity value
+    - maximal luminosity value
+    - slope when luminosity is increasing
+    - slope when luminosity is decreasing
+
+#### Luminosity data 
+
+Source: https://en.wikipedia.org/wiki/Daylight
+
+- typical midday clear sky luminosity: 20'000 lux
+- typical bright sun luminosity: 100'000 lux
+- typical night luminosity (with moonlight): 0.25 lux
+
+#### Sunset and sunrise data for Lausanne
+
+Source: https://www.timeanddate.com/sun/switzerland/lausanne
+
+We consider sunrise and sunset as nautical twilight + civil twilight. 
+
+- 21 June sunrise time:
+    - start: 04:07
+    - end: 05:40
+- 21 June sunset time:
+    - start: 21:30
+    - end: 23:02
+- 21 Desember sunrise time:
+    - start: 7:01
+    - end: 8:14
+- 21 December sunset time:
+    - start: 16:48
+    - end: 18:02
+
+### Room luminosity model
+
+- pretty easy -> the weather luminosity has a nearly direct impact on room luminosity, we just have a factor from 0 to 1 (curtains, blinds, tinted windows, ...)
+
+
+### Aquarium PH model
+
+- structure for the PH data:
+    - current PH
+    - room luminosity
+    - luminosity threshold
+    - pump impact
+
+### Aquarium PH control model
+
+- PH control structure:
+    - amount oxygen
+    - target PH
+    - proportionality factor (between amount of oxygen and PH difference)
