@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "main.h"
+#include "./functions/Scheduler.h"
 
 // prototypes
 int Scheduler(void);
