@@ -7,11 +7,11 @@
 #include "probes.h"
 
 // PROTOTYPES
-void roomTemperatureModel(double* currentTemperature,
-                          double* weatherTemperature,
-                          double* weatherImpact,
-                          double* controllerTemperature,
-                          double* controllerImpact);
+int roomTemperatureModel(double* currentTemperature,
+                         double* weatherTemperature,
+                         double* weatherImpact,
+                         double* controllerTemperature,
+                         double* controllerImpact);
 
 // STRUCTURES DEFINITION
 typedef struct temperature {
@@ -48,7 +48,7 @@ ROOM rooms[2] = {{.temperature = {.current = 15,
 
 // FUNCTIONS
 // in our case, "roomNumber" can be 1 or 2
-double updateRoomTemperature(int roomNumber) {
+int updateRoomTemperature(int roomNumber) {
   double weatherTemperature = 10;     // in °C
   double controllerTemperature = 15;  // in °C
 
@@ -57,8 +57,27 @@ double updateRoomTemperature(int roomNumber) {
       &rooms[roomNumber - 1].temperature.weatherImpact, &controllerTemperature,
       &rooms[roomNumber - 1].temperature.controllerImpact);
 
+  return 0;
+}
+
+int updateRoomLuminosity(int roomNumber) {
+  double weatherLuminosity = 20000;  // temporary value
+
+  rooms[roomNumber - 1].luminosity.current =
+      weatherLuminosity * rooms[roomNumber - 1].luminosity.weatherImpact;
+
+  return 0;
+}
+
+double getRoomTemperature(int roomNumber) {
   return rooms[roomNumber - 1].temperature.current;
 }
+
+double getRoomLuminosity(int roomNumber) {
+  return rooms[roomNumber - 1].luminosity.current;
+}
+
+// PRIVATE FUNCTIONS
 
 /* roomTemperatureModel(): updates a room's temperature depending on various
   parameters
@@ -73,25 +92,17 @@ double updateRoomTemperature(int roomNumber) {
   temperature [0,1]
 
   RETURNS:
-    - void (modifies the value in currentTemperature)
+    - int (possible error message)
   Author: Océane Patiny
  */
-void roomTemperatureModel(double* currentTemperature,
-                          double* weatherTemperature,
-                          double* weatherImpact,
-                          double* controllerTemperature,
-                          double* controllerImpact) {
+int roomTemperatureModel(double* currentTemperature,
+                         double* weatherTemperature,
+                         double* weatherImpact,
+                         double* controllerTemperature,
+                         double* controllerImpact) {
   *currentTemperature =
       *currentTemperature +
       *weatherImpact * (*weatherTemperature - *currentTemperature) +
       *controllerImpact * (*controllerTemperature - *currentTemperature);
-}
-
-double updateRoomLuminosity(int roomNumber) {
-  double weatherLuminosity = 20000;  // temporary value
-
-  rooms[roomNumber - 1].luminosity.current =
-      weatherLuminosity * rooms[roomNumber - 1].luminosity.weatherImpact;
-
-  return rooms[roomNumber - 1].luminosity.current;
+  return 0;
 }
