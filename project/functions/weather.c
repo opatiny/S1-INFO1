@@ -6,29 +6,6 @@
 
 #include "weather.h"
 
-// STRUCTURES
-typedef struct temperature {
-  double current;    // in °C
-  double offset;     // in °C
-  double amplitude;  // in °C
-  double phase;      // in degrees
-
-} TEMPERATURE;
-
-typedef struct luminosity {
-  double current;  // in lux
-  double max;      // in lux (typically 20000 lux at midday with clear sky)
-  double min;      // in lux (typically <0 lux at night)
-  double slopeIncreasing;  // no unit
-  double slopeDecreasing;  // no unit
-  double intervals[4];     // intervals for each segment in seconds
-} LUMINOSITY;
-
-typedef struct weather {
-  TEMPERATURE temperature;
-  LUMINOSITY luminosity;  // in cd
-} WEATHER;
-
 // data for Lausanne
 WEATHER weathers[2] = {
     {
@@ -119,16 +96,15 @@ double getWeatherTemperature(int index) {
 int luminosityModel(double currentTime, LUMINOSITY* luminosity) {
   if (currentTime < luminosity->intervals[0]) {
     luminosity->current = luminosity->min;
-  } else if (luminosity->intervals[0] <= currentTime <
-             luminosity->intervals[1]) {
+  } else if (luminosity->intervals[0] <= currentTime &&
+             currentTime < luminosity->intervals[1]) {
     setTwilightLuminosity(currentTime, luminosity, 'r');
-  } else if (luminosity->intervals[1] <= currentTime <
-             luminosity->intervals[2]) {
+  } else if (luminosity->intervals[1] <= currentTime &&
+             currentTime < luminosity->intervals[2]) {
     luminosity->current = luminosity->max;
-  } else if (luminosity->intervals[2] <= currentTime <
-             luminosity->intervals[3]) {
+  } else if (luminosity->intervals[2] <= currentTime &&
+             currentTime < luminosity->intervals[3]) {
     setTwilightLuminosity(currentTime, luminosity, 's');
-
   } else if (luminosity->intervals[3] <= currentTime) {
     luminosity->current = luminosity->min;
   }
