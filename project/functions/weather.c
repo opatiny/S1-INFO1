@@ -61,7 +61,18 @@ WEATHER weathers[2] = {
 
 // PUBLIC FUNCTIONS
 
-double updateWeatherLuminosity(int currentTime, int index) {
+/* updateWeatherLuminosity(): updates current weather luminosity
+
+  PARAMETERS:
+    -  currentTime (int): current time in [s]
+    -  index (int): index of the weather struct to modify in "weathers"
+
+  RETURNS:
+    - (int): possible error message
+
+  Author: Océane Patiny
+ */
+int updateWeatherLuminosity(int currentTime, int index) {
   if (currentTime < weathers[index].luminosity.intervals[0]) {
     weathers[index].luminosity.current = weathers[index].luminosity.min;
   } else if (weathers[index].luminosity.intervals[0] <= currentTime <
@@ -76,18 +87,18 @@ double updateWeatherLuminosity(int currentTime, int index) {
   return 0;
 }
 
-/* updateWeatherTemperature(): updates weather temperature
+/* updateWeatherTemperature(): updates current weather temperature
 
   PARAMETERS:
     -  currentTime (int): current time in [s]
-    -  index (int): index of the temperature struct to modify in "temperatures"
+    -  index (int): index of the weather struct to modify in "weathers"
 
   RETURNS:
-    - (double): new weather temperature
+    - (int): possible error message
 
   Author: Océane Patiny
  */
-double updateWeatherTemperature(int currentTime, int index) {
+int updateWeatherTemperature(int currentTime, int index) {
   double offset = weathers[index].temperature.offset;
   double amplitude = weathers[index].temperature.amplitude;
   double period = 60 * 60 * 24;  // number of seconds in one day
@@ -97,6 +108,14 @@ double updateWeatherTemperature(int currentTime, int index) {
   weathers[index].temperature.current = noisySinusoid(
       offset, amplitude, period, time, phase, &randomTenPercentNoise);
 
+  return 0;
+}
+
+double getWeatherLuminosity(int index) {
+  return weathers[index].luminosity.current;
+}
+
+double getWeatherTemperature(int index) {
   return weathers[index].temperature.current;
 }
 
