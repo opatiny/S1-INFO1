@@ -6,16 +6,6 @@
 
 #include "weather.h"
 
-// PROTOTYPES
-double line(double x, double slope, double offset);
-double randomTenPercentNoise(double amplitude);
-double noisySinusoid(double offset,
-                     double amplitude,
-                     double period,
-                     double time,
-                     double phase,
-                     double noiseFunction(double));
-
 // STRUCTURES
 typedef struct temperature {
   double current;    // in °C
@@ -39,6 +29,7 @@ typedef struct weather {
   LUMINOSITY luminosity;  // in cd
 } WEATHER;
 
+// data for Lausanne
 WEATHER weathers[2] = {
     {
         .temperature = {.offset = 23, .amplitude = 5, .phase = -150},  // summer
@@ -59,6 +50,20 @@ WEATHER weathers[2] = {
 
 };
 
+// PROTOTYPES
+int luminosityModel(double currentTime, LUMINOSITY* luminosity);
+int setTwilightLuminosity(double currentTime,
+                          LUMINOSITY* luminosity,
+                          char dayPhase);
+double line(double x, double slope, double offset);
+double randomTenPercentNoise(double amplitude);
+double noisySinusoid(double offset,
+                     double amplitude,
+                     double period,
+                     double time,
+                     double phase,
+                     double noiseFunction(double));
+
 // PUBLIC FUNCTIONS
 
 /* updateWeatherLuminosity(): updates current weather luminosity
@@ -73,17 +78,7 @@ WEATHER weathers[2] = {
   Author: Océane Patiny
  */
 int updateWeatherLuminosity(int currentTime, int index) {
-  if (currentTime < weathers[index].luminosity.intervals[0]) {
-    weathers[index].luminosity.current = weathers[index].luminosity.min;
-  } else if (weathers[index].luminosity.intervals[0] <= currentTime <
-             weathers[index].luminosity.intervals[1]) {
-  } else if (weathers[index].luminosity.intervals[1] <= currentTime <
-             weathers[index].luminosity.intervals[2]) {
-    weathers[index].luminosity.current = weathers[index].luminosity.max;
-
-  } else if (weathers[index].luminosity.intervals[2] <= currentTime <
-             weathers[index].luminosity.intervals[3]) {
-  }
+  luminosityModel(currentTime, &(weathers[index].luminosity));
   return 0;
 }
 
@@ -120,6 +115,26 @@ double getWeatherTemperature(int index) {
 }
 
 // PRIVATE FUNCTIONS
+
+int luminosityModel(double currentTime, LUMINOSITY* luminosity) {
+  if (currentTime < luminosity->intervals[0]) {
+    luminosity->current = luminosity->min;
+  } else if (luminosity->intervals[0] <= currentTime <
+             luminosity->intervals[1]) {
+    setTwilightLuminosity(currentTime, luminosity, 'r');
+  } else if (luminosity->intervals[1] <= currentTime <
+             luminosity->intervals[2]) {
+    luminosity->current = luminosity->max;
+  } else if (luminosity->intervals[2] <= currentTime <
+             luminosity->intervals[3]) {
+    setTwilightLuminosity(currentTime, luminosity, 's');
+
+  } else if (luminosity->intervals[3] <= currentTime) {
+    luminosity->current = luminosity->min;
+  }
+  return 0;
+}
+
 int setTwilightLuminosity(double currentTime,
                           LUMINOSITY* luminosity,
                           char dayPhase) {
