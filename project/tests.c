@@ -11,6 +11,12 @@ printf("%-40s %10s\n", "test_temperatureControl",
 printf("%-40s %10s\n", "test_updateWeatherTemperature",
         test_updateWeatherTemperature() ? "\033[0;32mPASSING\033[0m"
                          : "\033[0;31mFAILING\033[0m");
+printf("%-40s %10s\n", "test_line",
+        test_line() ? "\033[0;32mPASSING\033[0m"
+                         : "\033[0;31mFAILING\033[0m");
+printf("%-40s %10s\n", "test_luminosityModel",
+        test_luminosityModel() ? "\033[0;32mPASSING\033[0m"
+                         : "\033[0;31mFAILING\033[0m");
 printf("%-40s %10s\n", "test_noisySinusoid",
         test_noisySinusoid() ? "\033[0;32mPASSING\033[0m"
                          : "\033[0;31mFAILING\033[0m");

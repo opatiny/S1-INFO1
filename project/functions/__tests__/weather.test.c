@@ -45,3 +45,41 @@ int test_noisySinusoid(void) {
 double zeroNoise(double amplitude) {
   return 0;
 }
+
+int test_luminosityModel(void) {
+  LUMINOSITY test = {.max = 10,
+                     .min = 0,
+                     .intervals = {5 * 3600, 10 * 3600, 15 * 3600, 20 * 3600}};
+
+  for (double hour = 0; hour < 24; hour++) {
+    luminosityModel(hour * 3600, &test);
+    printf("time: %lf, luminosity: %lf \n", hour, test.current);
+  }
+  return 0;
+}
+
+int test_setTwilightLuminosity(void) {
+  LUMINOSITY test = {.max = 10,
+                     .min = 0,
+                     .intervals = {5 * 3600, 10 * 3600, 15 * 3600, 20 * 3600}};
+
+  setTwilightLuminosity();
+
+  return 0;
+}
+
+int test_line(void) {
+  if (line(0, 1, 0) != 0) {
+    return 0;
+  }
+  if (line(1, 1, 0) != 1) {
+    return 0;
+  }
+  if (line(2, 0.5, 2) != 3) {
+    return 0;
+  }
+  if (line(1, -2, 0) != -2) {
+    return 0;
+  }
+  return 1;
+}
