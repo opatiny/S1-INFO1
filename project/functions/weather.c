@@ -12,16 +12,12 @@ WEATHER weathers[2] = {
         .temperature = {.offset = 23, .amplitude = 5, .phase = -150},  // summer
         .luminosity = {.max = 100000,  // bright sunlight
                        .min = 0.25,
-                       .slopeIncreasing = 0.3,
-                       .slopeDecreasing = 0.5,
                        .intervals = {4 * 3600, 5 * 3600, 21.5 * 3600,
                                      23 * 3600}},
     },
     {.temperature = {.offset = 5, .amplitude = 5, .phase = -150},  // winter
      .luminosity = {.max = 20000,
                     .min = 0.25,
-                    .slopeIncreasing = 0.3,
-                    .slopeDecreasing = 0.5,
                     .intervals = {7 * 3600, 8.25 * 3600, 16.8 * 3600,
                                   18 * 3600}}}
 
