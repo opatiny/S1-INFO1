@@ -25,7 +25,7 @@ __Remark:__ We decided to set the project time unit to **one second**. Every fun
 - Implementing the room temperature model
 - Created test infrastructure
 
-## Phase 2.b (02.12.2020)
+## Phase 2.b (02.12.2020-)
 
 ### Weather luminosity model
 
@@ -40,8 +40,6 @@ __Remark:__ We decided to set the project time unit to **one second**. Every fun
     - array of ints defining the intervals where we change of segment
     - minimal luminosity value
     - maximal luminosity value
-    - slope when luminosity is increasing
-    - slope when luminosity is decreasing
 
 #### Luminosity data 
 
@@ -89,3 +87,7 @@ We consider sunrise and sunset as nautical twilight + civil twilight.
     - amount oxygen
     - target PH
     - proportionality factor (between amount of oxygen and PH difference)
+
+## Phase 3.a (09.12.2020-)
+
+Consists in **modularizing** the project -> place each function / set of functions in a different file in order to protect some variables. We must control whom has access to what data. This was actually pretty much done from the start in my case.
