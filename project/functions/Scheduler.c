@@ -35,18 +35,22 @@ int Scheduler(void) {
     int currentTime = currentTIC * TIC_LENGTH;  // current time in seconds
 
     if (!(currentTIC % WEATHER_LIGHT_SAMPLING)) {
-      updateWeatherLuminosity(currentTime, 0);
+      updateWeatherLuminosity(currentTime, LAUSANNE_SUMMER);
+      double weatherLuminosity = getWeatherLuminosity(LAUSANNE_SUMMER);
+      printf("weather luminosity updated: %lf \n", weatherLuminosity);
     }
     if (!(currentTIC % WEATHER_TEMP_SAMPLING)) {
-      double weatherTemperature;
-      weatherTemperature = updateWeatherTemperature(currentTime, 0);
+      updateWeatherTemperature(currentTime, LAUSANNE_SUMMER);
+      double weatherTemperature = getWeatherTemperature(LAUSANNE_SUMMER);
       printf("weather temperature updated: %lf \n", weatherTemperature);
     }
     if (!(currentTIC % PROBE_TEMP_SAMPLING)) {
-      double roomTemperature;
-
-      roomTemperature = updateRoomTemperature(1);
-      printf("room temperature updated: %lf \n", roomTemperature);
+      updateRoomTemperature(ROOM_1);
+      double temperatureRoom1 = getRoomTemperature(ROOM_1);
+      printf("temperature of room 1 updated: %lf \n", temperatureRoom1);
+      updateRoomTemperature(ROOM_2);
+      double temperatureRoom2 = getRoomTemperature(ROOM_2);
+      printf("temperature of room 2 updated: %lf \n", temperatureRoom2);
     }
     if (!(currentTIC % PROBE_LIGHT_SAMPLING)) {
       updateRoomLuminosity(1);

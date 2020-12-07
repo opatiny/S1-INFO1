@@ -9,7 +9,10 @@ double noisySinusoid(
     double phase,
     double noiseFunction(double));  // public only for testing!!
 
-double updateWeatherLuminosity(int currentTime, int index);
-double updateWeatherTemperature(int currentTime, int index);
+int updateWeatherLuminosity(int currentTime, int index);
+int updateWeatherTemperature(int currentTime, int index);
+
+double getWeatherLuminosity(int index);
+double getWeatherTemperature(int index);
 
 #endif
