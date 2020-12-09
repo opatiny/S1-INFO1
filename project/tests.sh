@@ -21,8 +21,8 @@ for FILE in $TEST_FILES; do
   for TEST in $TESTS; do
   cat << EOF >> $OUTPUT
 printf("%-40s %10s\n", "$TEST",
-        $TEST() ? "\033[0;32mPASSING\033[0m"
-                         : "\033[0;31mFAILING\033[0m");
+        $TEST() ? "\033[0;31mFAILING\033[0m"
+                         : "\033[0;32mPASSING\033[0m");
 EOF
   done
 done
