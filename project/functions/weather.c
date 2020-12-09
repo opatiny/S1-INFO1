@@ -109,6 +109,8 @@ int luminosityModel(u_int32_t currentTimeOfDay, LUMINOSITY* luminosity) {
     setTwilightLuminosity(currentTimeOfDay, luminosity, 's');
   } else if (luminosity->intervals[3] <= currentTimeOfDay) {
     luminosity->current = luminosity->min;
+  } else {
+    return 1;
   }
   return 0;
 }
@@ -125,10 +127,11 @@ int setTwilightLuminosity(u_int32_t currentTimeOfDay,
       offset = luminosity->min;
       slope = luminosity->slopeIncreasing;
       // verifying that curren time of day is in correct interval
-      if (!(currentTimeOfDay > luminosity->intervals[0] &&
+      if (!(luminosity->intervals[0] <= currentTimeOfDay &&
             currentTimeOfDay < luminosity->intervals[1])) {
         printf(
-            "ERROR (setTwilightLuminosity): currentTimeOfDay is out of range");
+            "ERROR (setTwilightLuminosity): currentTimeOfDay is out of "
+            "range\n");
         return 1;
       }
       break;
@@ -137,16 +140,18 @@ int setTwilightLuminosity(u_int32_t currentTimeOfDay,
       offset = luminosity->max;
       slope = luminosity->slopeDecreasing;
       // verifying that current time of day is in correct interval
-      if (!(currentTimeOfDay > luminosity->intervals[2] &&
+      if (!(luminosity->intervals[2] <= currentTimeOfDay &&
             currentTimeOfDay < luminosity->intervals[3])) {
         printf(
-            "ERROR (setTwilightLuminosity): currentTimeOfDay is out of range");
+            "ERROR (setTwilightLuminosity): currentTimeOfDay is out of "
+            "range\n");
         return 1;
       }
       break;
     default:
-      printf("ERROR (setTwilightLuminosity): dayPhase option '%c' unrecognised",
-             dayPhase);
+      printf(
+          "ERROR (setTwilightLuminosity): dayPhase option '%c' unrecognised\n",
+          dayPhase);
       return 1;
   }
 
