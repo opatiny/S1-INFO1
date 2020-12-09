@@ -53,19 +53,28 @@ int test_luminosityModel(void) {
 
   for (double hour = 0; hour < 24; hour++) {
     luminosityModel(hour * 3600, &test);
-    printf("time: %lf, luminosity: %lf \n", hour, test.current);
+    // printf("time: %lf, luminosity: %lf \n", hour, test.current);
   }
   return 0;
 }
 
 int test_setTwilightLuminosity(void) {
-  LUMINOSITY test = {.max = 10,
+  LUMINOSITY test = {.current = 42,
+                     .max = 10,
                      .min = 0,
                      .intervals = {5 * 3600, 10 * 3600, 15 * 3600, 20 * 3600}};
 
-  setTwilightLuminosity(7 * 3600, &test, 'r');
+  double expected;
+  double slopeIncreasing = 10.0 / (5 * 3600);
+  double slopeDecreasing = -10.0 / (5 * 3600);
 
-  return 0;
+  setTwilightLuminosity(7 * 3600, &test, 'r');
+  expected = 2 * 3600 * slopeIncreasing;
+  if (test.current != expected) {
+    printf("expected: %lf, got: %lf \n", expected, test.current);
+    return 0;
+  }
+  return 1;
 }
 
 int test_line(void) {
