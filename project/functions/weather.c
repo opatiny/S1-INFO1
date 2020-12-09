@@ -136,7 +136,7 @@ int setTwilightLuminosity(u_int32_t currentTimeOfDay,
       index = 2;
       offset = luminosity->max;
       slope = luminosity->slopeDecreasing;
-      // verifying that curren time of day is in correct interval
+      // verifying that current time of day is in correct interval
       if (!(currentTimeOfDay > luminosity->intervals[2] &&
             currentTimeOfDay < luminosity->intervals[3])) {
         printf(
