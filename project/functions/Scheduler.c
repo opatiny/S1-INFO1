@@ -8,9 +8,9 @@
 
 // DEFINES
 // our basic time unit is the second
-#define SIMULATION_LENGTH   // length of the simulaton => in seconds
-#define TIC_LENGTH 60 * 60  // in seconds (one hour)
-#define NUMBER_TICS 24      // will depend on SIMULATION_LENGTH
+#define TIC_LENGTH \
+  60 * 60               // in seconds (one hour) -> accuracy of the simulation
+#define NUMBER_TICS 24  // defines the simulation length
 
 // defining the number of tics to wait between each cal of every function
 #define WEATHER_LIGHT_SAMPLING 1
@@ -32,15 +32,18 @@ int Scheduler(void) {
   for (int currentTIC = 1; currentTIC < NUMBER_TICS + 1; currentTIC++) {
     printf("\nTIC %i\n", currentTIC);
 
-    int currentTime = currentTIC * TIC_LENGTH;  // current time in seconds
+    u_int32_t currentTimeOfDay =
+        currentTIC * TIC_LENGTH %
+        (24 * 3600);  // current time of day in seconds
+                      // has to be on 32 bites because 24*3600 = 84600 > 65,535
 
     if (!(currentTIC % WEATHER_LIGHT_SAMPLING)) {
-      updateWeatherLuminosity(currentTime, LAUSANNE_SUMMER);
+      updateWeatherLuminosity(currentTimeOfDay, LAUSANNE_SUMMER);
       double weatherLuminosity = getWeatherLuminosity(LAUSANNE_SUMMER);
       printf("weather luminosity updated: %lf \n", weatherLuminosity);
     }
     if (!(currentTIC % WEATHER_TEMP_SAMPLING)) {
-      updateWeatherTemperature(currentTime, LAUSANNE_SUMMER);
+      updateWeatherTemperature(currentTimeOfDay, LAUSANNE_SUMMER);
       double weatherTemperature = getWeatherTemperature(LAUSANNE_SUMMER);
       printf("weather temperature updated: %lf \n", weatherTemperature);
     }
