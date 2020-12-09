@@ -11,12 +11,10 @@ typedef struct temperature {
 } TEMPERATURE;
 
 typedef struct luminosity {
-  double current;  // in lux
-  double max;      // in lux (typically 20000 lux at midday with clear sky)
-  double min;      // in lux (typically <0 lux at night)
-  double slopeIncreasing;  // slope of the second segment
-  double slopeDecreasing;  // slope of the fourth segment
-  double intervals[4];     // intervals for each segment in seconds
+  double current;       // in lux
+  double max;           // in lux (typically 20000 lux at midday with clear sky)
+  double min;           // in lux (typically <0 lux at night)
+  double intervals[4];  // intervals for each segment in seconds
 } LUMINOSITY;
 
 typedef struct weather {

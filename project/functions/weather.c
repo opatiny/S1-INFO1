@@ -10,19 +10,14 @@
 WEATHER weathers[2] = {
     {
         .temperature = {.offset = 23, .amplitude = 5, .phase = -150},  // summer
-        .luminosity =
-            {.max = 100000,  // bright sunlight
-             .min = 0.25,
-             .slopeIncreasing = (100000 - 0.25) / (5 * 360 - 4 * 3600),
-             .slopeDecreasing = (0.25 - 100000) / (23 * 360 - 21.5 * 3600),
-             .intervals = {4 * 3600, 5 * 3600, 21.5 * 3600, 23 * 3600}},
+        .luminosity = {.max = 100000,  // bright sunlight
+                       .min = 0.25,
+                       .intervals = {4 * 3600, 5 * 3600, 21.5 * 3600,
+                                     23 * 3600}},
     },
     {.temperature = {.offset = 5, .amplitude = 5, .phase = -150},  // winter
      .luminosity = {.max = 20000,
                     .min = 0.25,
-                    .slopeIncreasing = (20000 - 0.25) / (8.25 * 360 - 7 * 3600),
-                    .slopeDecreasing =
-                        (20000 - 0.25) / (18 * 360 - 16.8 * 3600),
                     .intervals = {7 * 3600, 8.25 * 3600, 16.8 * 3600,
                                   18 * 3600}}}
 
@@ -33,7 +28,6 @@ int luminosityModel(u_int32_t currentTimeOfDay, LUMINOSITY* luminosity);
 int setTwilightLuminosity(u_int32_t currentTimeOfDay,
                           LUMINOSITY* luminosity,
                           char dayPhase);
-int setSlopes(WEATHER* weathers, int weathersSize);  // actually not used!
 double line(double x, double slope, double offset);
 double randomTenPercentNoise(double amplitude);
 double noisySinusoid(double offset,
@@ -120,12 +114,10 @@ int setTwilightLuminosity(u_int32_t currentTimeOfDay,
                           char dayPhase) {
   int index = 0;
   double offset = 0;
-  double slope = 0;
   switch (dayPhase) {
     case 'r':  // for sunRise
       index = 0;
       offset = luminosity->min;
-      slope = luminosity->slopeIncreasing;
       // verifying that curren time of day is in correct interval
       if (!(luminosity->intervals[0] <= currentTimeOfDay &&
             currentTimeOfDay < luminosity->intervals[1])) {
@@ -138,7 +130,6 @@ int setTwilightLuminosity(u_int32_t currentTimeOfDay,
     case 's':  // for sunSet
       index = 2;
       offset = luminosity->max;
-      slope = luminosity->slopeDecreasing;
       // verifying that current time of day is in correct interval
       if (!(luminosity->intervals[2] <= currentTimeOfDay &&
             currentTimeOfDay < luminosity->intervals[3])) {
@@ -158,6 +149,11 @@ int setTwilightLuminosity(u_int32_t currentTimeOfDay,
   double time = currentTimeOfDay -
                 luminosity->intervals[index];  // this is a kind of relative
                                                // time for the line() function
+  // computed here so that the data is not redundant and so that there is a
+  // memory/CPU tradeoff
+  double slope =
+      luminosity->max - luminosity->min / (luminosity->intervals[index + 1] -
+                                           luminosity->intervals[index]);
 
   luminosity->current = line(time, slope, offset);
 
@@ -210,18 +206,4 @@ double noisySinusoid(double offset,
 // returns random value between 0 and 10% of amplitude
 double randomTenPercentNoise(double amplitude) {
   return amplitude * (2 * (double)rand() / RAND_MAX - 1) / 10;
-}
-
-int setSlopes(WEATHER* weathers, int weathersSize) {
-  for (int i = 0; i < weathersSize; i++) {
-    weathers[i].luminosity.slopeIncreasing =
-        (weathers[i].luminosity.max - weathers[i].luminosity.min) /
-        (weathers[i].luminosity.intervals[1] -
-         weathers[i].luminosity.intervals[0]);
-    weathers[i].luminosity.slopeDecreasing =
-        (weathers[i].luminosity.max - weathers[i].luminosity.min) /
-        (weathers[i].luminosity.intervals[3] -
-         weathers[i].luminosity.intervals[2]);
-  }
-  return 0;
 }
