@@ -123,9 +123,9 @@ int setTwilightLuminosity(u_int32_t currentTimeOfDay,
       // verifying that current time of day is in correct interval
       if (!(luminosity->intervals[0] <= currentTimeOfDay &&
             currentTimeOfDay < luminosity->intervals[1])) {
-        printf(
-            "ERROR (setTwilightLuminosity): currentTimeOfDay is out of "
-            "range\n");
+        // printf(
+        //    "ERROR (setTwilightLuminosity): currentTimeOfDay is out of "
+        //    "sunrise range\n");
         return 1;
       }
       offset = luminosity->min;
@@ -137,21 +137,21 @@ int setTwilightLuminosity(u_int32_t currentTimeOfDay,
       // verifying that current time of day is in correct interval
       if (!(luminosity->intervals[2] <= currentTimeOfDay &&
             currentTimeOfDay < luminosity->intervals[3])) {
-        printf(
-            "ERROR (setTwilightLuminosity): currentTimeOfDay is out of "
-            "range\n");
-        return 1;
+        // printf(
+        //     "ERROR (setTwilightLuminosity): currentTimeOfDay is out of "
+        //     "sunset range\n");
+        return 2;
       }
       offset = luminosity->max;
       slope = luminosity->min - luminosity->max / (luminosity->intervals[3] -
                                                    luminosity->intervals[2]);
-      time = currentTimeOfDay - luminosity->intervals[0];
+      time = currentTimeOfDay - luminosity->intervals[2];
       break;
     default:
-      printf(
-          "ERROR (setTwilightLuminosity): dayPhase option '%c' unrecognised\n",
-          dayPhase);
-      return 1;
+      // printf(
+      //     "ERROR (setTwilightLuminosity): dayPhase option '%c'
+      //     unrecognised\n", dayPhase);
+      return 3;
   }
 
   luminosity->current = line(time, slope, offset);

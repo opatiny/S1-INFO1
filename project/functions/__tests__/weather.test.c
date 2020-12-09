@@ -1,6 +1,8 @@
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "../../lib/testcases.h"
 #include "../weather.h"
 
 double zeroNoise(double amplitude);
@@ -59,22 +61,35 @@ int test_luminosityModel(void) {
 }
 
 int test_setTwilightLuminosity(void) {
+  int NUMBER_CASES = 4;
+  int TEST_STATE = NUMBER_CASES;
+
   LUMINOSITY test = {.current = 42,
                      .max = 10,
                      .min = 0,
                      .intervals = {5 * 3600, 10 * 3600, 15 * 3600, 20 * 3600}};
-
+  int result;
   double expected;
   double slopeIncreasing = 10.0 / (5 * 3600);
   double slopeDecreasing = -10.0 / (5 * 3600);
 
   setTwilightLuminosity(7 * 3600, &test, 'r');
-  expected = 2 * 3600 * slopeIncreasing;
-  if (test.current != expected) {
-    printf("expected: %lf, got: %lf \n", expected, test.current);
-    return 0;
+  shouldBeEqual_d(&TEST_STATE, test.current, 2 * 3600 * slopeIncreasing, 0);
+
+  result = setTwilightLuminosity(20 * 3600, &test, 'r');
+  shouldBeEqual_i(&TEST_STATE, result, 1);
+
+  result = setTwilightLuminosity(1 * 3600, &test, 's');
+  shouldBeEqual_i(&TEST_STATE, result, 2);
+
+  result = setTwilightLuminosity(20 * 3600, &test, 't');
+  shouldBeEqual_i(&TEST_STATE, result, 3);
+
+  if (TEST_STATE == NUMBER_CASES) {
+    return TEST_PASSING;
+  } else {
+    return TEST_FAILING;
   }
-  return 1;
 }
 
 int test_line(void) {
