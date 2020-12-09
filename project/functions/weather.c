@@ -112,13 +112,15 @@ int luminosityModel(u_int32_t currentTimeOfDay, LUMINOSITY* luminosity) {
 int setTwilightLuminosity(u_int32_t currentTimeOfDay,
                           LUMINOSITY* luminosity,
                           char dayPhase) {
-  int index = 0;
+  double slope = 0;
   double offset = 0;
+  double time = 0;  // this is a kind of relative time for the line() function
+
+  // slope is computed here so that the stored data is not redundant and so that
+  // there is a memory/CPU tradeoff
   switch (dayPhase) {
     case 'r':  // for sunRise
-      index = 0;
-      offset = luminosity->min;
-      // verifying that curren time of day is in correct interval
+      // verifying that current time of day is in correct interval
       if (!(luminosity->intervals[0] <= currentTimeOfDay &&
             currentTimeOfDay < luminosity->intervals[1])) {
         printf(
@@ -126,10 +128,12 @@ int setTwilightLuminosity(u_int32_t currentTimeOfDay,
             "range\n");
         return 1;
       }
+      offset = luminosity->min;
+      slope = luminosity->max - luminosity->min / (luminosity->intervals[1] -
+                                                   luminosity->intervals[0]);
+      time = currentTimeOfDay - luminosity->intervals[0];
       break;
     case 's':  // for sunSet
-      index = 2;
-      offset = luminosity->max;
       // verifying that current time of day is in correct interval
       if (!(luminosity->intervals[2] <= currentTimeOfDay &&
             currentTimeOfDay < luminosity->intervals[3])) {
@@ -138,6 +142,10 @@ int setTwilightLuminosity(u_int32_t currentTimeOfDay,
             "range\n");
         return 1;
       }
+      offset = luminosity->max;
+      slope = luminosity->min - luminosity->max / (luminosity->intervals[3] -
+                                                   luminosity->intervals[2]);
+      time = currentTimeOfDay - luminosity->intervals[0];
       break;
     default:
       printf(
@@ -145,15 +153,6 @@ int setTwilightLuminosity(u_int32_t currentTimeOfDay,
           dayPhase);
       return 1;
   }
-
-  double time = currentTimeOfDay -
-                luminosity->intervals[index];  // this is a kind of relative
-                                               // time for the line() function
-  // computed here so that the data is not redundant and so that there is a
-  // memory/CPU tradeoff
-  double slope =
-      luminosity->max - luminosity->min / (luminosity->intervals[index + 1] -
-                                           luminosity->intervals[index]);
 
   luminosity->current = line(time, slope, offset);
 
