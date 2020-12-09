@@ -16,16 +16,16 @@ int test_updateWeatherTemperature(void) {
   temperatureTenAM = updateWeatherTemperature(10 * 60 * 60, 0);
   temperatureFourPM = updateWeatherTemperature(16 * 60 * 60, 0);
   if (temperatureMidnight > temperatureTenAM) {
-    return 0;
+    return TEST_FAILING;
   }
   if (temperatureTenAM > temperatureFourPM) {
-    return 0;
+    return TEST_FAILING;
   }
   if (temperatureFourPM < temperatureMidnight) {
-    return 0;
+    return TEST_FAILING;
   }
 
-  return 1;
+  return TEST_PASSING;
 }
 
 int test_noisySinusoid(void) {
@@ -40,8 +40,11 @@ int test_noisySinusoid(void) {
   result = noisySinusoid(offset, amplitude, 60 * 60 * 24, 60 * 60 * timeInHours,
                          phase, zeroNoise);
   // printf("sinusoid value: %lf \n", result);
-
-  return result == offset;
+  if (result == offset) {
+    return TEST_PASSING;
+  } else {
+    return TEST_FAILING;
+  }
 }
 
 double zeroNoise(double amplitude) {
@@ -57,7 +60,7 @@ int test_luminosityModel(void) {
     luminosityModel(hour * 3600, &test);
     // printf("time: %lf, luminosity: %lf \n", hour, test.current);
   }
-  return 0;
+  return TEST_FAILING;
 }
 
 int test_setTwilightLuminosity(void) {
@@ -94,16 +97,16 @@ int test_setTwilightLuminosity(void) {
 
 int test_line(void) {
   if (line(0, 1, 0) != 0) {
-    return 0;
+    return TEST_FAILING;
   }
   if (line(1, 1, 0) != 1) {
-    return 0;
+    return TEST_FAILING;
   }
   if (line(2, 0.5, 2) != 3) {
-    return 0;
+    return TEST_FAILING;
   }
   if (line(1, -2, 0) != -2) {
-    return 0;
+    return TEST_FAILING;
   }
-  return 1;
+  return TEST_PASSING;
 }

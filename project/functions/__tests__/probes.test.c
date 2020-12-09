@@ -1,3 +1,4 @@
+#include "../../lib/testcases.h"
 #include "../probes.h"
 
 int test_roomTemperatureModel(void) {
@@ -12,7 +13,7 @@ int test_roomTemperatureModel(void) {
                        &controllerTemperature, &controllerImpact);
 
   if (currentTemperature > initialTemperature) {
-    return 0;
+    return TEST_FAILING;
   }
 
   currentTemperature = initialTemperature;
@@ -22,18 +23,21 @@ int test_roomTemperatureModel(void) {
   roomTemperatureModel(&currentTemperature, &weatherTemperature, &weatherImpact,
                        &controllerTemperature, &controllerImpact);
   if (currentTemperature < initialTemperature) {
-    return 0;
+    return TEST_FAILING;
   }
 
-  return 1;
+  return TEST_PASSING;
 }
 
 int test_updateRoomTemperature(void) {
   double result = updateRoomTemperature(1);
-  return result == 0;
+  if (result != 0) {
+    return TEST_FAILING;
+  }
+  return TEST_PASSING;
 }
 
 int test_updateRoomLuminosity(void) {
   // int result = updateRoomLuminosity();
-  return 0;
+  return TEST_FAILING;
 }

@@ -1,7 +1,7 @@
 #ifndef TESTS_LIB
 
-#define TEST_PASSING 1
-#define TEST_FAILING 0
+#define TEST_PASSING 0
+#define TEST_FAILING 1
 
 int shouldBeEqual_i(int* testState, int value, int expected);
 int shouldBeEqual_d(int* testState,
