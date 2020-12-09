@@ -34,6 +34,6 @@ int test_updateRoomTemperature(void) {
 }
 
 int test_updateRoomLuminosity(void) {
-  int result = updateRoomLuminosity();
-  return result == 1;
+  // int result = updateRoomLuminosity();
+  return 0;
 }

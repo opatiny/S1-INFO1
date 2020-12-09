@@ -63,7 +63,7 @@ int test_setTwilightLuminosity(void) {
                      .min = 0,
                      .intervals = {5 * 3600, 10 * 3600, 15 * 3600, 20 * 3600}};
 
-  setTwilightLuminosity();
+  setTwilightLuminosity(7 * 3600, &test, 'r');
 
   return 0;
 }
