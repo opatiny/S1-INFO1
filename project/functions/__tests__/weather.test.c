@@ -52,20 +52,33 @@ double zeroNoise(double amplitude) {
 }
 
 int test_luminosityModel(void) {
+  int NB_CASES_FAILING = 0;
+
   LUMINOSITY test = {.max = 10,
                      .min = 0,
                      .intervals = {5 * 3600, 10 * 3600, 15 * 3600, 20 * 3600}};
 
-  for (double hour = 0; hour < 24; hour++) {
-    luminosityModel(hour * 3600, &test);
-    // printf("time: %lf, luminosity: %lf \n", hour, test.current);
+  luminosityModel(0 * 3600, &test);
+  shouldBeEqual_d(&NB_CASES_FAILING, test.current, 0, 0);
+
+  luminosityModel(6 * 3600, &test);
+  shouldBeEqual_d(&NB_CASES_FAILING, test.current, 2, 0);
+
+  luminosityModel(12 * 3600, &test);
+  shouldBeEqual_d(&NB_CASES_FAILING, test.current, 10, 0);
+
+  luminosityModel(16 * 3600, &test);
+  shouldBeEqual_d(&NB_CASES_FAILING, test.current, 8, 0);
+
+  if (NB_CASES_FAILING) {
+    return TEST_FAILING;
+  } else {
+    return TEST_PASSING;
   }
-  return TEST_FAILING;
 }
 
 int test_setTwilightLuminosity(void) {
-  int NUMBER_CASES = 5;
-  int TEST_STATE = NUMBER_CASES;
+  int NB_CASES_FAILING = 0;
 
   LUMINOSITY test = {.current = 42,
                      .max = 10,
@@ -77,25 +90,26 @@ int test_setTwilightLuminosity(void) {
   double slopeDecreasing = -10.0 / (5 * 3600);
 
   setTwilightLuminosity(7 * 3600, &test, 'r');
-  shouldBeEqual_d(&TEST_STATE, test.current, 2 * 3600 * slopeIncreasing, 0);
-
-  setTwilightLuminosity(17 * 3600, &test, 's');
-  shouldBeEqual_d(&TEST_STATE, test.current, 10 - 2 * 3600 * slopeIncreasing,
+  shouldBeEqual_d(&NB_CASES_FAILING, test.current, 2 * 3600 * slopeIncreasing,
                   0);
 
+  setTwilightLuminosity(17 * 3600, &test, 's');
+  shouldBeEqual_d(&NB_CASES_FAILING, test.current,
+                  10 - 2 * 3600 * slopeIncreasing, 0);
+
   result = setTwilightLuminosity(20 * 3600, &test, 'r');
-  shouldBeEqual_i(&TEST_STATE, result, 1);
+  shouldBeEqual_i(&NB_CASES_FAILING, result, 1);
 
   result = setTwilightLuminosity(1 * 3600, &test, 's');
-  shouldBeEqual_i(&TEST_STATE, result, 2);
+  shouldBeEqual_i(&NB_CASES_FAILING, result, 2);
 
   result = setTwilightLuminosity(20 * 3600, &test, 't');
-  shouldBeEqual_i(&TEST_STATE, result, 3);
+  shouldBeEqual_i(&NB_CASES_FAILING, result, 3);
 
-  if (TEST_STATE == NUMBER_CASES) {
-    return TEST_PASSING;
-  } else {
+  if (NB_CASES_FAILING) {
     return TEST_FAILING;
+  } else {
+    return TEST_PASSING;
   }
 }
 
