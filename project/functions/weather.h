@@ -31,9 +31,7 @@ double getWeatherTemperature(int index);
 
 // PUBLIC ONLY FOR TESTING
 int luminosityModel(u_int32_t currentTimeOfDay, LUMINOSITY* luminosity);
-int setTwilightLuminosity(u_int32_t currentTimeOfDay,
-                          LUMINOSITY* luminosity,
-                          char dayPhase);
+int setTwilightLuminosity(u_int32_t currentTimeOfDay, LUMINOSITY* luminosity);
 double line(double x, double slope, double offset);
 double noisySinusoid(double offset,
                      double amplitude,

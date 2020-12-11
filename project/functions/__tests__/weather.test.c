@@ -89,22 +89,16 @@ int test_setTwilightLuminosity(void) {
   double slopeIncreasing = 10.0 / (5 * 3600);
   double slopeDecreasing = -10.0 / (5 * 3600);
 
-  setTwilightLuminosity(7 * 3600, &test, 'r');
+  setTwilightLuminosity(7 * 3600, &test);
   shouldBeEqual_d(&NB_CASES_FAILING, test.current, 2 * 3600 * slopeIncreasing,
                   0);
 
-  setTwilightLuminosity(17 * 3600, &test, 's');
+  setTwilightLuminosity(17 * 3600, &test);
   shouldBeEqual_d(&NB_CASES_FAILING, test.current,
                   10 - 2 * 3600 * slopeIncreasing, 0);
 
-  result = setTwilightLuminosity(20 * 3600, &test, 'r');
+  result = setTwilightLuminosity(12 * 3600, &test);
   shouldBeEqual_i(&NB_CASES_FAILING, result, 1);
-
-  result = setTwilightLuminosity(1 * 3600, &test, 's');
-  shouldBeEqual_i(&NB_CASES_FAILING, result, 2);
-
-  result = setTwilightLuminosity(20 * 3600, &test, 't');
-  shouldBeEqual_i(&NB_CASES_FAILING, result, 3);
 
   if (NB_CASES_FAILING) {
     return TEST_FAILING;

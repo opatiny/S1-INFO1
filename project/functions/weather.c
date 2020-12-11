@@ -25,9 +25,7 @@ WEATHER weathers[2] = {
 
 // PROTOTYPES
 int luminosityModel(u_int32_t currentTimeOfDay, LUMINOSITY* luminosity);
-int setTwilightLuminosity(u_int32_t currentTimeOfDay,
-                          LUMINOSITY* luminosity,
-                          char dayPhase);
+int setTwilightLuminosity(u_int32_t currentTimeOfDay, LUMINOSITY* luminosity);
 double line(double x, double slope, double offset);
 double randomTenPercentNoise(double amplitude);
 double noisySinusoid(double offset,
@@ -94,13 +92,13 @@ int luminosityModel(u_int32_t currentTimeOfDay, LUMINOSITY* luminosity) {
     luminosity->current = luminosity->min;
   } else if (luminosity->intervals[0] <= currentTimeOfDay &&
              currentTimeOfDay < luminosity->intervals[1]) {
-    setTwilightLuminosity(currentTimeOfDay, luminosity, 'r');
+    setTwilightLuminosity(currentTimeOfDay, luminosity);  // sunrise
   } else if (luminosity->intervals[1] <= currentTimeOfDay &&
              currentTimeOfDay < luminosity->intervals[2]) {
     luminosity->current = luminosity->max;
   } else if (luminosity->intervals[2] <= currentTimeOfDay &&
              currentTimeOfDay < luminosity->intervals[3]) {
-    setTwilightLuminosity(currentTimeOfDay, luminosity, 's');
+    setTwilightLuminosity(currentTimeOfDay, luminosity);  // sunset
   } else if (luminosity->intervals[3] <= currentTimeOfDay) {
     luminosity->current = luminosity->min;
   } else {
@@ -109,49 +107,41 @@ int luminosityModel(u_int32_t currentTimeOfDay, LUMINOSITY* luminosity) {
   return 0;
 }
 
-int setTwilightLuminosity(u_int32_t currentTimeOfDay,
-                          LUMINOSITY* luminosity,
-                          char dayPhase) {
+/* setTwilightLuminosity(): sets current luminostity for sunset and sunrise
+  times of day
+  PARAMETERS:
+    -  currentTimeOfDay (u_int32_t): current time of day in [s]
+    -  luminosity (LUMINOSITY*): pointer on luminosity struct
+    - dayPhase (char): option to specify wheather it is
+  RETURNS:
+    - (double)
+  Author: Océane Patiny
+ */
+int setTwilightLuminosity(u_int32_t currentTimeOfDay, LUMINOSITY* luminosity) {
   double slope = 0;
   double offset = 0;
   double time = 0;  // this is a kind of relative time for the line() function
 
   // slope is computed here so that the stored data is not redundant and so that
   // there is a memory/CPU tradeoff
-  switch (dayPhase) {
-    case 'r':  // for sunRise
-      // verifying that current time of day is in correct interval
-      if (!(luminosity->intervals[0] <= currentTimeOfDay &&
-            currentTimeOfDay < luminosity->intervals[1])) {
-        // printf(
-        //    "ERROR (setTwilightLuminosity): currentTimeOfDay is out of "
-        //    "sunrise range\n");
-        return 1;
-      }
-      offset = luminosity->min;
-      slope = (luminosity->max - luminosity->min) /
-              (luminosity->intervals[1] - luminosity->intervals[0]);
-      time = currentTimeOfDay - luminosity->intervals[0];
-      break;
-    case 's':  // for sunSet
-      // verifying that current time of day is in correct interval
-      if (!(luminosity->intervals[2] <= currentTimeOfDay &&
-            currentTimeOfDay < luminosity->intervals[3])) {
-        // printf(
-        //     "ERROR (setTwilightLuminosity): currentTimeOfDay is out of "
-        //     "sunset range\n");
-        return 2;
-      }
-      offset = luminosity->max;
-      slope = (luminosity->min - luminosity->max) /
-              (luminosity->intervals[3] - luminosity->intervals[2]);
-      time = currentTimeOfDay - luminosity->intervals[2];
-      break;
-    default:
-      // printf(
-      //     "ERROR (setTwilightLuminosity): dayPhase option '%c'
-      //     unrecognised\n", dayPhase);
-      return 3;
+
+  // verifying if current time of day is in sunrise interval
+  if (luminosity->intervals[0] <= currentTimeOfDay &&
+      currentTimeOfDay < luminosity->intervals[1]) {
+    offset = luminosity->min;
+    slope = (luminosity->max - luminosity->min) /
+            (luminosity->intervals[1] - luminosity->intervals[0]);
+    time = currentTimeOfDay - luminosity->intervals[0];
+  } else if (luminosity->intervals[2] <= currentTimeOfDay &&
+             currentTimeOfDay < luminosity->intervals[3]) {
+    // verifying if current time of day is in sunset interval
+    offset = luminosity->max;
+    slope = (luminosity->min - luminosity->max) /
+            (luminosity->intervals[3] - luminosity->intervals[2]);
+    time = currentTimeOfDay - luminosity->intervals[2];
+  } else {
+    // currentTimeOfDay is not in sunrise or sunset interval
+    return 1;
   }
 
   luminosity->current = line(time, slope, offset);
@@ -207,8 +197,8 @@ double randomTenPercentNoise(double amplitude) {
   return amplitude * (2 * (double)rand() / RAND_MAX - 1) / 10;
 }
 
-/* gaussianNoise(): returns a value to which is added a gaussian noise computed
-  using Box-Muller method (1SD)
+/* gaussianNoise(): returns a value to which is added a gaussian noise
+  computed using Box-Muller method (1SD)
 
   PARAMETERS:
     -  mu (double): value to which the noise will be added (peak of the Bell
