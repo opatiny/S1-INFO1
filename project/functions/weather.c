@@ -206,3 +206,26 @@ double noisySinusoid(double offset,
 double randomTenPercentNoise(double amplitude) {
   return amplitude * (2 * (double)rand() / RAND_MAX - 1) / 10;
 }
+
+/* gaussianNoise(): returns a value to which is added a gaussian noise (1SD)
+
+  PARAMETERS:
+    -  mu (double): value to which the noise will be added (peak of the Bell
+  curve)
+    -  sigma (double): one standard deviation for mu
+
+  RETURNS:
+    - (double)
+
+  Author: Océane Patiny
+ */
+double gaussianNoise(double mu, double sigma) {
+  double value1 = (double)rand() / RAND_MAX;
+  double value2 = (double)rand() / RAND_MAX;
+
+  double rho = sqrt(-2 * log(value1));
+  double theta = 2 * M_PI * value1;
+  double X = rho * cos(theta);
+
+  return mu + sigma * X;
+}
