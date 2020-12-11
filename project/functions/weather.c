@@ -129,8 +129,8 @@ int setTwilightLuminosity(u_int32_t currentTimeOfDay,
         return 1;
       }
       offset = luminosity->min;
-      slope = luminosity->max - luminosity->min / (luminosity->intervals[1] -
-                                                   luminosity->intervals[0]);
+      slope = (luminosity->max - luminosity->min) /
+              (luminosity->intervals[1] - luminosity->intervals[0]);
       time = currentTimeOfDay - luminosity->intervals[0];
       break;
     case 's':  // for sunSet
@@ -143,8 +143,8 @@ int setTwilightLuminosity(u_int32_t currentTimeOfDay,
         return 2;
       }
       offset = luminosity->max;
-      slope = luminosity->min - luminosity->max / (luminosity->intervals[3] -
-                                                   luminosity->intervals[2]);
+      slope = (luminosity->min - luminosity->max) /
+              (luminosity->intervals[3] - luminosity->intervals[2]);
       time = currentTimeOfDay - luminosity->intervals[2];
       break;
     default:
@@ -207,7 +207,8 @@ double randomTenPercentNoise(double amplitude) {
   return amplitude * (2 * (double)rand() / RAND_MAX - 1) / 10;
 }
 
-/* gaussianNoise(): returns a value to which is added a gaussian noise (1SD)
+/* gaussianNoise(): returns a value to which is added a gaussian noise computed
+  using Box-Muller method (1SD)
 
   PARAMETERS:
     -  mu (double): value to which the noise will be added (peak of the Bell
