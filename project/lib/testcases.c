@@ -4,7 +4,7 @@
 
 int shouldBeEqual_i(int* testState, int value, int expected) {
   if (value != expected) {
-    printf("expected: %i, got: %i \n", expected, value);
+    printf("    expected: %i, got: %i \n", expected, value);
     *testState--;
   }
   return 1;
@@ -15,7 +15,7 @@ int shouldBeEqual_d(int* testState,
                     double expected,
                     double maxError) {
   if (abs(value - expected) > maxError) {
-    printf("expected: %lf, got: %lf \n", expected, value);
+    printf("    expected: %lf, got: %lf \n", expected, value);
     *testState--;
     return 0;
   }
