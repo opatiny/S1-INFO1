@@ -64,7 +64,7 @@ int test_luminosityModel(void) {
 }
 
 int test_setTwilightLuminosity(void) {
-  int NUMBER_CASES = 4;
+  int NUMBER_CASES = 5;
   int TEST_STATE = NUMBER_CASES;
 
   LUMINOSITY test = {.current = 42,
@@ -78,6 +78,10 @@ int test_setTwilightLuminosity(void) {
 
   setTwilightLuminosity(7 * 3600, &test, 'r');
   shouldBeEqual_d(&TEST_STATE, test.current, 2 * 3600 * slopeIncreasing, 0);
+
+  setTwilightLuminosity(17 * 3600, &test, 's');
+  shouldBeEqual_d(&TEST_STATE, test.current, 10 - 2 * 3600 * slopeIncreasing,
+                  0);
 
   result = setTwilightLuminosity(20 * 3600, &test, 'r');
   shouldBeEqual_i(&TEST_STATE, result, 1);
