@@ -90,4 +90,9 @@ We consider sunrise and sunset as nautical twilight + civil twilight.
 
 ## Phase 3.a (09.12.2020-)
 
+### Modularization
 Consists in **modularizing** the project -> place each function / set of functions in a different file in order to protect some variables. We must control whom has access to what data. This was actually pretty much done from the start in my case.
+
+### Box-Muller noise
+
+Implemented a function that returns a noise following a gaussian distribution (for weather temperature) using the Box-Muller function.
