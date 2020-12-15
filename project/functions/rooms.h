@@ -1,5 +1,5 @@
-#ifndef PROBES_H
-#define PROBES_H
+#ifndef ROOMS_H
+#define ROOMS_H
 
 // STRUCTURES
 typedef struct temperature {

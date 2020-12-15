@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "probes.h"
+#include "rooms.h"
 
 // PROTOTYPES
 int roomTemperatureModel(double* currentTemperature,

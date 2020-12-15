@@ -1,5 +1,5 @@
 #include "../../lib/testcases.h"
-#include "../probes.h"
+#include "../rooms.h"
 
 int test_roomTemperatureModel(void) {
   double initialTemperature = 25;

@@ -3,7 +3,7 @@
 
 #include "./controllers.h"
 #include "./dataHandler.h"
-#include "./probes.h"
+#include "./rooms.h"
 #include "./weather.h"
 
 int Scheduler(void);
