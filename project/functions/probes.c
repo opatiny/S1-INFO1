@@ -13,24 +13,6 @@ int roomTemperatureModel(double* currentTemperature,
                          double* controllerTemperature,
                          double* controllerImpact);
 
-// STRUCTURES DEFINITION
-typedef struct temperature {
-  double current;           // in °C
-  double weatherImpact;     // from 0 to 1
-  double controllerImpact;  // from 0 to 1
-} TEMPERATURE;
-
-typedef struct luminosity {
-  double current;           // in lux
-  double weatherImpact;     // from 0 to 1
-  double controllerImpact;  // from 0 to 1 -> will not be implemented
-} LUMINOSITY;
-
-typedef struct room {
-  TEMPERATURE temperature;
-  LUMINOSITY luminosity;
-} ROOM;
-
 // STRUCTURES INITIALIZATION
 // defining all parameters for rooms 1 and 2
 ROOM rooms[2] = {{.temperature = {.current = 15,
