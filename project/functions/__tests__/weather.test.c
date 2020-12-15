@@ -54,9 +54,10 @@ double zeroNoise(double amplitude) {
 int test_luminosityModel(void) {
   int NB_CASES_FAILING = 0;
 
-  LUMINOSITY test = {.max = 10,
-                     .min = 0,
-                     .intervals = {5 * 3600, 10 * 3600, 15 * 3600, 20 * 3600}};
+  WEATHER_LUMINOSITY test = {
+      .max = 10,
+      .min = 0,
+      .intervals = {5 * 3600, 10 * 3600, 15 * 3600, 20 * 3600}};
 
   luminosityModel(0 * 3600, &test);
   shouldBeEqual_d(&NB_CASES_FAILING, test.current, 0, 0);
@@ -80,10 +81,11 @@ int test_luminosityModel(void) {
 int test_setTwilightLuminosity(void) {
   int NB_CASES_FAILING = 0;
 
-  LUMINOSITY test = {.current = 42,
-                     .max = 10,
-                     .min = 0,
-                     .intervals = {5 * 3600, 10 * 3600, 15 * 3600, 20 * 3600}};
+  WEATHER_LUMINOSITY test = {
+      .current = 42,
+      .max = 10,
+      .min = 0,
+      .intervals = {5 * 3600, 10 * 3600, 15 * 3600, 20 * 3600}};
   int result;
   double expected;
   double slopeIncreasing = 10.0 / (5 * 3600);

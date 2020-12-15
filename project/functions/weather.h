@@ -2,24 +2,24 @@
 #define WEATHER_H
 
 // STRUCTURES
-typedef struct temperature {
+typedef struct weather_temperature {
   double current;    // in °C
   double offset;     // in °C
   double amplitude;  // in °C
   double phase;      // in degrees
 
-} TEMPERATURE;
+} WEATHER_TEMPERATURE;
 
-typedef struct luminosity {
+typedef struct weather_luminosity {
   double current;       // in lux
   double max;           // in lux (typically 20000 lux at midday with clear sky)
   double min;           // in lux (typically <0 lux at night)
   double intervals[4];  // intervals for each segment in seconds
-} LUMINOSITY;
+} WEATHER_LUMINOSITY;
 
 typedef struct weather {
-  TEMPERATURE temperature;
-  LUMINOSITY luminosity;  // in cd
+  WEATHER_TEMPERATURE temperature;
+  WEATHER_LUMINOSITY luminosity;  // in cd
 } WEATHER;
 
 // PUBLIC FUNCTIONS
@@ -30,8 +30,9 @@ double getWeatherLuminosity(int index);
 double getWeatherTemperature(int index);
 
 // PUBLIC ONLY FOR TESTING
-int luminosityModel(u_int32_t currentTimeOfDay, LUMINOSITY* luminosity);
-int setTwilightLuminosity(u_int32_t currentTimeOfDay, LUMINOSITY* luminosity);
+int luminosityModel(u_int32_t currentTimeOfDay, WEATHER_LUMINOSITY* luminosity);
+int setTwilightLuminosity(u_int32_t currentTimeOfDay,
+                          WEATHER_LUMINOSITY* luminosity);
 double line(double x, double slope, double offset);
 double noisySinusoid(double offset,
                      double amplitude,

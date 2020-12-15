@@ -24,8 +24,9 @@ WEATHER weathers[2] = {
 };
 
 // PROTOTYPES
-int luminosityModel(u_int32_t currentTimeOfDay, LUMINOSITY* luminosity);
-int setTwilightLuminosity(u_int32_t currentTimeOfDay, LUMINOSITY* luminosity);
+int luminosityModel(u_int32_t currentTimeOfDay, WEATHER_LUMINOSITY* luminosity);
+int setTwilightLuminosity(u_int32_t currentTimeOfDay,
+                          WEATHER_LUMINOSITY* luminosity);
 double line(double x, double slope, double offset);
 double randomTenPercentNoise(double amplitude);
 double noisySinusoid(double offset,
@@ -87,7 +88,8 @@ double getWeatherTemperature(int index) {
 
 // PRIVATE FUNCTIONS
 
-int luminosityModel(u_int32_t currentTimeOfDay, LUMINOSITY* luminosity) {
+int luminosityModel(u_int32_t currentTimeOfDay,
+                    WEATHER_LUMINOSITY* luminosity) {
   if (currentTimeOfDay < luminosity->intervals[0]) {
     luminosity->current = luminosity->min;
   } else if (luminosity->intervals[0] <= currentTimeOfDay &&
@@ -117,7 +119,8 @@ int luminosityModel(u_int32_t currentTimeOfDay, LUMINOSITY* luminosity) {
     - (double)
   Author: Océane Patiny
  */
-int setTwilightLuminosity(u_int32_t currentTimeOfDay, LUMINOSITY* luminosity) {
+int setTwilightLuminosity(u_int32_t currentTimeOfDay,
+                          WEATHER_LUMINOSITY* luminosity) {
   double slope = 0;
   double offset = 0;
   double time = 0;  // this is a kind of relative time for the line() function

@@ -2,29 +2,22 @@
 #define ROOMS_H
 
 // STRUCTURES
-typedef struct temperature {
+typedef struct room_temperature {
   double current;           // in °C
   double weatherImpact;     // from 0 to 1
   double controllerImpact;  // from 0 to 1
-} TEMPERATURE;
+} ROOM_TEMPERATURE;
 
-typedef struct luminosity {
+typedef struct room_luminosity {
   double current;           // in lux
   double weatherImpact;     // from 0 to 1
   double controllerImpact;  // from 0 to 1 -> will not be implemented
-} LUMINOSITY;
+} ROOM_LUMINOSITY;
 
 typedef struct room {
-  TEMPERATURE temperature;
-  LUMINOSITY luminosity;
+  ROOM_TEMPERATURE temperature;
+  ROOM_LUMINOSITY luminosity;
 } ROOM;
-
-typedef struct aquarium {
-  double currentPH;            // in °C
-  double luminosityImpact;     // from 0 to 1
-  double luminosityThreshold;  // in lux
-  double pumpImpact;           // from 0 to 1
-} AQUARIUM;
 
 // PUBLIC FUNCTIONS
 
