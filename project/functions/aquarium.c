@@ -10,16 +10,18 @@
 int phModel(AQUARIUM* aquarium, double roomLuminosity, double pumpValue);
 
 // STRUCTURES INITIALIZATION
-AQUARIUM aquarium = {.currentPH = 7,
-                     .luminosityImpact = 0.5,
-                     .luminosityThreshold = 10000,
-                     .pumpImpact = 0.3};
+// we consider that there could be many aquariums, hence the array
+AQUARIUM aquariums[2] = {{.currentPH = 7,
+                          .luminosityImpact = 0.5,
+                          .luminosityThreshold = 10000,
+                          .pumpImpact = 0.3,
+                          .pumpValue = 0}};
 
 // FUNCTIONS
-int updatePH(void) {
+int updatePH(int index) {
   double roomLuminosity = 20000;
   double pumpValue = 40;
-  phModel(&aquarium, roomLuminosity, pumpValue);
+  phModel(&aquariums[index], roomLuminosity, pumpValue);
   return 0;
 }
 
@@ -28,4 +30,13 @@ int phModel(AQUARIUM* aquarium, double roomLuminosity, double pumpValue) {
                             (roomLuminosity - aquarium->luminosityThreshold) +
                         aquarium->pumpImpact * pumpValue;
   return 0;
+}
+
+int setPumpValue(int index, double value) {
+  aquariums[index].pumpValue = value;
+  return 0;
+}
+
+double getPH(int index) {
+  return aquariums[index].currentPH;
 }
