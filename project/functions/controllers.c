@@ -38,6 +38,8 @@ int temperatureControlModel(double roomTemperature,
   } else if (roomTemperature > tc->maxTemperatureThreshold) {
     tc->currentValue =
         tc->factor * (roomTemperature - tc->maxTemperatureThreshold);
+  } else {
+    tc->currentValue = 0;
   }
   return 0;
 }
@@ -47,6 +49,11 @@ int phControl(int index) {
   pumps[index].currentValue =
       pumps[index].factor * (currentPH - pumps[index].phThreshold);
   setPumpValue(index, pumps[index].currentValue);
+  return 0;
+}
+
+int phControlModel(double currentPH, PUMP* pump) {
+  pump->currentValue = pump->factor * (currentPH - pump->phThreshold);
   return 0;
 }
 
