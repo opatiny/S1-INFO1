@@ -5,6 +5,11 @@
 #include <stdlib.h>
 
 #include "Scheduler.h"
+#include "aquarium.h"
+#include "controllers.h"
+#include "dataHandler.h"
+#include "rooms.h"
+#include "weather.h"
 
 // DEFINES
 // our basic time unit is the second
@@ -23,9 +28,8 @@
 
 #define LAUSANNE_SUMMER 0
 #define LAUSANNE_WINTER 1
-#define ROOM_1 0
-#define ROOM_2 1
-#define AQUARIUM_1 0
+#define NB_ROOMS 2
+#define NB_AQUARIUMS 1
 
 int Scheduler(void) {
   printf("inside scheduler\n");
@@ -49,21 +53,28 @@ int Scheduler(void) {
       printf("weather temperature updated: %.2lf \n", weatherTemperature);
     }
     if (!(currentTIC % PROBE_TEMP_SAMPLING)) {
-      updateRoomTemperature(ROOM_1);
-      double temperatureRoom1 = getRoomTemperature(ROOM_1);
-      printf("temperature of room 1 updated: %.2lf \n", temperatureRoom1);
-      updateRoomTemperature(ROOM_2);
-      double temperatureRoom2 = getRoomTemperature(ROOM_2);
-      printf("temperature of room 2 updated: %.2lf \n", temperatureRoom2);
+      for (int i = 0; i < NB_ROOMS; i++) {
+        updateRoomTemperature(i);
+        double roomTemperature = getRoomTemperature(i);
+        printf("temperature of room %i updated: %.2lf \n", i, roomTemperature);
+      }
     }
     if (!(currentTIC % PROBE_LIGHT_SAMPLING)) {
-      updateRoomLuminosity(1);
+      for (int i = 0; i < NB_ROOMS; i++) {
+        updateRoomLuminosity(i);
+        double roomLuminostiy = getRoomLuminosity(i);
+        printf("luminosity of room %i updated: %.2lf \n", i, roomLuminostiy);
+      }
     }
     if (!(currentTIC % CONTROLLER_LIGHT_SAMPLING)) {
-      temperatureControl();
+      // no controller implemented
     }
     if (!(currentTIC % CONTROLLER_PH_SAMPLING)) {
-      phControl(AQUARIUM_1);
+      for (int i = 0; i < NB_AQUARIUMS; i++) {
+        phControl(i);
+        double aquariumPH = getPH(i);
+        printf("PH of aquarium %i updated: %.2lf \n", i, aquariumPH);
+      }
     }
     if (!(currentTIC % DATA_HANDLER_SAMPLING)) {
       dataHandler();
