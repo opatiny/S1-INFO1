@@ -22,3 +22,21 @@ int shouldBeEqual_d(int* nbCasesFailing,
   }
   return 0;
 }
+
+int shouldBeGreaterThan_d(int* nbCasesFailing, double value, double expected) {
+  if (!(value > expected)) {
+    printf("    got: %lf, expected greater than: %lf \n", value, expected);
+    (*nbCasesFailing)++;
+    return 1;
+  }
+  return 0;
+}
+
+int shouldBeSmallerThan_d(int* nbCasesFailing, double value, double expected) {
+  if (!(value < expected)) {
+    printf("    got: %lf, expected smaller than: %lf \n", value, expected);
+    (*nbCasesFailing)++;
+    return 1;
+  }
+  return 0;
+}

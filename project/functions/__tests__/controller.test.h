@@ -1,1 +1,2 @@
-int test_temperatureControl(void);
+int test_temperatureControlModel(void);
+int test_phControlModel(void);

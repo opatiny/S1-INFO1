@@ -3,10 +3,12 @@
 #define TEST_PASSING 0
 #define TEST_FAILING 1
 
-int shouldBeEqual_i(int* testState, int value, int expected);
-int shouldBeEqual_d(int* testState,
+int shouldBeEqual_i(int* nbCasesFailing, int value, int expected);
+int shouldBeEqual_d(int* nbCasesFailing,
                     double value,
                     double expected,
                     double maxError);
 
+int shouldBeGreaterThan_d(int* nbCasesFailing, double value, double expected);
+int shouldBeSmallerThan_d(int* nbCasesFailing, double value, double expected) {
 #endif  // !TESTS_LIB
