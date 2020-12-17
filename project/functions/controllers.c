@@ -10,6 +10,7 @@
 
 // PROTOTYPES
 int temperatureControlModel(double roomTemperature, TEMPERATURE_CONTROLLER* tc);
+int phControlModel(double currentPH, PUMP* pump);
 
 // STRUCTURES INITIALIZATION
 TEMPERATURE_CONTROLLER temperature_controllers[2] = {
@@ -46,15 +47,22 @@ int temperatureControlModel(double roomTemperature,
 
 int phControl(int index) {
   double currentPH = getPH(index);
-  pumps[index].currentValue =
-      pumps[index].factor * (currentPH - pumps[index].phThreshold);
+  phControlModel(currentPH, &pumps[index]);
   setPumpValue(index, pumps[index].currentValue);
   return 0;
 }
 
 int phControlModel(double currentPH, PUMP* pump) {
-  pump->currentValue = pump->factor * (currentPH - pump->phThreshold);
+  if (currentPH < pump->phThreshold) {
+    pump->currentValue = pump->factor * (pump->phThreshold - currentPH);
+  } else {
+    pump->currentValue = 0;
+  }
   return 0;
+}
+
+double getTemperatureControlValue(int index) {
+  return temperature_controllers[index].currentValue;
 }
 
 double getPumpValue(int index) {
