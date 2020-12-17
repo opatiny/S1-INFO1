@@ -21,10 +21,11 @@
 #define CONTROLLER_PH_SAMPLING 6
 #define DATA_HANDLER_SAMPLING 7
 
-#define ROOM_1 1
-#define ROOM_2 2
 #define LAUSANNE_SUMMER 0
 #define LAUSANNE_WINTER 1
+#define ROOM_1 1
+#define ROOM_2 2
+#define AQUARIUM_1 0
 
 int Scheduler(void) {
   printf("inside scheduler\n");
@@ -35,25 +36,25 @@ int Scheduler(void) {
     u_int32_t currentTimeOfDay =
         currentTIC * TIC_LENGTH %
         (24 * 3600);  // current time of day in seconds
-                      // has to be on 32 bites because 24*3600 = 84600 > 65,535
+                      // has to be on 32 bites because 24*3600 = 84'600 > 65'535
 
     if (!(currentTIC % WEATHER_LIGHT_SAMPLING)) {
       updateWeatherLuminosity(currentTimeOfDay, LAUSANNE_SUMMER);
       double weatherLuminosity = getWeatherLuminosity(LAUSANNE_SUMMER);
-      printf("weather luminosity updated: %lf \n", weatherLuminosity);
+      printf("weather luminosity updated: %.2lf \n", weatherLuminosity);
     }
     if (!(currentTIC % WEATHER_TEMP_SAMPLING)) {
       updateWeatherTemperature(currentTimeOfDay, LAUSANNE_SUMMER);
       double weatherTemperature = getWeatherTemperature(LAUSANNE_SUMMER);
-      printf("weather temperature updated: %lf \n", weatherTemperature);
+      printf("weather temperature updated: %.2lf \n", weatherTemperature);
     }
     if (!(currentTIC % PROBE_TEMP_SAMPLING)) {
       updateRoomTemperature(ROOM_1);
       double temperatureRoom1 = getRoomTemperature(ROOM_1);
-      printf("temperature of room 1 updated: %lf \n", temperatureRoom1);
+      printf("temperature of room 1 updated: %.2lf \n", temperatureRoom1);
       updateRoomTemperature(ROOM_2);
       double temperatureRoom2 = getRoomTemperature(ROOM_2);
-      printf("temperature of room 2 updated: %lf \n", temperatureRoom2);
+      printf("temperature of room 2 updated: %.2lf \n", temperatureRoom2);
     }
     if (!(currentTIC % PROBE_LIGHT_SAMPLING)) {
       updateRoomLuminosity(1);
@@ -62,7 +63,7 @@ int Scheduler(void) {
       temperatureControl();
     }
     if (!(currentTIC % CONTROLLER_PH_SAMPLING)) {
-      phControl();
+      phControl(AQUARIUM_1);
     }
     if (!(currentTIC % DATA_HANDLER_SAMPLING)) {
       dataHandler();
