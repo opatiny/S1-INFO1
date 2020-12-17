@@ -22,41 +22,41 @@ ROOM rooms[2] = {{.temperature = {.current = 15,
                                  .weatherImpact = 0.9,
                                  .controllerImpact = 0.8}},
                  {.temperature = {.current = 20,
-                                  .weatherImpact = 0.2,
-                                  .controllerImpact = 0.5},
+                                  .weatherImpact = 0.4,
+                                  .controllerImpact = 0.3},
                   .luminosity = {.current = 11000,
-                                 .weatherImpact = 0.9,
-                                 .controllerImpact = 0.8}}};
+                                 .weatherImpact = 0.8,
+                                 .controllerImpact = 0.9}}};
 
 // FUNCTIONS
-// in our case, "roomNumber" can be 1 or 2
-int updateRoomTemperature(int roomNumber) {
+// in our case, "index" can be 0 or 1
+int updateRoomTemperature(int index) {
   double weatherTemperature = 10;     // in °C
   double controllerTemperature = 15;  // in °C
 
-  roomTemperatureModel(
-      &rooms[roomNumber - 1].temperature.current, &weatherTemperature,
-      &rooms[roomNumber - 1].temperature.weatherImpact, &controllerTemperature,
-      &rooms[roomNumber - 1].temperature.controllerImpact);
+  roomTemperatureModel(&rooms[index].temperature.current, &weatherTemperature,
+                       &rooms[index].temperature.weatherImpact,
+                       &controllerTemperature,
+                       &rooms[index].temperature.controllerImpact);
 
   return 0;
 }
 
-int updateRoomLuminosity(int roomNumber) {
+int updateRoomLuminosity(int index) {
   double weatherLuminosity = 20000;  // temporary value
 
-  rooms[roomNumber - 1].luminosity.current =
-      weatherLuminosity * rooms[roomNumber - 1].luminosity.weatherImpact;
+  rooms[index].luminosity.current =
+      weatherLuminosity * rooms[index].luminosity.weatherImpact;
 
   return 0;
 }
 
-double getRoomTemperature(int roomNumber) {
-  return rooms[roomNumber - 1].temperature.current;
+double getRoomTemperature(int index) {
+  return rooms[index].temperature.current;
 }
 
-double getRoomLuminosity(int roomNumber) {
-  return rooms[roomNumber - 1].luminosity.current;
+double getRoomLuminosity(int index) {
+  return rooms[index].luminosity.current;
 }
 
 // PRIVATE FUNCTIONS

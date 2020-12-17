@@ -23,8 +23,8 @@
 
 #define LAUSANNE_SUMMER 0
 #define LAUSANNE_WINTER 1
-#define ROOM_1 1
-#define ROOM_2 2
+#define ROOM_1 0
+#define ROOM_2 1
 #define AQUARIUM_1 0
 
 int Scheduler(void) {
