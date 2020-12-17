@@ -5,6 +5,7 @@
 typedef struct room_temperature {
   double current;           // in °C
   double weatherImpact;     // from 0 to 1
+  double controllerValue;   // in ??
   double controllerImpact;  // from 0 to 1
 } ROOM_TEMPERATURE;
 
@@ -26,13 +27,13 @@ int updateRoomLuminosity(int roomNumber);
 
 double getRoomTemperature(int roomNumber);
 double getRoomLuminosity(int roomNumber);
+int setTemperatureControllerValue(int index, double value);
 
 // PUBLIC ONLY FOR TESTING
-int roomTemperatureModel(
-    double* currentTemperature,
-    double* weatherTemperature,
-    double* weatherImpact,
-    double* controllerTemperature,
-    double* controllerImpact);  // public only for testing!!
+int roomTemperatureModel(double* currentTemperature,
+                         double* weatherTemperature,
+                         double* weatherImpact,
+                         double* controllerValue,
+                         double* controllerImpact);
 
 #endif

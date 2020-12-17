@@ -5,12 +5,13 @@
 #include <stdlib.h>
 
 #include "rooms.h"
+#include "weather.h"
 
 // PROTOTYPES
 int roomTemperatureModel(double* currentTemperature,
                          double* weatherTemperature,
                          double* weatherImpact,
-                         double* controllerTemperature,
+                         double* controllerValue,
                          double* controllerImpact);
 
 // STRUCTURES INITIALIZATION
@@ -57,6 +58,10 @@ double getRoomTemperature(int index) {
 
 double getRoomLuminosity(int index) {
   return rooms[index].luminosity.current;
+}
+
+int setTemperatureControllerValue(int index, double value) {
+  rooms[index].temperature.controllerValue = value;
 }
 
 // PRIVATE FUNCTIONS
