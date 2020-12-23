@@ -17,15 +17,26 @@ int test_temperatureControlModel(void) {
   temperatureControlModel(25, &tc);
   shouldBeSmallerThan_d(&NB_CASES_FAILING, tc.currentValue, 0);
 
-  if (NB_CASES_FAILING != 0) {
+  if (NB_CASES_FAILING) {
     return TEST_FAILING;
   }
+
+  return TEST_PASSING;
 }
 
 int test_phControlModel(void) {
-  PUMP pump1 = {
+  int NB_CASES_FAILING = 0;
 
-  };
-  int result = temperatureControl(0);
-  return TEST_FAILING;
+  PUMP pump1 = {.currentValue = 0, .phThreshold = 5, .factor = 10};
+
+  phControlModel(3, &pump1);
+  shouldBeGreaterThan_d(&NB_CASES_FAILING, pump1.currentValue, 0.0);
+
+  phControlModel(8, &pump1);
+  shouldBeEqual_d(&NB_CASES_FAILING, pump1.currentValue, 0.0, 0.0);
+
+  if (NB_CASES_FAILING) {
+    return TEST_FAILING;
+  }
+  return TEST_PASSING;
 }

@@ -34,11 +34,11 @@ int temperatureControl(int index) {
 int temperatureControlModel(double roomTemperature,
                             TEMPERATURE_CONTROLLER* tc) {
   if (roomTemperature < tc->minTemperatureThreshold) {
-    tc->currentValue = tc->factor * (tc->minTemperatureThreshold -
-                                     tc->minTemperatureThreshold);
+    tc->currentValue =
+        tc->factor * (tc->minTemperatureThreshold - roomTemperature);
   } else if (roomTemperature > tc->maxTemperatureThreshold) {
     tc->currentValue =
-        tc->factor * (roomTemperature - tc->maxTemperatureThreshold);
+        tc->factor * (tc->maxTemperatureThreshold - roomTemperature);
   } else {
     tc->currentValue = 0;
   }
