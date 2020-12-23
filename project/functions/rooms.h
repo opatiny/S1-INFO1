@@ -31,9 +31,9 @@ int setTemperatureControllerValue(int index, double value);
 
 // PUBLIC ONLY FOR TESTING
 int roomTemperatureModel(double* currentTemperature,
-                         double* weatherTemperature,
-                         double* weatherImpact,
-                         double* controllerValue,
-                         double* controllerImpact);
+                         double weatherTemperature,
+                         double weatherImpact,
+                         double controllerValue,
+                         double controllerImpact);
 
 #endif

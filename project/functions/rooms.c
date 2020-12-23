@@ -9,10 +9,10 @@
 
 // PROTOTYPES
 int roomTemperatureModel(double* currentTemperature,
-                         double* weatherTemperature,
-                         double* weatherImpact,
-                         double* controllerValue,
-                         double* controllerImpact);
+                         double weatherTemperature,
+                         double weatherImpact,
+                         double controllerValue,
+                         double controllerImpact);
 
 // STRUCTURES INITIALIZATION
 // defining all parameters for rooms 1 and 2
@@ -32,19 +32,18 @@ ROOM rooms[2] = {{.temperature = {.current = 15,
 // FUNCTIONS
 // in our case, "index" can be 0 or 1
 int updateRoomTemperature(int index) {
-  double weatherTemperature = 10;     // in °C
-  double controllerTemperature = 15;  // in °C
+  double weatherTemperature = getWeatherTemperature(0);  // in °C
 
-  roomTemperatureModel(&rooms[index].temperature.current, &weatherTemperature,
-                       &rooms[index].temperature.weatherImpact,
-                       &controllerTemperature,
-                       &rooms[index].temperature.controllerImpact);
+  roomTemperatureModel(&rooms[index].temperature.current, weatherTemperature,
+                       rooms[index].temperature.weatherImpact,
+                       rooms[index].temperature.controllerValue,
+                       rooms[index].temperature.controllerImpact);
 
   return 0;
 }
 
 int updateRoomLuminosity(int index) {
-  double weatherLuminosity = 20000;  // temporary value
+  double weatherLuminosity = getWeatherLuminosity(0);  // temporary value
 
   rooms[index].luminosity.current =
       weatherLuminosity * rooms[index].luminosity.weatherImpact;
@@ -83,13 +82,13 @@ int setTemperatureControllerValue(int index, double value) {
   Author: Océane Patiny
  */
 int roomTemperatureModel(double* currentTemperature,
-                         double* weatherTemperature,
-                         double* weatherImpact,
-                         double* controllerTemperature,
-                         double* controllerImpact) {
+                         double weatherTemperature,
+                         double weatherImpact,
+                         double controllerValue,
+                         double controllerImpact) {
   *currentTemperature =
       *currentTemperature +
-      *weatherImpact * (*weatherTemperature - *currentTemperature) +
-      *controllerImpact * (*controllerTemperature - *currentTemperature);
+      weatherImpact * (weatherTemperature - *currentTemperature) +
+      controllerImpact * controllerValue;
   return 0;
 }
