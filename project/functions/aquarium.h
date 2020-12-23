@@ -17,6 +17,6 @@ int setPumpValue(int index, double value);
 double getPH(int index);
 
 // PUBLIC ONLY FOR TESTING
-int phModel(AQUARIUM* aquarium, double roomLuminosity, double pumpValue);
+int phModel(AQUARIUM* aquarium, double roomLuminosity);
 
 #endif
