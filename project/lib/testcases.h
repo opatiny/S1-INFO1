@@ -10,5 +10,6 @@ int shouldBeEqual_d(int* nbCasesFailing,
                     double maxError);
 
 int shouldBeGreaterThan_d(int* nbCasesFailing, double value, double expected);
-int shouldBeSmallerThan_d(int* nbCasesFailing, double value, double expected) {
+int shouldBeSmallerThan_d(int* nbCasesFailing, double value, double expected);
+
 #endif  // !TESTS_LIB
