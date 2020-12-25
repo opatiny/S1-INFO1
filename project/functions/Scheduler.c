@@ -22,12 +22,12 @@
 #define WEATHER_LIGHT_SAMPLING 1
 #define WEATHER_TEMPERATURE_SAMPLING 1
 #define ROOMS_TEMPERATURE_SAMPLING 1
-#define ROOMS_LIGHT_SAMPLING 4
-#define AQUARIUM_PH_SAMPLING 4
-#define TEMPERATURE_CONTROL_SAMPLING 5
-#define LIGHT_CONTROL_SAMPLING 5
-#define PH_CONTROL_SAMPLING 6
-#define DATA_HANDLER_SAMPLING 7
+#define ROOMS_LIGHT_SAMPLING 1
+#define AQUARIUM_PH_SAMPLING 1
+#define TEMPERATURE_CONTROL_SAMPLING 1
+#define LIGHT_CONTROL_SAMPLING 1
+#define PH_CONTROL_SAMPLING 1
+#define DATA_HANDLER_SAMPLING 1
 
 // indexes in weather structures array
 #define LAUSANNE_SUMMER 0
@@ -38,19 +38,23 @@
 #define NB_AQUARIUMS 1
 
 // STRUCTURES INITIALIZATION
-DATA data = {.showControlValues = 1,
-             .exportData = 0};  // setting options for output data
+USER_OPTIONS options = {.weather = LAUSANNE_WINTER, .showControlValues = 1};
+DATA outputData;
 
 // FUNCTIONS
 int Scheduler(void) {
+  // setting options for output data
+  outputData.showControlValues = options.showControlValues;
+  outputData.exportData = 0;
+
   printf("Welcome to this basic domotics simulator.\n\n");
 
   printf("The TIC length is %i seconds.\n\n", TIC_LENGTH);
 
-  printHeader(&data);
+  printHeader(&outputData);
 
   for (int currentTIC = 1; currentTIC < NUMBER_TICS + 1; currentTIC++) {
-    data.TIC = currentTIC;
+    outputData.TIC = currentTIC;
 
     u_int32_t currentTimeOfDay =
         currentTIC * TIC_LENGTH %
@@ -58,21 +62,21 @@ int Scheduler(void) {
                       // has to be on 32 bites because 24*3600 = 84'600 > 65'535
 
     if (currentTIC == 1 | !(currentTIC % WEATHER_LIGHT_SAMPLING)) {
-      updateWeatherLuminosity(currentTimeOfDay, LAUSANNE_SUMMER);
-      double weatherLuminosity = getWeatherLuminosity(LAUSANNE_SUMMER);
-      data.weatherLuminosity = weatherLuminosity;
+      updateWeatherLuminosity(currentTimeOfDay, options.weather);
+      double weatherLuminosity = getWeatherLuminosity(options.weather);
+      outputData.weatherLuminosity = weatherLuminosity;
     }
     if (!(currentTIC % WEATHER_TEMPERATURE_SAMPLING)) {
-      updateWeatherTemperature(currentTimeOfDay, LAUSANNE_SUMMER);
-      double weatherTemperature = getWeatherTemperature(LAUSANNE_SUMMER);
-      data.weatherTemperature = weatherTemperature;
+      updateWeatherTemperature(currentTimeOfDay, options.weather);
+      double weatherTemperature = getWeatherTemperature(options.weather);
+      outputData.weatherTemperature = weatherTemperature;
     }
     if (!(currentTIC % ROOMS_TEMPERATURE_SAMPLING)) {
       for (int i = 0; i < NB_ROOMS; i++) {
         updateRoomTemperature(i);
         double roomTemperature = getRoomTemperature(i);
         if (i < NB_ROOMS_OUTPUT) {
-          data.roomsTemperature[i] = roomTemperature;
+          outputData.roomsTemperature[i] = roomTemperature;
         }
       }
     }
@@ -81,7 +85,7 @@ int Scheduler(void) {
         updateRoomLuminosity(i);
         double roomLuminostiy = getRoomLuminosity(i);
         if (i < NB_ROOMS_OUTPUT) {
-          data.roomsLuminostiy[i] = roomLuminostiy;
+          outputData.roomsLuminostiy[i] = roomLuminostiy;
         }
       }
     }
@@ -90,7 +94,7 @@ int Scheduler(void) {
         updatePH(i);
         double aquariumPH = getPH(i);
         if (i < NB_AQUARIUMS_OUTPUT) {
-          data.aquariumsPH[i] = aquariumPH;
+          outputData.aquariumsPH[i] = aquariumPH;
         }
       }
     }
@@ -99,7 +103,7 @@ int Scheduler(void) {
         temperatureControl(i);
         double temperatureControlValue = getTemperatureControlValue(i);
         if (i < NB_ROOMS_OUTPUT) {
-          data.temperatureControllers[i] = temperatureControlValue;
+          outputData.temperatureControllers[i] = temperatureControlValue;
         }
       }
     }
@@ -111,14 +115,14 @@ int Scheduler(void) {
         phControl(i);
         double phControlValue = getPhControlValue(i);
         if (i < NB_AQUARIUMS_OUTPUT) {
-          data.phControllers[i] = phControlValue;
+          outputData.phControllers[i] = phControlValue;
         }
       }
     }
     if (!(currentTIC % DATA_HANDLER_SAMPLING)) {
       dataHandler();
     }
-    printDataLine(&data);
+    printDataLine(&outputData);
   }
 
   return 0;
