@@ -3,7 +3,7 @@
 
 // DEFINES
 #define NB_ROOMS_OUTPUT 2
-#define NB_AQUARIUMS_OUTPUT 2
+#define NB_AQUARIUMS_OUTPUT 1
 
 // STRUCTURES
 typedef struct data {
@@ -16,8 +16,11 @@ typedef struct data {
 } DATA;
 
 // PUBLIC FUNCTIONS
+void printHeader(void);
+void printDataLine(DATA* data);
 
-// COLORS FOR TERMINAL OUTPUT
+// COLORS FOR TERMINAL OUTPUT (source:
+// https://stackoverflow.com/questions/1961209/making-some-text-in-printf-appear-in-green-and-red)
 #define RESET "\033[0m"
 #define BLACK "\033[30m"              /* Black */
 #define RED "\033[31m"                /* Red */
