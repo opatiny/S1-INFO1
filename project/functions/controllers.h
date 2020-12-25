@@ -20,7 +20,7 @@ int temperatureControl(int index);
 int phControl(int index);
 
 double getTemperatureControlValue(int index);
-double getPumpValue(int index);
+double getPhControlValue(int index);
 
 // PUBLIC ONLY FOR TESTING
 int temperatureControlModel(double roomTemperature, TEMPERATURE_CONTROLLER* tc);

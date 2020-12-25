@@ -14,9 +14,9 @@ int phControlModel(double currentPH, PUMP* pump);
 
 // STRUCTURES INITIALIZATION
 TEMPERATURE_CONTROLLER temperature_controllers[2] = {
-    {.minTemperatureThreshold = 18, .maxTemperatureThreshold = 23, .factor = 1},
-    {.minTemperatureThreshold = 16,
-     .maxTemperatureThreshold = 25,
+    {.minTemperatureThreshold = 20, .maxTemperatureThreshold = 22, .factor = 1},
+    {.minTemperatureThreshold = 20,
+     .maxTemperatureThreshold = 22,
      .factor = 1}};
 
 // there could be many pumps in case they are many aquariums
@@ -65,6 +65,6 @@ double getTemperatureControlValue(int index) {
   return temperature_controllers[index].currentValue;
 }
 
-double getPumpValue(int index) {
+double getPhControlValue(int index) {
   return pumps[index].currentValue;
 }
