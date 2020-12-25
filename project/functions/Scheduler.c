@@ -8,6 +8,7 @@
 #include "aquarium.h"
 #include "controllers.h"
 #include "dataHandler.h"
+#include "outputFormatting.h"
 #include "rooms.h"
 #include "weather.h"
 
@@ -68,14 +69,18 @@ int Scheduler(void) {
       for (int i = 0; i < NB_ROOMS; i++) {
         updateRoomTemperature(i);
         double roomTemperature = getRoomTemperature(i);
-        data.roomsTemperature[i] = roomTemperature;
+        if (i < NB_ROOMS_OUTPUT) {
+          data.roomsTemperature[i] = roomTemperature;
+        }
       }
     }
     if (!(currentTIC % PROBE_LIGHT_SAMPLING)) {
       for (int i = 0; i < NB_ROOMS; i++) {
         updateRoomLuminosity(i);
         double roomLuminostiy = getRoomLuminosity(i);
-        data.roomsLuminostiy[i] = roomLuminostiy;
+        if (i < NB_ROOMS_OUTPUT) {
+          data.roomsLuminostiy[i] = roomLuminostiy;
+        }
       }
     }
     if (!(currentTIC % CONTROLLER_LIGHT_SAMPLING)) {
@@ -85,7 +90,9 @@ int Scheduler(void) {
       for (int i = 0; i < NB_AQUARIUMS; i++) {
         phControl(i);
         double aquariumPH = getPH(i);
-        data.aquariumsPH[i] = aquariumPH;
+        if (i < NB_AQUARIUMS_OUTPUT) {
+          data.aquariumsPH[i] = aquariumPH;
+        }
       }
     }
     if (!(currentTIC % DATA_HANDLER_SAMPLING)) {
@@ -95,39 +102,4 @@ int Scheduler(void) {
   }
 
   return 0;
-}
-
-void printHeader(void) {
-  printf("%5s %15s %15s", "TIC", "weather temp.", "weather lum.");
-
-  for (int i = 0; i < NB_ROOMS; i++) {
-    char temperatureText[15];
-    sprintf(temperatureText, "room %i temp.", i + 1);
-    char luminosityText[15];
-    sprintf(luminosityText, "room %i lum.", i + 1);
-    printf("%15s %15s", temperatureText, luminosityText);
-  }
-
-  for (int i = 0; i < NB_AQUARIUMS; i++) {
-    char phText[15];
-    sprintf(phText, "aquarium %i PH", i + 1);
-    printf("%15s", phText);
-  }
-
-  printf("\n");
-}
-
-void printDataLine(DATA* data) {
-  printf("%5i %15.2lf %15.2lf", data->TIC, data->weatherTemperature,
-         data->weatherLuminosity);
-
-  for (int i = 0; i < NB_ROOMS; i++) {
-    printf("%15.2lf %15.2lf", data->roomsTemperature[i],
-           data->roomsLuminostiy[i]);
-  }
-  for (int i = 0; i < NB_AQUARIUMS; i++) {
-    printf("%15.2lf", data->aquariumsPH[i]);
-  }
-
-  printf("\n");
 }
