@@ -13,10 +13,16 @@ typedef struct data {
   double roomsTemperature[NB_ROOMS_OUTPUT];
   double roomsLuminostiy[NB_ROOMS_OUTPUT];
   double aquariumsPH[NB_AQUARIUMS_OUTPUT];
+  double temperatureControllers[NB_ROOMS_OUTPUT];
+  double luminosityControllers[NB_ROOMS_OUTPUT];
+  double phControllers[NB_AQUARIUMS_OUTPUT];
+  // options
+  int showControlValues;  // 0 or 1
+  int exportData;         // 0 or 1
 } DATA;
 
 // PUBLIC FUNCTIONS
-void printHeader(void);
+void printHeader(DATA* data);
 void printDataLine(DATA* data);
 
 // COLORS FOR TERMINAL OUTPUT (source:
