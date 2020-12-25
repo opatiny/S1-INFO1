@@ -7,11 +7,9 @@ typedef struct data {
   int TIC;
   double weatherTemperature;
   double weatherLuminosity;
-  double temperatureRoom1;
-  double luminosityRoom1;
-  double temperatureRoom2;
-  double luminosityRoom2;
-  double aquariumPH
+  double roomsTemperature[2];
+  double roomsLuminostiy[2];
+  double aquariumsPH[1];
 } DATA;
 
 #endif

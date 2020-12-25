@@ -14,8 +14,8 @@
 // DEFINES
 // our basic time unit is the second
 #define TIC_LENGTH \
-  60 * 60              // in seconds (one hour) -> accuracy of the simulation
-#define NUMBER_TICS 2  // defines the simulation length
+  60 * 60               // in seconds (one hour) -> accuracy of the simulation
+#define NUMBER_TICS 24  // defines the simulation length
 
 // defining the number of tics to wait between each cal of every function
 #define WEATHER_LIGHT_SAMPLING 1
@@ -40,7 +40,7 @@ DATA data;
 
 // FUNCTIONS
 int Scheduler(void) {
-  printf("Welcome to this basic domotics simulator.\n");
+  printf("Welcome to this basic domotics simulator.\n\n");
 
   printf("The TIC length is %i seconds.\n\n", TIC_LENGTH);
 
@@ -68,16 +68,14 @@ int Scheduler(void) {
       for (int i = 0; i < NB_ROOMS; i++) {
         updateRoomTemperature(i);
         double roomTemperature = getRoomTemperature(i);
-        // printf("temperature of room %i updated: %.2lf \n", i +
-        // 1, roomTemperature);
+        data.roomsTemperature[i] = roomTemperature;
       }
     }
     if (!(currentTIC % PROBE_LIGHT_SAMPLING)) {
       for (int i = 0; i < NB_ROOMS; i++) {
         updateRoomLuminosity(i);
         double roomLuminostiy = getRoomLuminosity(i);
-        // printf("luminosity of room %i updated: %.2lf \n", i + 1,
-        //       roomLuminostiy);
+        data.roomsLuminostiy[i] = roomLuminostiy;
       }
     }
     if (!(currentTIC % CONTROLLER_LIGHT_SAMPLING)) {
@@ -87,7 +85,7 @@ int Scheduler(void) {
       for (int i = 0; i < NB_AQUARIUMS; i++) {
         phControl(i);
         double aquariumPH = getPH(i);
-        // printf("PH of aquarium %i updated: %.2lf \n", i + 1, aquariumPH);
+        data.aquariumsPH[i] = aquariumPH;
       }
     }
     if (!(currentTIC % DATA_HANDLER_SAMPLING)) {
@@ -100,14 +98,36 @@ int Scheduler(void) {
 }
 
 void printHeader(void) {
-  printf("%5s %15s %15s %15s %15s %15s %15s %15s \n", "TIC", "weather temp.",
-         "weather lum.", "room 1 temp.", "room 1 lum.", "room 2 temp.",
-         "room2 lum.", "aquarium 1 PH");
+  printf("%5s %15s %15s", "TIC", "weather temp.", "weather lum.");
+
+  for (int i = 0; i < NB_ROOMS; i++) {
+    char temperatureText[15];
+    sprintf(temperatureText, "room %i temp.", i + 1);
+    char luminosityText[15];
+    sprintf(luminosityText, "room %i lum.", i + 1);
+    printf("%15s %15s", temperatureText, luminosityText);
+  }
+
+  for (int i = 0; i < NB_AQUARIUMS; i++) {
+    char phText[15];
+    sprintf(phText, "aquarium %i PH", i + 1);
+    printf("%15s", phText);
+  }
+
+  printf("\n");
 }
 
 void printDataLine(DATA* data) {
-  printf("%5i %15d %15d %15d %15d %15d %15d %15d \n", data->TIC,
-         data->weatherTemperature, data->weatherLuminosity,
-         data->temperatureRoom1, data->luminosityRoom1, data->temperatureRoom1,
-         data->luminosityRoom1, data->aquariumPH);
+  printf("%5i %15.2lf %15.2lf", data->TIC, data->weatherTemperature,
+         data->weatherLuminosity);
+
+  for (int i = 0; i < NB_ROOMS; i++) {
+    printf("%15.2lf %15.2lf", data->roomsTemperature[i],
+           data->roomsLuminostiy[i]);
+  }
+  for (int i = 0; i < NB_AQUARIUMS; i++) {
+    printf("%15.2lf", data->aquariumsPH[i]);
+  }
+
+  printf("\n");
 }
