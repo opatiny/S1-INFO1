@@ -7,7 +7,6 @@ typedef struct weather_temperature {
   double offset;     // in °C
   double amplitude;  // in °C
   double phase;      // in degrees
-
 } WEATHER_TEMPERATURE;
 
 typedef struct weather_luminosity {

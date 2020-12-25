@@ -10,7 +10,6 @@
 int Scheduler(void);
 
 int main(void) {
-  printf("inside main\n");
   Scheduler();
   return EXIT_SUCCESS;
 }
