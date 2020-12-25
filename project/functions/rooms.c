@@ -43,11 +43,10 @@ int updateRoomTemperature(int index) {
 }
 
 int updateRoomLuminosity(int index) {
-  double weatherLuminosity = getWeatherLuminosity(0);  // temporary value
+  double weatherLuminosity = getWeatherLuminosity(0);
 
-  rooms[index].luminosity.current =
-      weatherLuminosity * rooms[index].luminosity.weatherImpact;
-
+  roomLuminosityModel(&rooms[index].luminosity.current, weatherLuminosity,
+                      rooms[index].luminosity.weatherImpact);
   return 0;
 }
 
@@ -70,11 +69,11 @@ int setTemperatureControllerValue(int index, double value) {
 
   PARAMETERS:
     -  currentTemperature (double*): initial room temperature in °C
-    -  weatherTemperature (double*): weather temperature in °C
-    -  weatherImpact (double*): impact of weather temperature on room
+    -  weatherTemperature (double): weather temperature in °C
+    -  weatherImpact (double): impact of weather temperature on room
   temperature [0,1]
-    -  controllerTemperature (double*): initial room temperature in °C
-    -  controllerImpact (double*): impact of controller temperature on room
+    -  controllerTemperature (double): initial room temperature in °C
+    -  controllerImpact (double): impact of controller temperature on room
   temperature [0,1]
 
   RETURNS:
@@ -90,5 +89,25 @@ int roomTemperatureModel(double* currentTemperature,
       *currentTemperature +
       weatherImpact * (weatherTemperature - *currentTemperature) +
       controllerImpact * controllerValue;
+  return 0;
+}
+
+/* roomLuminosityModel(): updates a room's luminosity depending on various
+  parameters
+
+  PARAMETERS:
+    -  currentLuminosity (double*): initial room luminosity in lux
+    -  weatherLuminosity (double): weather luminosity in lux
+    -  weatherImpact (double): impact of weather luminosity on room
+  luminosity [0,1]
+
+  RETURNS:
+    - int (possible error message)
+  Author: Océane Patiny
+ */
+int roomLuminosityModel(double* currentLuminosity,
+                        double weatherLuminosity,
+                        double weatherImpact) {
+  *currentLuminosity = weatherLuminosity * weatherImpact;
   return 0;
 }
