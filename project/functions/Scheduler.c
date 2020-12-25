@@ -13,22 +13,27 @@
 #include "weather.h"
 
 // DEFINES
-// our basic time unit is the second
+// simulation length parameters (the basic time unit is one second)
 #define TIC_LENGTH \
   60 * 60               // in seconds (one hour) -> accuracy of the simulation
 #define NUMBER_TICS 24  // defines the simulation length
 
-// defining the number of tics to wait between each cal of every function
+// defining the number of tics to wait between each call of the functions
 #define WEATHER_LIGHT_SAMPLING 1
-#define WEATHER_TEMP_SAMPLING 1
-#define PROBE_TEMP_SAMPLING 1
-#define PROBE_LIGHT_SAMPLING 4
-#define CONTROLLER_LIGHT_SAMPLING 5
-#define CONTROLLER_PH_SAMPLING 6
+#define WEATHER_TEMPERATURE_SAMPLING 1
+#define ROOMS_TEMPERATURE_SAMPLING 1
+#define ROOMS_LIGHT_SAMPLING 4
+#define AQUARIUM_PH_SAMPLING 4
+#define TEMPERATURE_CONTROL_SAMPLING 5
+#define LIGHT_CONTROL_SAMPLING 5
+#define PH_CONTROL_SAMPLING 6
 #define DATA_HANDLER_SAMPLING 7
 
+// indexes in weather structures array
 #define LAUSANNE_SUMMER 0
 #define LAUSANNE_WINTER 1
+
+// number of instances of different structures
 #define NB_ROOMS 2
 #define NB_AQUARIUMS 1
 
@@ -60,12 +65,12 @@ int Scheduler(void) {
       double weatherLuminosity = getWeatherLuminosity(LAUSANNE_SUMMER);
       data.weatherLuminosity = weatherLuminosity;
     }
-    if (!(currentTIC % WEATHER_TEMP_SAMPLING)) {
+    if (!(currentTIC % WEATHER_TEMPERATURE_SAMPLING)) {
       updateWeatherTemperature(currentTimeOfDay, LAUSANNE_SUMMER);
       double weatherTemperature = getWeatherTemperature(LAUSANNE_SUMMER);
       data.weatherTemperature = weatherTemperature;
     }
-    if (!(currentTIC % PROBE_TEMP_SAMPLING)) {
+    if (!(currentTIC % ROOMS_TEMPERATURE_SAMPLING)) {
       for (int i = 0; i < NB_ROOMS; i++) {
         updateRoomTemperature(i);
         double roomTemperature = getRoomTemperature(i);
@@ -74,7 +79,7 @@ int Scheduler(void) {
         }
       }
     }
-    if (!(currentTIC % PROBE_LIGHT_SAMPLING)) {
+    if (!(currentTIC % ROOMS_LIGHT_SAMPLING)) {
       for (int i = 0; i < NB_ROOMS; i++) {
         updateRoomLuminosity(i);
         double roomLuminostiy = getRoomLuminosity(i);
@@ -83,23 +88,34 @@ int Scheduler(void) {
         }
       }
     }
-    if (!(currentTIC % CONTROLLER_LIGHT_SAMPLING)) {
-      // no controller implemented
-    }
-    if (!(currentTIC % CONTROLLER_PH_SAMPLING)) {
+    if (!(currentTIC % AQUARIUM_PH_SAMPLING)) {
       for (int i = 0; i < NB_AQUARIUMS; i++) {
-        phControl(i);
+        updatePH(i);
         double aquariumPH = getPH(i);
         if (i < NB_AQUARIUMS_OUTPUT) {
           data.aquariumsPH[i] = aquariumPH;
         }
       }
+      if (!(currentTIC % TEMPERATURE_CONTROL_SAMPLING)) {
+        // no controller implemented
+      }
+      if (!(currentTIC % LIGHT_CONTROL_SAMPLING)) {
+        // no controller implemented
+      }
+      if (!(currentTIC % PH_CONTROL_SAMPLING)) {
+        for (int i = 0; i < NB_AQUARIUMS; i++) {
+          phControl(i);
+          double aquariumPH = getPH(i);
+          if (i < NB_AQUARIUMS_OUTPUT) {
+            data.aquariumsPH[i] = aquariumPH;
+          }
+        }
+      }
+      if (!(currentTIC % DATA_HANDLER_SAMPLING)) {
+        dataHandler();
+      }
+      printDataLine(&data);
     }
-    if (!(currentTIC % DATA_HANDLER_SAMPLING)) {
-      dataHandler();
-    }
-    printDataLine(&data);
-  }
 
-  return 0;
-}
+    return 0;
+  }
