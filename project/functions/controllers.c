@@ -20,7 +20,7 @@ TEMPERATURE_CONTROLLER temperature_controllers[2] = {
      .factor = 1}};
 
 // there could be many pumps in case they are many aquariums
-PUMP pumps[2] = {{.currentValue = 100, .phThreshold = 6.5, .factor = 10}};
+PUMP pumps[2] = {{.currentValue = 0, .phThreshold = 6.5, .factor = 1}};
 
 // FUNCTIONS
 int temperatureControl(int index) {

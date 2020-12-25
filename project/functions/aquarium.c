@@ -13,10 +13,10 @@ int phModel(AQUARIUM* aquarium, double roomLuminosity);
 // STRUCTURES INITIALIZATION
 // we consider that there could be many aquariums, hence the array
 AQUARIUM aquariums[2] = {{
-    .currentPH = 7,
-    .luminosityImpact = 0.5,
-    .luminosityThreshold = 10000,
-    .pumpImpact = 0.3,
+    .currentPH = 6.5,  // acidic, because simulation starts at midnight
+    .luminosityImpact = 1e-6,
+    .luminosityThreshold = 30000,
+    .pumpImpact = 0.2,
 }};
 
 // FUNCTIONS
@@ -31,6 +31,12 @@ int phModel(AQUARIUM* aquarium, double roomLuminosity) {
                         aquarium->luminosityImpact *
                             (roomLuminosity - aquarium->luminosityThreshold) +
                         aquarium->pumpImpact * aquarium->pumpValue;
+  // adding these conditions to stay in possible range of PH
+  if (aquarium->currentPH < 0) {
+    aquarium->currentPH = 0;
+  } else if (aquarium->currentPH > 14) {
+    aquarium->currentPH = 14;
+  }
   return 0;
 }
 
