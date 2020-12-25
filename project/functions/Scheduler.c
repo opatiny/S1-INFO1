@@ -37,12 +37,9 @@
 #define NB_ROOMS 2
 #define NB_AQUARIUMS 1
 
-// PROTOTYPES
-void printHeader(void);
-void printDataLine(DATA* data);
-
 // STRUCTURES INITIALIZATION
-DATA data;
+DATA data = {.showControlValues = 1,
+             .exportData = 0};  // setting options for output data
 
 // FUNCTIONS
 int Scheduler(void) {
@@ -50,7 +47,7 @@ int Scheduler(void) {
 
   printf("The TIC length is %i seconds.\n\n", TIC_LENGTH);
 
-  printHeader();
+  printHeader(&data);
 
   for (int currentTIC = 1; currentTIC < NUMBER_TICS + 1; currentTIC++) {
     data.TIC = currentTIC;
@@ -60,7 +57,7 @@ int Scheduler(void) {
         (24 * 3600);  // current time of day in seconds
                       // has to be on 32 bites because 24*3600 = 84'600 > 65'535
 
-    if (!(currentTIC % WEATHER_LIGHT_SAMPLING)) {
+    if (currentTIC == 1 | !(currentTIC % WEATHER_LIGHT_SAMPLING)) {
       updateWeatherLuminosity(currentTimeOfDay, LAUSANNE_SUMMER);
       double weatherLuminosity = getWeatherLuminosity(LAUSANNE_SUMMER);
       data.weatherLuminosity = weatherLuminosity;
@@ -96,26 +93,33 @@ int Scheduler(void) {
           data.aquariumsPH[i] = aquariumPH;
         }
       }
-      if (!(currentTIC % TEMPERATURE_CONTROL_SAMPLING)) {
-        // no controller implemented
-      }
-      if (!(currentTIC % LIGHT_CONTROL_SAMPLING)) {
-        // no controller implemented
-      }
-      if (!(currentTIC % PH_CONTROL_SAMPLING)) {
-        for (int i = 0; i < NB_AQUARIUMS; i++) {
-          phControl(i);
-          double aquariumPH = getPH(i);
-          if (i < NB_AQUARIUMS_OUTPUT) {
-            data.aquariumsPH[i] = aquariumPH;
-          }
+    }
+    if (!(currentTIC % TEMPERATURE_CONTROL_SAMPLING)) {
+      for (int i = 0; i < NB_ROOMS; i++) {
+        temperatureControl(i);
+        double temperatureControlValue = getTemperatureControlValue(i);
+        if (i < NB_ROOMS_OUTPUT) {
+          data.temperatureControllers[i] = temperatureControlValue;
         }
       }
-      if (!(currentTIC % DATA_HANDLER_SAMPLING)) {
-        dataHandler();
-      }
-      printDataLine(&data);
     }
-
-    return 0;
+    if (!(currentTIC % LIGHT_CONTROL_SAMPLING)) {
+      // no controller implemented
+    }
+    if (!(currentTIC % PH_CONTROL_SAMPLING)) {
+      for (int i = 0; i < NB_AQUARIUMS; i++) {
+        phControl(i);
+        double phControlValue = getPhControlValue(i);
+        if (i < NB_AQUARIUMS_OUTPUT) {
+          data.phControllers[i] = phControlValue;
+        }
+      }
+    }
+    if (!(currentTIC % DATA_HANDLER_SAMPLING)) {
+      dataHandler();
+    }
+    printDataLine(&data);
   }
+
+  return 0;
+}
