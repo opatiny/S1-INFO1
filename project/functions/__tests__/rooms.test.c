@@ -38,11 +38,11 @@ int test_roomLuminosityModel(void) {
   int NB_CASES_FAILING = 0;
 
   double currentLuminosity = 0;
-  roomLuminosityModel(currentLuminosity, 20000, 1);
-  shouldBeEqual_d(NB_CASES_FAILING, currentLuminosity, 20000, 0);
+  roomLuminosityModel(&currentLuminosity, 20000, 1);
+  shouldBeEqual_d(&NB_CASES_FAILING, currentLuminosity, 20000, 0);
 
-  roomLuminosityModel(currentLuminosity, 100000, 0.5);
-  shouldBeEqual_d(NB_CASES_FAILING, currentLuminosity, 50000, 0);
+  roomLuminosityModel(&currentLuminosity, 100000, 0.5);
+  shouldBeEqual_d(&NB_CASES_FAILING, currentLuminosity, 50000, 0);
 
   if (NB_CASES_FAILING) {
     return TEST_FAILING;

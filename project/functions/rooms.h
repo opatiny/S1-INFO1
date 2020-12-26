@@ -36,4 +36,8 @@ int roomTemperatureModel(double* currentTemperature,
                          double controllerValue,
                          double controllerImpact);
 
+int roomLuminosityModel(double* currentLuminosity,
+                        double weatherLuminosity,
+                        double weatherImpact);
+
 #endif
