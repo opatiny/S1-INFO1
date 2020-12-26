@@ -13,10 +13,6 @@
 #include "weather.h"
 
 // DEFINES
-// simulation length parameters (the basic time unit is one second)
-#define TIC_LENGTH \
-  60 * 60               // in seconds (one hour) -> accuracy of the simulation
-#define NUMBER_TICS 24  // defines the simulation length
 
 // defining the number of tics to wait between each call of the functions
 #define WEATHER_LIGHT_SAMPLING 1
@@ -38,7 +34,11 @@
 #define NB_AQUARIUMS 1
 
 // STRUCTURES INITIALIZATION
-USER_OPTIONS options = {.weather = LAUSANNE_WINTER, .showControlValues = 1};
+// simulation user options (the basic time unit is one second)
+USER_OPTIONS options = {.nbTics = 24,
+                        .ticLength = 60 * 60,  //  in seconds
+                        .weather = LAUSANNE_SUMMER,
+                        .showControlValues = 1};
 DATA outputData;
 
 // FUNCTIONS
@@ -49,15 +49,15 @@ int Scheduler(void) {
 
   printf("Welcome to this basic domotics simulator.\n\n");
 
-  printf("The TIC length is %i seconds.\n\n", TIC_LENGTH);
+  printf("The TIC length is %i seconds.\n\n", options.ticLength);
 
   printHeader(&outputData);
 
-  for (int currentTIC = 1; currentTIC < NUMBER_TICS + 1; currentTIC++) {
+  for (int currentTIC = 1; currentTIC < options.nbTics + 1; currentTIC++) {
     outputData.TIC = currentTIC;
 
     u_int32_t currentTimeOfDay =
-        currentTIC * TIC_LENGTH %
+        currentTIC * options.ticLength %
         (24 * 3600);  // current time of day in seconds
                       // has to be on 32 bites because 24*3600 = 84'600 > 65'535
 
