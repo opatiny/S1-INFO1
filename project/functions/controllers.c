@@ -14,10 +14,10 @@ int phControlModel(double currentPH, PUMP* pump);
 
 // STRUCTURES INITIALIZATION
 TEMPERATURE_CONTROLLER temperature_controllers[2] = {
-    {.minTemperatureThreshold = 20, .maxTemperatureThreshold = 22, .factor = 1},
+    {.minTemperatureThreshold = 20, .maxTemperatureThreshold = 25, .factor = 2},
     {.minTemperatureThreshold = 20,
      .maxTemperatureThreshold = 22,
-     .factor = 1}};
+     .factor = 3}};
 
 // there could be many pumps in case they are many aquariums
 PUMP pumps[2] = {{.currentValue = 0, .phThreshold = 6.5, .factor = 1}};

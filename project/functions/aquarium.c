@@ -16,7 +16,7 @@ AQUARIUM aquariums[2] = {{
     .currentPH = 6.5,  // acidic, because simulation starts at midnight
     .luminosityImpact = 1e-6,
     .luminosityThreshold = 30000,
-    .pumpImpact = 0.2,
+    .pumpImpact = 2.5,
 }};
 
 // FUNCTIONS
