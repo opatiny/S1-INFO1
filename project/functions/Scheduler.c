@@ -37,7 +37,7 @@
 // simulation user options (the basic time unit is one second)
 USER_OPTIONS options = {.nbTics = 24,
                         .ticLength = 60 * 60,  //  in seconds
-                        .weather = LAUSANNE_SUMMER,
+                        .weather = LAUSANNE_WINTER,
                         .showControlValues = 1};
 DATA outputData;
 

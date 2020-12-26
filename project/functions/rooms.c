@@ -19,13 +19,13 @@ int roomTemperatureModel(double* currentTemperature,
 ROOM rooms[2] = {{.temperature = {.current = 15,
                                   .weatherImpact = 0.2,
                                   .controllerImpact = 0.5},
-                  .luminosity = {.current = 0,
+                  .luminosity = {.current = 0.25,
                                  .weatherImpact = 0.5,
                                  .controllerImpact = 0.8}},
                  {.temperature = {.current = 20,
                                   .weatherImpact = 0.25,
                                   .controllerImpact = 0.6},
-                  .luminosity = {.current = 0,
+                  .luminosity = {.current = 0.25,
                                  .weatherImpact = 0.6,
                                  .controllerImpact = 0.9}}};
 
@@ -43,7 +43,7 @@ int updateRoomTemperature(int index) {
 }
 
 int updateRoomLuminosity(int index) {
-  double weatherLuminosity = getWeatherLuminosity(0);
+  double weatherLuminosity = getWeatherLuminosity(index);
 
   roomLuminosityModel(&rooms[index].luminosity.current, weatherLuminosity,
                       rooms[index].luminosity.weatherImpact);
