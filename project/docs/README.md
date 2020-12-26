@@ -25,7 +25,7 @@ __Remark:__ We decided to set the project time unit to **one second**. Every fun
 - Implementing the room temperature model
 - Created test infrastructure
 
-## Phase 2.b (02.12.2020-)
+## Phase 2.b (02.12.2020-27.12.2020)
 
 ### Weather luminosity model
 
@@ -61,7 +61,7 @@ We consider sunrise and sunset as nautical twilight + civil twilight.
 - 21 June sunset time:
     - start: 21:30
     - end: 23:02
-- 21 Desember sunrise time:
+- 21 December sunrise time:
     - start: 7:01
     - end: 8:14
 - 21 December sunset time:
@@ -70,7 +70,7 @@ We consider sunrise and sunset as nautical twilight + civil twilight.
 
 ### Room luminosity model
 
-- pretty easy -> the weather luminosity has a nearly direct impact on room luminosity, we just have a factor from 0 to 1 (curtains, blinds, tinted windows, ...)
+- pretty easy -> the weather luminosity has a nearly direct impact on room luminosity, we just have a factor from 0 to 1 (curtains, blinds, tinted windows, ...).
 
 
 ### Aquarium PH model
@@ -88,11 +88,14 @@ We consider sunrise and sunset as nautical twilight + civil twilight.
     - target PH
     - proportionality factor (between amount of oxygen and PH difference)
 
-## Phase 3.a (09.12.2020-)
+## Phase 3.a (09.12.2020-27.12.2020)
 
 ### Modularization
 Consists in **modularizing** the project -> place each function / set of functions in a different file in order to protect some variables. We must control whom has access to what data. This was actually pretty much done from the start in my case.
 
 ### Box-Muller noise
-
 Implemented a function that returns a noise following a gaussian distribution (for weather temperature) using the Box-Muller function.
+
+## Phase 3.b (09.12.2020-27.12.2020)
+
+That phase consists in linking all the different units together.
