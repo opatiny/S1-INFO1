@@ -1,4 +1,4 @@
-// tells if a word is a palindrom or not
+// tells if a sentence is a palindrom or not. Punctuation can be used
 
 #include <stdbool.h>
 #include <stdio.h>
@@ -15,7 +15,7 @@ int main(void) {
   while (getchar() != '\n') {
   };
 
-  printf("%s", sentence);
+  // printf("%s", sentence);
 
   bool isPalindrom = true;
 
@@ -29,9 +29,24 @@ int main(void) {
   }
 
   int length = strlen(onlyChars);
+
+  // for (int i = 0; i < length; i++) {
+  //   printf("%c", onlyChars[i]);
+  // }
+
   for (int i = 0; i < length / 2; i++) {
-    if (onlyChars[i] != onlyChars[length - 1 - i]) {
-      isPalindrom = false;
+    if ((onlyChars[i] < 95)) {  // then char is uppercase
+
+      if ((onlyChars[i] != onlyChars[length - 1 - i]) &&
+          ((onlyChars[i] + 32) != onlyChars[length - 1 - i])) {
+        isPalindrom = false;
+      }
+    } else {  // then char is lowercase
+
+      if ((onlyChars[i] != onlyChars[length - 1 - i]) &&
+          ((onlyChars[i] - 32) != onlyChars[length - 1 - i])) {
+        isPalindrom = false;
+      }
     }
   }
 
