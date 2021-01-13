@@ -99,3 +99,46 @@ Implemented a function that returns a noise following a gaussian distribution (f
 ## Phase 3.b (09.12.2020-27.12.2020)
 
 That phase consists in linking all the different units together.
+
+## Phase 4a
+
+The controllers should transmit their values to the server using a mailbox.
+
+The mailbox has `get` and `set` functions, the `set` functions are used by the controllers, the `get` functions are used by the server.
+
+The data transmitted to the mailbox (a message) has a unified format: a string of max __51 chars__ (`\0` includeded). Each message concatenates many information. In case the data is shorter than the available space, __spaces__ are used to pad. The controllers will write the data to the mailbox, the server will extract the data and handle it.
+
+### Messages types
+
+We define three message types:
+1. Message to identification the controller -> "Hello, I exist, my name is Blabla."
+2. Message to specify data type -> "I will send you temperatures."
+3. Message to transmit a measurement -> "The new temperature is 20°."
+
+### Type 1 - Identification - MSG1
+
+Number of chars for each part of the message:
+
+- type: 1c -> type of message, __has to be 1__
+- controller code: 4c -> controller ID
+- address: 45c -> localisation of the controller
+
+### Type 2 - Type of data - MSG2
+
+Number of chars for each part of the message:
+
+- type: 1c -> type of message, __has to be 2__
+- controller code: 4c -> controller ID
+- phenomenom code: 4c -> ID of the phenomenom type
+- phenomenom name: 20c -> name of the given phenomenom type, the name could be different for different languages
+
+### Type 1 - Measurement - MSG3
+
+Number of chars for each part of the message:
+
+- type: 1c -> type of message, __has to be 3__
+- controller code: 4c -> controller ID
+- phenomenom code: 4c -> ID of the phenomenom type
+- timestamp: 10c -> in seconds?
+- measurement: 10c -> float with max value +99999.999 (sign -> 1c, whole part -> 5c, point -> 1c, decimal part -> 3c)
+- address: 45c -> localisation of the controller
