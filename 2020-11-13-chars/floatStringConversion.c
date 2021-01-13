@@ -7,11 +7,13 @@
 #include <string.h>
 
 int main(void) {
+  // double to string
   double Double1 = 23235.6;
   char s1[11];
   sprintf(s1, "%5.3f", Double1);
   printf("valeur du string: %s\n", s1);
 
+  // string to double
   char s2[] = "12345.56";
   double Double2;
   sscanf(s2, "%lf", &Double2);

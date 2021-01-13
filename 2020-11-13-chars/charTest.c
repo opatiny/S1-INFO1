@@ -40,5 +40,7 @@ int main(void) {
 
   printf("%s \n", substring);
 
+  printf("size of string: %lu\n", sizeof("1234"));
+
   return EXIT_SUCCESS;
 }
