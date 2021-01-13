@@ -118,9 +118,6 @@ int Scheduler(void) {
         }
       }
     }
-    if (!(currentTIC % DATA_HANDLER_SAMPLING)) {
-      dataHandler();
-    }
     printDataLine(&outputData);
   }
 
