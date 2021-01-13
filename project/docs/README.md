@@ -106,7 +106,7 @@ The controllers should transmit their values to the server using a mailbox.
 
 The mailbox has `get` and `set` functions, the `set` functions are used by the controllers, the `get` functions are used by the server.
 
-The data transmitted to the mailbox (a message) has a unified format: a string of max __51 chars__ (`\0` includeded). Each message concatenates many information. In case the data is shorter than the available space, __spaces__ are used to pad. The controllers will write the data to the mailbox, the server will extract the data and handle it.
+The data transmitted to the mailbox (a message) has a unified format: a string of max __51 chars__ (`\0` included). Each message concatenates many informations. In case the data is shorter than the available space, __spaces__ are used to pad. The controllers will write the data to the mailbox, the server will extract the data and handle it.
 
 ### Messages types
 
@@ -119,26 +119,26 @@ We define three message types:
 
 Number of chars for each part of the message:
 
-- type: 1c -> type of message, __has to be 1__
-- controller code: 4c -> controller ID
-- address: 45c -> localisation of the controller
+- type (int): 1c -> type of message, __has to be 1__
+- controller code (int): 4c -> controller ID
+- address (char[]): 45c -> localisation of the controller
 
 ### Type 2 - Type of data - MSG2
 
 Number of chars for each part of the message:
 
-- type: 1c -> type of message, __has to be 2__
-- controller code: 4c -> controller ID
-- phenomenom code: 4c -> ID of the phenomenom type
-- phenomenom name: 20c -> name of the given phenomenom type, the name could be different for different languages
+- type (int): 1c -> type of message, __has to be 2__
+- controller code (int): 4c -> controller ID
+- phenomenom code (int): 4c -> ID of the phenomenom type
+- phenomenom name (char[]): 20c -> name of the given phenomenom type, the name could be different for different languages
 
-### Type 1 - Measurement - MSG3
+### Type 3 - Measurement - MSG3
 
 Number of chars for each part of the message:
 
 - type: 1c -> type of message, __has to be 3__
 - controller code: 4c -> controller ID
 - phenomenom code: 4c -> ID of the phenomenom type
-- timestamp: 10c -> in seconds?
-- measurement: 10c -> float with max value +99999.999 (sign -> 1c, whole part -> 5c, point -> 1c, decimal part -> 3c)
-- address: 45c -> localisation of the controller
+- timestamp (long long): 10c -> in seconds?
+- measurement (float): 10c -> float with max value +99999.999 (sign -> 1c, whole part -> 5c, point -> 1c, decimal part -> 3c)
+
