@@ -6,7 +6,32 @@
 
 #include "dataHandler.h"
 
+// DEFINES
+#define MSG_MAX_LENGTH 51
+#define BUFFER_SIZE 50
+
+// STRUCTURES
+typedef char MSG[MSG_MAX_LENGTH];
+
+// PROTOTYPES
+
+// STRUCTURES INITIALIZATION
+
+// FUNCTIONS
 int dataHandler(void) {
-  // printf("data handled\n");
+  MSG buffer[BUFFER_SIZE];
+  int writeIndex = 0;
+  int readIndex = 0;
+
+  return 0;
+}
+
+int write_MSG1(int controllerCode, char address[45]) {
+  MSG msg1 = "1";
+
+  return 0;
+}
+
+int read_MSG1(void) {
   return 0;
 }
