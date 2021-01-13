@@ -1,3 +1,5 @@
+#define TEST_ENVIRONMENT
+
 #include "../../lib/testcases.h"
 #include "../aquarium.h"
 

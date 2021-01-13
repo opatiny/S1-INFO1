@@ -22,8 +22,9 @@ int phControl(int index);
 double getTemperatureControlValue(int index);
 double getPhControlValue(int index);
 
-// PUBLIC ONLY FOR TESTING
+#ifdef TEST_ENVIRONMENT
 int temperatureControlModel(double roomTemperature, TEMPERATURE_CONTROLLER* tc);
 int phControlModel(double currentPH, PUMP* pump);
+#endif  // TEST_ENVIRONMENT
 
 #endif

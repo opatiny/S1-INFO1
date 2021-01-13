@@ -28,7 +28,7 @@ int updateWeatherTemperature(u_int32_t currentTimeOfDay, int index);
 double getWeatherLuminosity(int index);
 double getWeatherTemperature(int index);
 
-// PUBLIC ONLY FOR TESTING
+#ifdef TEST_ENVIRONMENT
 int luminosityModel(u_int32_t currentTimeOfDay, WEATHER_LUMINOSITY* luminosity);
 int setTwilightLuminosity(u_int32_t currentTimeOfDay,
                           WEATHER_LUMINOSITY* luminosity);
@@ -39,5 +39,6 @@ double noisySinusoid(double offset,
                      double time,
                      double phase,
                      double noiseFunction(double));
+#endif  // TEST_ENVIRONMENT
 
 #endif

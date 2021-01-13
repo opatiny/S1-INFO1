@@ -13,6 +13,9 @@ int roomTemperatureModel(double* currentTemperature,
                          double weatherImpact,
                          double controllerValue,
                          double controllerImpact);
+int roomLuminosityModel(double* currentLuminosity,
+                        double weatherLuminosity,
+                        double weatherImpact);
 
 // STRUCTURES INITIALIZATION
 // defining all parameters for rooms 1 and 2

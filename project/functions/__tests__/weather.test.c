@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define TEST_ENVIRONMENT
+
 #include "../../lib/testcases.h"
 #include "../weather.h"
 

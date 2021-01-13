@@ -29,7 +29,7 @@ double getRoomTemperature(int roomNumber);
 double getRoomLuminosity(int roomNumber);
 int setTemperatureControllerValue(int index, double value);
 
-// PUBLIC ONLY FOR TESTING
+#ifdef TEST_ENVIRONMENT
 int roomTemperatureModel(double* currentTemperature,
                          double weatherTemperature,
                          double weatherImpact,
@@ -39,5 +39,6 @@ int roomTemperatureModel(double* currentTemperature,
 int roomLuminosityModel(double* currentLuminosity,
                         double weatherLuminosity,
                         double weatherImpact);
+#endif  // TEST_ENVIRONMENT
 
 #endif

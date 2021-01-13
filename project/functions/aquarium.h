@@ -16,7 +16,8 @@ int updatePH(int index);
 int setPumpValue(int index, double value);
 double getPH(int index);
 
-// PUBLIC ONLY FOR TESTING
+#ifdef TEST_ENVIRONMENT
 int phModel(AQUARIUM* aquarium, double roomLuminosity);
+#endif  // TEST_ENVIRONMENT
 
 #endif
