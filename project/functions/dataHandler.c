@@ -19,6 +19,7 @@ typedef char MSG[MSG_MAX_LENGTH];
 
 // FUNCTIONS
 int dataHandler(void) {
+  // defining an array of messages
   MSG buffer[BUFFER_SIZE];
   int writeIndex = 0;
   int readIndex = 0;
@@ -35,3 +36,5 @@ int write_MSG1(int controllerCode, char address[45]) {
 int read_MSG1(void) {
   return 0;
 }
+
+int convertCode(int code, char codeString[4]) {}
