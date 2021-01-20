@@ -42,6 +42,10 @@ int dataHandler(void);
 
 #ifdef TEST_ENVIRONMENT
 int convert_to_MSG1(MSG message, int controllerCode, char address[45]);
+int convert_to_MSG2(MSG message,
+                    int controllerCode,
+                    int eventCode,
+                    char eventName[]);
 #endif  // TEST_ENVIRONMENT
 
 #endif

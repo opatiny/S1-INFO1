@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 #include "./functions/__tests__/controllers.test.h"
+#include "./functions/__tests__/dataHandler.test.h"
 #include "./functions/__tests__/rooms.test.h"
 #include "./functions/__tests__/weather.test.h"
 #include "./functions/__tests__/aquarium.test.h"
@@ -11,6 +12,12 @@ printf("%-40s %10s\n", "test_temperatureControlModel",
                          : "\033[0;32mPASSING\033[0m");
 printf("%-40s %10s\n", "test_phControlModel",
         test_phControlModel() ? "\033[0;31mFAILING\033[0m"
+                         : "\033[0;32mPASSING\033[0m");
+printf("%-40s %10s\n", "test_convert_to_MSG1",
+        test_convert_to_MSG1() ? "\033[0;31mFAILING\033[0m"
+                         : "\033[0;32mPASSING\033[0m");
+printf("%-40s %10s\n", "test_convert_to_MSG2",
+        test_convert_to_MSG2() ? "\033[0;31mFAILING\033[0m"
                          : "\033[0;32mPASSING\033[0m");
 printf("%-40s %10s\n", "test_roomTemperatureModel",
         test_roomTemperatureModel() ? "\033[0;31mFAILING\033[0m"
