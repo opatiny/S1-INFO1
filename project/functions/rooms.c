@@ -34,6 +34,14 @@ ROOM rooms[2] = {{.temperature = {.current = 15,
 
 // FUNCTIONS
 // in our case, "index" can be 0 or 1
+
+/* updateRoomTemperature(): update temperature of a given room
+  PARAMETERS:
+    -  index (int): index of the room in rooms array
+  RETURNS:
+    - int (possible error message)
+  Author: Océane Patiny
+ */
 int updateRoomTemperature(int index) {
   double weatherTemperature = getWeatherTemperature(0);  // in °C
 
@@ -45,6 +53,13 @@ int updateRoomTemperature(int index) {
   return 0;
 }
 
+/* updateRoomLuminosity(): update luminosity of a given room
+  PARAMETERS:
+    -  index (int): index of the room in rooms array
+  RETURNS:
+    - int (possible error message)
+  Author: Océane Patiny
+ */
 int updateRoomLuminosity(int index) {
   double weatherLuminosity = getWeatherLuminosity(index);
 

@@ -20,12 +20,28 @@ AQUARIUM aquariums[2] = {{
 }};
 
 // FUNCTIONS
+
+/* updatePH(): update PH of given aquarium
+  PARAMETERS:
+    - index (int): index of the aquarium struct to modify in "aquariums"
+  RETURNS:
+    - (int): possible error message
+  Author: Océane Patiny
+ */
 int updatePH(int index) {
   double roomLuminosity = getRoomLuminosity(index);
   phModel(&aquariums[index], roomLuminosity);
   return 0;
 }
 
+/* phModel(): sets current PH of an aquarium struct instance depending on the
+  room luminosity PARAMETERS:
+    - aquarium (AQUARIUM*): pointer on aquarium struct instance
+    - roomLuminosity (double): luminosity of the room where the aquarium is
+  RETURNS:
+    - (int): possible error message
+  Author: Océane Patiny
+ */
 int phModel(AQUARIUM* aquarium, double roomLuminosity) {
   aquarium->currentPH = aquarium->currentPH +
                         aquarium->luminosityImpact *

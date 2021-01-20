@@ -39,14 +39,11 @@ double noisySinusoid(double offset,
 // PUBLIC FUNCTIONS
 
 /* updateWeatherLuminosity(): updates current weather luminosity
-
   PARAMETERS:
     -  currentTime (int): current time in [s]
     -  index (int): index of the weather struct to modify in "weathers"
-
   RETURNS:
     - (int): possible error message
-
   Author: Océane Patiny
  */
 int updateWeatherLuminosity(u_int32_t currentTimeOfDay, int index) {
@@ -55,14 +52,11 @@ int updateWeatherLuminosity(u_int32_t currentTimeOfDay, int index) {
 }
 
 /* updateWeatherTemperature(): updates current weather temperature
-
   PARAMETERS:
     -  currentTime (int): current time in [s]
     -  index (int): index of the weather struct to modify in "weathers"
-
   RETURNS:
     - (int): possible error message
-
   Author: Océane Patiny
  */
 int updateWeatherTemperature(u_int32_t currentTimeOfDay, int index) {
@@ -87,7 +81,15 @@ double getWeatherTemperature(int index) {
 }
 
 // PRIVATE FUNCTIONS
-
+/* luminosityModel(): set luminosity.current variable of luminosity struct
+                      instance
+  PARAMETERS:
+    -  currentTimeOfDay (u_int32_t): current time of day in seconds
+    - luminosity (WEATHER_LUMINOSITY*): pointer on luminosity struct instance
+  RETURNS:
+    - int (possible error message)
+  Author: Océane Patiny
+ */
 int luminosityModel(u_int32_t currentTimeOfDay,
                     WEATHER_LUMINOSITY* luminosity) {
   if (currentTimeOfDay < luminosity->intervals[0]) {
@@ -110,7 +112,7 @@ int luminosityModel(u_int32_t currentTimeOfDay,
 }
 
 /* setTwilightLuminosity(): sets current luminostity for sunset and sunrise
-  times of day
+                            times of day
   PARAMETERS:
     -  currentTimeOfDay (u_int32_t): current time of day in [s]
     -  luminosity (LUMINOSITY*): pointer on luminosity struct
@@ -167,7 +169,6 @@ double line(double x, double slope, double offset) {
 
 /* noisySinusoid(): returns the value of a noisy sinusoidal signal at a given
   time
-
   PARAMETERS:
     -  offset (double): constant value added to the sinusoid
     -  amplitude (double): amplitude of the signal
@@ -175,11 +176,9 @@ double line(double x, double slope, double offset) {
     -  time (double): time in [s]
         -  phase (double): phase in [°]
     -  controllerImpact (*)(double): pointer on function that generates noise
-  based on amplitude
-
+       based on amplitude
   RETURNS:
     - (double)
-
   Author: Océane Patiny
  */
 double noisySinusoid(double offset,
@@ -202,15 +201,12 @@ double randomTenPercentNoise(double amplitude) {
 
 /* gaussianNoise(): returns a value to which is added a gaussian noise
   computed using Box-Muller method (1SD)
-
   PARAMETERS:
     -  mu (double): value to which the noise will be added (peak of the Bell
-  curve)
+       curve)
     -  sigma (double): one standard deviation for mu
-
   RETURNS:
     - (double)
-
   Author: Océane Patiny
  */
 double gaussianNoise(double mu, double sigma) {

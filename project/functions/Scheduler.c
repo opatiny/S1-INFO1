@@ -41,6 +41,14 @@ USER_OPTIONS options = {.nbTics = 24,
 DATA outputData;
 
 // FUNCTIONS
+
+/* Scheduler(): project main function handling all threads
+  PARAMETERS:
+    -  void
+  RETURNS:
+    - int (possible error message)
+  Author: Océane Patiny
+ */
 int Scheduler(void) {
   // setting options for output data
   outputData.showControlValues = options.showControlValues;

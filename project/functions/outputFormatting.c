@@ -5,6 +5,17 @@
 
 #include "outputFormatting.h"
 
+/* printHeader(): prints the header for the output data in the console (names of
+  all the columns)
+
+  PARAMETERS:
+    -  data (DATA*): instance of data struct containing all variables values for
+  current TIC and output formatting options
+
+  RETURNS:
+    - void
+  Author: Océane Patiny
+ */
 void printHeader(DATA* data) {
   printf(BOLDWHITE "%5s %15s %15s", "TIC", "weather temp.", "weather lum.");
 
@@ -37,6 +48,17 @@ void printHeader(DATA* data) {
   printf("\n" RESET);
 }
 
+/* printDataLine(): print current variables values to console
+  columns)
+
+  PARAMETERS:
+    -  data (DATA*): instance of data struct containing all variables values for
+  current TIC and output formatting options
+
+  RETURNS:
+    - void
+  Author: Océane Patiny
+ */
 void printDataLine(DATA* data) {
   printf("%5i %15.2lf %15.2lf", data->TIC, data->weatherTemperature,
          data->weatherLuminosity);
