@@ -13,4 +13,5 @@ int shouldBeEqual_s(int* nbCasesFailing, char value[], char expected[]);
 int shouldBeGreaterThan_d(int* nbCasesFailing, double value, double expected);
 int shouldBeSmallerThan_d(int* nbCasesFailing, double value, double expected);
 
+int checkTest(int nbCasesFailing);
 #endif  // !TESTS_LIB
