@@ -28,8 +28,8 @@ int shouldBeEqual_d(int* nbCasesFailing,
 
 int shouldBeEqual_s(int* nbCasesFailing, char value[], char expected[]) {
   if (strcmp(value, expected)) {
-    printf("%10s%50s\n", "expected:", expected);
     printf("%10s%50s\n", "got:", value);
+    printf("%10s%50s\n", "expected:", expected);
     (*nbCasesFailing)++;
 
     return 1;

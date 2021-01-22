@@ -21,6 +21,9 @@ printf("%-40s %10s\n", "test_convert_to_MSG3",
 printf("%-40s %10s\n", "test_parse_MSG1",
         test_parse_MSG1() ? "\033[0;31mFAILING\033[0m"
                          : "\033[0;32mPASSING\033[0m");
+printf("%-40s %10s\n", "test_parse_MSG2",
+        test_parse_MSG2() ? "\033[0;31mFAILING\033[0m"
+                         : "\033[0;32mPASSING\033[0m");
 printf("%-40s %10s\n", "test_temperatureControlModel",
         test_temperatureControlModel() ? "\033[0;31mFAILING\033[0m"
                          : "\033[0;32mPASSING\033[0m");
