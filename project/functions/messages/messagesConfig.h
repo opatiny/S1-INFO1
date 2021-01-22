@@ -34,7 +34,7 @@ typedef struct msg3 {
   int controllerCode;
   int eventCode;
   u_int64_t timestamp;
-  float measurement;
+  double measurement;
 } MSG3;
 
 #endif  // MSG_CONFIG_H

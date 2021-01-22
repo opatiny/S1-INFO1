@@ -30,7 +30,7 @@ int parse_MSG2(MSG stringMessage, MSG2* parsedMessage) {
 }
 
 int parse_MSG3(MSG stringMessage, MSG3* parsedMessage) {
-  sscanf(stringMessage, "%1i%4i%4i%10lu%10f", &(parsedMessage->type),
+  sscanf(stringMessage, "%1i%4i%4i%10lu%10lf", &(parsedMessage->type),
          &(parsedMessage->controllerCode), &(parsedMessage->eventCode),
          &(parsedMessage->timestamp), &(parsedMessage->measurement));
 
