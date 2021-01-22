@@ -39,13 +39,6 @@ int write_MSG1(int controllerCode, char address[]) {
   return 0;
 }
 
-int parse_MSG1(MSG1* message) {
-  sscanf(buffer[readIndex], "%i%i%s", &(message->type),
-         &(message->controllerCode), message->address);
-
-  return 0;
-}
-
 int read_buffer_MSG(MSG message) {
   strcpy(message, buffer[readIndex]);
   stpcpy(buffer[readIndex], "");  // erasing message that was read to avoid

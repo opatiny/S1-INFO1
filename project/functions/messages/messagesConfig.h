@@ -9,7 +9,7 @@
 #define BUFFER_SIZE 50
 #define CODE_MAX_VALUE 9999
 #define MAX_ADDRESS_LENGTH 46
-#define MAX_PHENOMENOM_NAME_LENGTH 21
+#define MAX_EVENT_NAME_LENGTH 21
 #define MAX_TIMESTAMP_VALUE 999999999
 #define MAX_MEASUREMENT_ABS_VALUE 99999.999
 
@@ -25,14 +25,14 @@ typedef struct msg1 {
 typedef struct msg2 {
   int type;
   int controllerCode;
-  int phenomenomCode;
-  char phenomenomName[MAX_PHENOMENOM_NAME_LENGTH];
+  int eventCode;
+  char eventName[MAX_EVENT_NAME_LENGTH];
 } MSG2;
 
 typedef struct msg3 {
   int type;
   int controllerCode;
-  int phenomenomCode;
+  int eventCode;
   u_int64_t timestamp;
   float measurement;
 } MSG3;
