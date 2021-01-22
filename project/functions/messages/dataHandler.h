@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "messages/messagesConfig.h"
+#include "messagesConfig.h"
 
 // PUBLIC FUNCTIONS
 
