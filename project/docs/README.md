@@ -104,7 +104,7 @@ That phase consists in linking all the different units together.
 
 The controllers should transmit their values to the server using a mailbox.
 
-The mailbox has `get` and `set` functions, the `set` functions are used by the controllers, the `get` functions are used by the server.
+The mailbox has `write` and `read` functions, the `write` functions are used by the controllers, the `read` functions are used by the server.
 
 The data transmitted to the mailbox (a message) has a unified format: a string of max __51 chars__ (`\0` included). Each message concatenates many informations. In case the data is shorter than the available space, __spaces__ are used to pad. The controllers will write the data to the mailbox, the server will extract the data and handle it.
 
@@ -129,8 +129,8 @@ Number of chars for each part of the message:
 
 - type (int): 1c -> type of message, __has to be 2__
 - controller code (int): 4c -> controller ID
-- phenomenom code (int): 4c -> ID of the phenomenom type
-- phenomenom name (char[]): 20c -> name of the given phenomenom type, the name could be different for different languages
+- event code (int): 4c -> ID of the event type
+- event name (char[]): 20c -> name of the given event type, the name could be different for different languages
 
 ### Type 3 - Measurement - MSG3
 
@@ -138,7 +138,10 @@ Number of chars for each part of the message:
 
 - type: 1c -> type of message, __has to be 3__
 - controller code: 4c -> controller ID
-- phenomenom code: 4c -> ID of the phenomenom type
+- event code: 4c -> ID of the event type
 - timestamp (long long): 10c -> in seconds?
 - measurement (float): 10c -> float with max value +99999.999 (sign -> 1c, whole part -> 5c, point -> 1c, decimal part -> 3c)
 
+### The server
+
+The server reads the data from the `dataHandler`, parses it and stores it in external files in the `project/logs` folder.

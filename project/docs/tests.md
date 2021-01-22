@@ -48,7 +48,7 @@ In this example, `shouldBeGreaterThan_d()`, `shouldBeEqual_d()`, `TEST_FAILING` 
 
 ### The `.test.h` file
 
-The `.test.h` file must contain the prototypes of all the test funcitons defined in the corresponding `.test.c` file.
+The `.test.h` file must contain the prototypes of all the test functions defined in the corresponding `.test.c` file.
 
 __Example__
 This would the the `.test.h` file of the previous example. It would be called `controllers.test.h`.
