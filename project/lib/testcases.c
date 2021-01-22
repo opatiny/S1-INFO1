@@ -1,6 +1,4 @@
 #include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 
 #include "testcases.h"
@@ -8,6 +6,15 @@
 int shouldBeEqual_i(int* nbCasesFailing, int value, int expected) {
   if (value != expected) {
     printf("    got: %i, expected: %i \n", value, expected);
+    (*nbCasesFailing)++;
+    return 1;
+  }
+  return 0;
+}
+
+int shouldBeEqual_lu(int* nbCasesFailing, u_int64_t value, u_int64_t expected) {
+  if (value != expected) {
+    printf("    got: %lu, expected: %lu \n", value, expected);
     (*nbCasesFailing)++;
     return 1;
   }
