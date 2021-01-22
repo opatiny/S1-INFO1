@@ -29,11 +29,7 @@ int test_roomTemperatureModel(void) {
   shouldBeGreaterThan_d(&NB_CASES_FAILING, currentTemperature,
                         initialTemperature);
 
-  if (NB_CASES_FAILING) {
-    return TEST_FAILING;
-  }
-
-  return TEST_PASSING;
+  return checkTest(NB_CASES_FAILING);
 }
 
 int test_roomLuminosityModel(void) {
@@ -46,9 +42,5 @@ int test_roomLuminosityModel(void) {
   roomLuminosityModel(&currentLuminosity, 100000, 0.5);
   shouldBeEqual_d(&NB_CASES_FAILING, currentLuminosity, 50000, 0);
 
-  if (NB_CASES_FAILING) {
-    return TEST_FAILING;
-  }
-
-  return TEST_PASSING;
+  return checkTest(NB_CASES_FAILING);
 }

@@ -73,11 +73,7 @@ int test_luminosityModel(void) {
   luminosityModel(16 * 3600, &test);
   shouldBeEqual_d(&NB_CASES_FAILING, test.current, 8, 0);
 
-  if (NB_CASES_FAILING) {
-    return TEST_FAILING;
-  } else {
-    return TEST_PASSING;
-  }
+  return checkTest(NB_CASES_FAILING);
 }
 
 int test_setTwilightLuminosity(void) {
@@ -104,11 +100,7 @@ int test_setTwilightLuminosity(void) {
   result = setTwilightLuminosity(12 * 3600, &test);
   shouldBeEqual_i(&NB_CASES_FAILING, result, 1);
 
-  if (NB_CASES_FAILING) {
-    return TEST_FAILING;
-  } else {
-    return TEST_PASSING;
-  }
+  return checkTest(NB_CASES_FAILING);
 }
 
 int test_line(void) {

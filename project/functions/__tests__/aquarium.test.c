@@ -34,9 +34,5 @@ int test_phModel(void) {
   phModel(&aquarium3, 20000);
   shouldBeGreaterThan_d(&NB_CASES_FAILING, aquarium3.currentPH, 7);
 
-  if (NB_CASES_FAILING) {
-    return TEST_FAILING;
-  }
-
-  return TEST_PASSING;
+  return checkTest(NB_CASES_FAILING);
 }

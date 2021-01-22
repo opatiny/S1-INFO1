@@ -19,11 +19,7 @@ int test_temperatureControlModel(void) {
   temperatureControlModel(25, &tc);
   shouldBeSmallerThan_d(&NB_CASES_FAILING, tc.currentValue, 0);
 
-  if (NB_CASES_FAILING) {
-    return TEST_FAILING;
-  }
-
-  return TEST_PASSING;
+  return checkTest(NB_CASES_FAILING);
 }
 
 int test_phControlModel(void) {
@@ -37,8 +33,5 @@ int test_phControlModel(void) {
   phControlModel(8, &pump1);
   shouldBeEqual_d(&NB_CASES_FAILING, pump1.currentValue, 0.0, 0.0);
 
-  if (NB_CASES_FAILING) {
-    return TEST_FAILING;
-  }
-  return TEST_PASSING;
+  return checkTest(NB_CASES_FAILING);
 }
