@@ -14,10 +14,10 @@ int shouldBeEqual_i(int* nbCasesFailing, int value, int expected) {
   return 0;
 }
 
-int shouldBeEqual_d(int* nbCasesFailing,
-                    double value,
-                    double expected,
-                    double maxError) {
+int shouldBeEqual_lf(int* nbCasesFailing,
+                     double value,
+                     double expected,
+                     double maxError) {
   if (abs(value - expected) > maxError) {
     printf("    got: %lf, expected: %lf \n", value, expected);
     (*nbCasesFailing)++;

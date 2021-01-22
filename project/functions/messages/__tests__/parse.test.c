@@ -38,3 +38,20 @@ int test_parse_MSG2(void) {
 
   return checkTest(NB_CASES_FAILING);
 }
+
+int test_parse_MSG3(void) {
+  int NB_CASES_FAILING = 0;
+
+  MSG3 result;
+
+  char message[] = "36543   21234567890    -5.700";
+
+  parse_MSG2(message, &result);
+
+  shouldBeEqual_i(&NB_CASES_FAILING, result.type, 3);
+  shouldBeEqual_i(&NB_CASES_FAILING, result.controllerCode, 3244);
+  shouldBeEqual_i(&NB_CASES_FAILING, result.eventCode, 2);
+  shouldBeEqual_lu(&NB_CASES_FAILING, result.timestamp, 1234567890);
+
+  return checkTest(NB_CASES_FAILING);
+}

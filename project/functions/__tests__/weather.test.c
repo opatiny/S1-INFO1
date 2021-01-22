@@ -62,16 +62,16 @@ int test_luminosityModel(void) {
       .intervals = {5 * 3600, 10 * 3600, 15 * 3600, 20 * 3600}};
 
   luminosityModel(0 * 3600, &test);
-  shouldBeEqual_d(&NB_CASES_FAILING, test.current, 0, 0);
+  shouldBeEqual_lf(&NB_CASES_FAILING, test.current, 0, 0);
 
   luminosityModel(6 * 3600, &test);
-  shouldBeEqual_d(&NB_CASES_FAILING, test.current, 2, 0);
+  shouldBeEqual_lf(&NB_CASES_FAILING, test.current, 2, 0);
 
   luminosityModel(12 * 3600, &test);
-  shouldBeEqual_d(&NB_CASES_FAILING, test.current, 10, 0);
+  shouldBeEqual_lf(&NB_CASES_FAILING, test.current, 10, 0);
 
   luminosityModel(16 * 3600, &test);
-  shouldBeEqual_d(&NB_CASES_FAILING, test.current, 8, 0);
+  shouldBeEqual_lf(&NB_CASES_FAILING, test.current, 8, 0);
 
   return checkTest(NB_CASES_FAILING);
 }
@@ -90,12 +90,12 @@ int test_setTwilightLuminosity(void) {
   double slopeDecreasing = -10.0 / (5 * 3600);
 
   setTwilightLuminosity(7 * 3600, &test);
-  shouldBeEqual_d(&NB_CASES_FAILING, test.current, 2 * 3600 * slopeIncreasing,
-                  0);
+  shouldBeEqual_lf(&NB_CASES_FAILING, test.current, 2 * 3600 * slopeIncreasing,
+                   0);
 
   setTwilightLuminosity(17 * 3600, &test);
-  shouldBeEqual_d(&NB_CASES_FAILING, test.current,
-                  10 - 2 * 3600 * slopeIncreasing, 0);
+  shouldBeEqual_lf(&NB_CASES_FAILING, test.current,
+                   10 - 2 * 3600 * slopeIncreasing, 0);
 
   result = setTwilightLuminosity(12 * 3600, &test);
   shouldBeEqual_i(&NB_CASES_FAILING, result, 1);

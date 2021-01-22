@@ -35,7 +35,7 @@ int test_phControlModel(void) {
   shouldBeGreaterThan_d(&NB_CASES_FAILING, pump1.currentValue, 0.0);
 
   phControlModel(8, &pump1);
-  shouldBeEqual_d(&NB_CASES_FAILING, pump1.currentValue, 0.0, 0.0);
+  shouldBeEqual_lf(&NB_CASES_FAILING, pump1.currentValue, 0.0, 0.0);
 
   if (NB_CASES_FAILING) {
     return TEST_FAILING;
@@ -44,7 +44,7 @@ int test_phControlModel(void) {
 }
 ```
 
-In this example, `shouldBeGreaterThan_d()`, `shouldBeEqual_d()`, `TEST_FAILING` and `TEST_PASSING` come from the `testcases` library.
+In this example, `shouldBeGreaterThan_d()`, `shouldBeEqual_lf()`, `TEST_FAILING` and `TEST_PASSING` come from the `testcases` library.
 
 ### The `.test.h` file
 

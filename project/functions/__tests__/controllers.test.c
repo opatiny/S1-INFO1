@@ -11,7 +11,7 @@ int test_temperatureControlModel(void) {
                                .factor = 1};
 
   temperatureControlModel(15, &tc);
-  shouldBeEqual_d(&NB_CASES_FAILING, tc.currentValue, 0, 0);
+  shouldBeEqual_lf(&NB_CASES_FAILING, tc.currentValue, 0, 0);
 
   temperatureControlModel(5, &tc);
   shouldBeGreaterThan_d(&NB_CASES_FAILING, tc.currentValue, 0);
@@ -31,7 +31,7 @@ int test_phControlModel(void) {
   shouldBeGreaterThan_d(&NB_CASES_FAILING, pump1.currentValue, 0.0);
 
   phControlModel(8, &pump1);
-  shouldBeEqual_d(&NB_CASES_FAILING, pump1.currentValue, 0.0, 0.0);
+  shouldBeEqual_lf(&NB_CASES_FAILING, pump1.currentValue, 0.0, 0.0);
 
   return checkTest(NB_CASES_FAILING);
 }
