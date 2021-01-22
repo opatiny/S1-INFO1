@@ -27,12 +27,12 @@ int test_parse_MSG2(void) {
 
   MSG2 result;
 
-  char message[] = "232445567    room temperature";
+  char message[] = "2 2445567    room temperature";
 
   parse_MSG2(message, &result);
 
   shouldBeEqual_i(&NB_CASES_FAILING, result.type, 2);
-  shouldBeEqual_i(&NB_CASES_FAILING, result.controllerCode, 3244);
+  shouldBeEqual_i(&NB_CASES_FAILING, result.controllerCode, 244);
   shouldBeEqual_i(&NB_CASES_FAILING, result.eventCode, 5567);
   shouldBeEqual_s(&NB_CASES_FAILING, result.eventName, "room temperature");
 
@@ -46,12 +46,12 @@ int test_parse_MSG3(void) {
 
   char message[] = "36543   21234567890    -5.700";
 
-  parse_MSG2(message, &result);
+  parse_MSG3(message, &result);
 
   shouldBeEqual_i(&NB_CASES_FAILING, result.type, 3);
-  shouldBeEqual_i(&NB_CASES_FAILING, result.controllerCode, 3244);
+  shouldBeEqual_i(&NB_CASES_FAILING, result.controllerCode, 6543);
   shouldBeEqual_i(&NB_CASES_FAILING, result.eventCode, 2);
   shouldBeEqual_lu(&NB_CASES_FAILING, result.timestamp, 1234567890);
-
+  shouldBeEqual_lf(&NB_CASES_FAILING, result.measurement, -5.6, 0);
   return checkTest(NB_CASES_FAILING);
 }
