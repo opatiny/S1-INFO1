@@ -91,7 +91,7 @@ int convert_to_MSG3(MSG message,
     return 1;  // timestamp is too large
   }
 
-  sprintf(message, "%s%4i%4i%10lui%5.3lf", "3", controllerCode, eventCode,
+  sprintf(message, "%s%4i%4i%10lu%10.3lf", "3", controllerCode, eventCode,
           timestamp, measurement);
 
   return 0;

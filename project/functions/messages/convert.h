@@ -13,6 +13,11 @@ int convert_to_MSG2(MSG message,
                     int controllerCode,
                     int eventCode,
                     char eventName[]);
+int convert_to_MSG3(MSG message,
+                    int controllerCode,
+                    int eventCode,
+                    u_int64_t timestamp,
+                    double measurement);
 
 #ifdef TEST_ENVIRONMENT
 #endif  // TEST_ENVIRONMENT

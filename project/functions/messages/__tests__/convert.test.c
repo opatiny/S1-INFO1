@@ -14,7 +14,7 @@ int test_convert_to_MSG1(void) {
 
   if (strcmp(message, expected)) {
     printf("%10s%50s\n", "expected:", expected);
-    printf("%10s%50s\n", "got: ", message);
+    printf("%10s%50s\n", "got:", message);
 
     return 1;
   }
@@ -30,7 +30,23 @@ int test_convert_to_MSG2(void) {
 
   if (strcmp(message, expected)) {
     printf("%10s%50s\n", "expected:", expected);
-    printf("%10s%50s\n", "got: ", message);
+    printf("%10s%50s\n", "got:", message);
+
+    return 1;
+  }
+  return 0;
+}
+
+int test_convert_to_MSG3(void) {
+  MSG message;
+
+  convert_to_MSG3(message, 543, 2, 12345, -5.7);
+
+  char expected[] = "3 543   2     12345    -5.700";
+
+  if (strcmp(message, expected)) {
+    printf("%10s%50s\n", "expected:", expected);
+    printf("%10s%50s\n", "got:", message);
 
     return 1;
   }
