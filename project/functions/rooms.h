@@ -41,4 +41,4 @@ int roomLuminosityModel(double* currentLuminosity,
                         double weatherImpact);
 #endif  // TEST_ENVIRONMENT
 
-#endif
+#endif  // ROOMS_H

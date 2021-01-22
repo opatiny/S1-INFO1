@@ -4,8 +4,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "dataHandler.h"
 #include "convert.h"
+#include "dataHandler.h"
 
 // DEFINES
 
@@ -39,7 +39,7 @@ int write_MSG1(int controllerCode, char address[]) {
   return 0;
 }
 
-int read_MSG1(MSG1* message) {
+int parse_MSG1(MSG1* message) {
   sscanf(buffer[readIndex], "%i%i%s", &(message->type),
          &(message->controllerCode), message->address);
 
@@ -48,6 +48,8 @@ int read_MSG1(MSG1* message) {
 
 int read_buffer_MSG(MSG message) {
   strcpy(message, buffer[readIndex]);
+  stpcpy(buffer[readIndex], "");  // erasing message that was read to avoid
+                                  // looping over and reading it twice
   incrementReadIndex();
   return 0;
 }

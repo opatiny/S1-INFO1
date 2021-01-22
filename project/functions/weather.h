@@ -41,4 +41,4 @@ double noisySinusoid(double offset,
                      double noiseFunction(double));
 #endif  // TEST_ENVIRONMENT
 
-#endif
+#endif // WEATHER_H

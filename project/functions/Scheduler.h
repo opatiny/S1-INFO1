@@ -3,9 +3,9 @@
 
 // STRUCTURES
 typedef struct user_options {
-  const int nbTics;     // defines the simulation length
-  const int ticLength;  // in seconds -> accuracy of the simulation
-  const int weather;    // can be LAUSANNE_SUMMER or LAUSANNE_WINTER
+  const int nbTics;             // defines the simulation length
+  const int ticLength;          // in seconds -> accuracy of the simulation
+  const int weather;            // can be LAUSANNE_SUMMER or LAUSANNE_WINTER
   const int showControlValues;  // 0 or 1
 
 } USER_OPTIONS;
@@ -13,4 +13,4 @@ typedef struct user_options {
 // PUBLIC FUNCTIONS
 int Scheduler(void);
 
-#endif
+#endif  // SCHEDULER_H

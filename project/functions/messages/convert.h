@@ -22,4 +22,4 @@ int convert_to_MSG3(MSG message,
 #ifdef TEST_ENVIRONMENT
 #endif  // TEST_ENVIRONMENT
 
-#endif  // CONVERT
+#endif  // CONVERT_H

@@ -20,4 +20,4 @@ double getPH(int index);
 int phModel(AQUARIUM* aquarium, double roomLuminosity);
 #endif  // TEST_ENVIRONMENT
 
-#endif
+#endif  // AQUARIUM_H
