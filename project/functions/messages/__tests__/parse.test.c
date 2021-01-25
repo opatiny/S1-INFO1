@@ -70,6 +70,6 @@ int test_parse_MSG3(void) {
   shouldBeEqual_i(&NB_CASES_FAILING, result.controllerCode, 6543);
   shouldBeEqual_i(&NB_CASES_FAILING, result.eventCode, 2);
   shouldBeEqual_lu(&NB_CASES_FAILING, result.timestamp, 1234567890);
-  shouldBeEqual_lf(&NB_CASES_FAILING, result.measurement, -5.6, 0);
+  shouldBeEqual_lf(&NB_CASES_FAILING, result.measurement, -5.7, 0);
   return checkTest(NB_CASES_FAILING);
 }
