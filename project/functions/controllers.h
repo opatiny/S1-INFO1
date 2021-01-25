@@ -1,11 +1,14 @@
 #ifndef CONTROLLERS_H
 #define CONTROLLERS_H
 
+#include <stdbool.h>
+
 // STRUCTURES
 typedef struct pump {
   double currentValue;  // in ??
   double phThreshold;   // PH from 0 to 14
   double factor;        // no dimension
+  int identifier;       // unique identifier of the controller
 } PUMP;
 
 typedef struct temperature_controller {
@@ -13,6 +16,8 @@ typedef struct temperature_controller {
   double minTemperatureThreshold;  // in °C
   double maxTemperatureThreshold;  // in °C
   double factor;                   // no dimension
+  int identifier;                  // unique identifier of the controller
+
 } TEMPERATURE_CONTROLLER;
 
 // PUBLIC FUNCTIONS
