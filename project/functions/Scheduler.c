@@ -9,6 +9,7 @@
 #include "controllers.h"
 #include "outputFormatting.h"
 #include "rooms.h"
+#include "server.h"
 #include "weather.h"
 
 // DEFINES
@@ -22,7 +23,7 @@
 #define TEMPERATURE_CONTROL_SAMPLING 1
 #define LIGHT_CONTROL_SAMPLING 1
 #define PH_CONTROL_SAMPLING 1
-#define DATA_HANDLER_SAMPLING 1
+#define SERVER_SAMPLING 1
 
 // indexes in weather structures array
 #define LAUSANNE_SUMMER 0
@@ -37,6 +38,7 @@
 USER_OPTIONS options = {.nbTics = 24,
                         .ticLength = 60 * 60,  //  in seconds
                         .weather = LAUSANNE_WINTER,
+                        .showOutputData = 0,
                         .showControlValues = 1};
 DATA outputData;
 
@@ -50,17 +52,23 @@ DATA outputData;
   Author: Océane Patiny
  */
 int Scheduler(void) {
+  // INITALIZATION AND CONFIGURATION
   // setting options for output data
   outputData.showControlValues = options.showControlValues;
   outputData.exportData = 0;
-
+  // set the weather struct to use in rooms
   setRoomsWeatherIndex(options.weather);
+  // initialize server
+  initializeServer();
 
-  printf("Welcome to this basic domotics simulator.\n\n");
+  // PROGRAM
+  if (options.showOutputData) {
+    printf("Welcome to this basic domotics simulator.\n\n");
 
-  printf("The TIC length is %i seconds.\n\n", options.ticLength);
+    printf("The TIC length is %i seconds.\n\n", options.ticLength);
 
-  printHeader(&outputData);
+    printHeader(&outputData);
+  }
 
   for (int currentTIC = 1; currentTIC < options.nbTics + 1; currentTIC++) {
     outputData.TIC = currentTIC;
@@ -128,7 +136,11 @@ int Scheduler(void) {
         }
       }
     }
-    printDataLine(&outputData);
+    if (!(currentTIC % SERVER_SAMPLING)) {
+    }
+    if (options.showOutputData) {
+      printDataLine(&outputData);
+    }
   }
 
   return 0;

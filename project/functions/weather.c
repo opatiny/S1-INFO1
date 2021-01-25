@@ -7,7 +7,7 @@
 #include "weather.h"
 
 // data for Lausanne
-WEATHER weathers[2] = {
+WEATHER weathers[] = {
     {
         .temperature = {.offset = 23, .amplitude = 5, .phase = -150},  // summer
         .luminosity = {.max = 100000,  // bright sunlight

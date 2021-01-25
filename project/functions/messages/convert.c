@@ -72,8 +72,7 @@ int convert_to_MSG2(MSG message,
     - controllerCode (int): code of the controller
     - eventCode (int): code of the event
     - timestamp (u_int_64): timestamp  in seconds(since beginning of simulation)
-    - measurement (char[]): value of the measurement in special float format
-  (text)
+    - measurement (double): value of the measurement in special float format
   RETURNS:
     - (int): possible error message
   Author: Océane Patiny

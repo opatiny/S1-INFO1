@@ -4,6 +4,7 @@
 // STRUCTURES
 
 // PUBLIC FUNCTIONS
+int initializeServer(void);
 
 #ifdef TEST_ENVIRONMENT
 #endif  // TEST_ENVIRONMENT
