@@ -1,6 +1,8 @@
 #ifndef OUTPUT_FORMATTING_H
 #define OUTPUT_FORMATTING_H
 
+#include <stdbool.h>
+
 // DEFINES
 #define NB_ROOMS_OUTPUT 2
 #define NB_AQUARIUMS_OUTPUT 1
@@ -17,8 +19,8 @@ typedef struct data {
   double luminosityControllers[NB_ROOMS_OUTPUT];
   double phControllers[NB_AQUARIUMS_OUTPUT];
   // options
-  int showControlValues;  // 0 or 1
-  int exportData;         // 0 or 1
+  bool showControlValues;  // 0 or 1
+  bool exportData;         // 0 or 1
 } DATA;
 
 // PUBLIC FUNCTIONS

@@ -62,5 +62,3 @@ int parse_MSG3(MSG stringMessage, MSG3* parsedMessage) {
 
   return 0;
 }
-
-int removeSpaces(char* text) {}
