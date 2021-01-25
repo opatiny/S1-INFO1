@@ -5,8 +5,8 @@
 #include <stdlib.h>
 
 // DEFINES
-#define MSG_MAX_LENGTH 51
 #define BUFFER_SIZE 50
+#define MSG_MAX_LENGTH 51
 #define CODE_MAX_VALUE 9999
 #define MAX_ADDRESS_LENGTH 46
 #define MAX_EVENT_NAME_LENGTH 21

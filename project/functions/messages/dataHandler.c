@@ -39,6 +39,49 @@ int write_MSG1(int controllerCode, char address[]) {
   return 0;
 }
 
+/* write_MSG2(): write an MSG2 message to the data handler
+  PARAMETERS:
+    - controllerCode (int): code of the controller
+    - eventCode (int): code of the event
+    - eventName (char[]): the name of the event (text)
+  RETURNS:
+    - (int): possible error message
+  Author: Océane Patiny
+ */
+int write_MSG2(int controllerCode, int eventCode, char eventName[]) {
+  MSG msg2 = "";
+
+  convert_to_MSG2(msg2, controllerCode, eventCode, eventName);
+  stpcpy(buffer[writeIndex], msg2);
+  incrementWriteIndex();
+
+  return 0;
+}
+
+/* write_MSG3(): write an MSG3 message to the data handler
+  PARAMETERS:
+    - controllerCode (int): code of the controller
+    - eventCode (int): code of the event
+        - timestamp (u_int_64): timestamp  in seconds(since beginning of
+          simulation)
+    - measurement (double): value of the measurement in special float format
+  RETURNS:
+    - (int): possible error message
+  Author: Océane Patiny
+ */
+int write_MSG3(int controllerCode,
+               int eventCode,
+               u_int64_t timestamp,
+               double measurement) {
+  MSG msg3 = "";
+
+  convert_to_MSG3(msg3, controllerCode, eventCode, timestamp, measurement);
+  stpcpy(buffer[writeIndex], msg3);
+  incrementWriteIndex();
+
+  return 0;
+}
+
 int read_buffer_MSG(MSG message) {
   strcpy(message, buffer[readIndex]);
   stpcpy(buffer[readIndex], "");  // erasing message that was read to avoid
