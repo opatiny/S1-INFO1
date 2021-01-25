@@ -15,24 +15,49 @@
 // FUNCTIONS
 
 int parse_MSG1(MSG stringMessage, MSG1* parsedMessage) {
-  sscanf(stringMessage, "%1i%4i%*[' ']%[^\t\n]", &(parsedMessage->type),
-         &(parsedMessage->controllerCode), parsedMessage->address);
+  int state = sscanf(stringMessage, "%1i%4i %[^\t\n]", &(parsedMessage->type),
+                     &(parsedMessage->controllerCode), parsedMessage->address);
+
+  if (state != 3) {
+    return 1;
+  }
 
   return 0;
 }
 
 int parse_MSG2(MSG stringMessage, MSG2* parsedMessage) {
-  sscanf(stringMessage, "%1i%4i%4i%*[' ']%[^\t\n]", &(parsedMessage->type),
-         &(parsedMessage->controllerCode), &(parsedMessage->eventCode),
-         parsedMessage->eventName);
+  char controllerCode[5] = {'\0'};
+  char eventCode[5] = {'\0'};
+
+  int state =
+      sscanf(stringMessage, "%1i%4c%4c %[^\t\n]", &(parsedMessage->type),
+             controllerCode, eventCode, parsedMessage->eventName);
+
+  if (state != 4) {
+    return 1;
+  }
+
+  parsedMessage->controllerCode = atoi(controllerCode);
+  parsedMessage->eventCode = atoi(eventCode);
 
   return 0;
 }
 
 int parse_MSG3(MSG stringMessage, MSG3* parsedMessage) {
-  sscanf(stringMessage, "%1i%4i%4i%10lu%10lf", &(parsedMessage->type),
-         &(parsedMessage->controllerCode), &(parsedMessage->eventCode),
-         &(parsedMessage->timestamp), &(parsedMessage->measurement));
+  char controllerCode[5] = {'\0'};
+  char eventCode[5] = {'\0'};
+
+  int state =
+      sscanf(stringMessage, "%1i%4c%4c%10lu%10lf", &(parsedMessage->type),
+             controllerCode, eventCode, &(parsedMessage->timestamp),
+             &(parsedMessage->measurement));
+
+  if (state != 5) {
+    return 1;
+  }
+
+  parsedMessage->controllerCode = atoi(controllerCode);
+  parsedMessage->eventCode = atoi(eventCode);
 
   return 0;
 }

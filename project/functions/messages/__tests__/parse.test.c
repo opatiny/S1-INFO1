@@ -19,6 +19,15 @@ int test_parse_MSG1(void) {
   shouldBeEqual_s(&NB_CASES_FAILING, result.address,
                   "a controller address street 4.5");
 
+  char message2[] = "15443aaaaaaaaaaaaaaa controller address street 4.5";
+
+  parse_MSG1(message2, &result);
+
+  shouldBeEqual_i(&NB_CASES_FAILING, result.type, 1);
+  shouldBeEqual_i(&NB_CASES_FAILING, result.controllerCode, 5443);
+  shouldBeEqual_s(&NB_CASES_FAILING, result.address,
+                  "aaaaaaaaaaaaaaa controller address street 4.5");
+
   return checkTest(NB_CASES_FAILING);
 }
 
@@ -35,6 +44,15 @@ int test_parse_MSG2(void) {
   shouldBeEqual_i(&NB_CASES_FAILING, result.controllerCode, 244);
   shouldBeEqual_i(&NB_CASES_FAILING, result.eventCode, 5567);
   shouldBeEqual_s(&NB_CASES_FAILING, result.eventName, "room temperature");
+
+  char message2[] = "2 244   7room 123 temperature";
+
+  parse_MSG2(message2, &result);
+
+  shouldBeEqual_i(&NB_CASES_FAILING, result.type, 2);
+  shouldBeEqual_i(&NB_CASES_FAILING, result.controllerCode, 244);
+  shouldBeEqual_i(&NB_CASES_FAILING, result.eventCode, 7);
+  shouldBeEqual_s(&NB_CASES_FAILING, result.eventName, "room 123 temperature");
 
   return checkTest(NB_CASES_FAILING);
 }
