@@ -25,7 +25,8 @@ int shouldBeEqual_lf(int* nbCasesFailing,
                      double value,
                      double expected,
                      double maxError) {
-  if (abs(value - expected) > maxError) {
+  if (fabs(value - expected) >
+      maxError) {  // fabs() is the absolute value function for doubles
     printf("    got: %lf, expected: %lf \n", value, expected);
     (*nbCasesFailing)++;
     return 1;
