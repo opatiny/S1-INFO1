@@ -34,6 +34,8 @@ EOF
 
 C_FILES=`find . -mindepth 2 -name "*.c"`
 
-gcc -g $C_FILES ./tests.c -lm -o ./tests.out  
-
-./tests.out
+if gcc -g $C_FILES ./tests.c -lm -o ./tests.out ; then
+  ./tests.out
+else
+    echo "Compilation failed! Tests could not be run."
+fi
