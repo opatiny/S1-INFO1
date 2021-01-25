@@ -19,21 +19,36 @@ int roomLuminosityModel(double* currentLuminosity,
 
 // STRUCTURES INITIALIZATION
 // defining all parameters for rooms 1 and 2
-ROOM rooms[2] = {{.temperature = {.current = 15,
-                                  .weatherImpact = 0.2,
-                                  .controllerImpact = 0.5},
-                  .luminosity = {.current = 0.25,
-                                 .weatherImpact = 0.5,
-                                 .controllerImpact = 0.8}},
-                 {.temperature = {.current = 20,
-                                  .weatherImpact = 0.25,
-                                  .controllerImpact = 0.6},
-                  .luminosity = {.current = 0.25,
-                                 .weatherImpact = 0.6,
-                                 .controllerImpact = 0.9}}};
+ROOM rooms[] = {{.temperature = {.current = 15,
+                                 .weatherImpact = 0.2,
+                                 .controllerImpact = 0.5},
+                 .luminosity = {.current = 0.25,
+                                .weatherImpact = 0.5,
+                                .controllerImpact = 0.8}},
+                {.temperature = {.current = 20,
+                                 .weatherImpact = 0.25,
+                                 .controllerImpact = 0.6},
+                 .luminosity = {.current = 0.25,
+                                .weatherImpact = 0.6,
+                                .controllerImpact = 0.9}}};
+
+int weatherIndex;  // this is an option that comes from the scheduler
 
 // FUNCTIONS
-// in our case, "index" can be 0 or 1
+// in our case, "index" of the rooms can be 0 or 1 (they are 2 rooms)
+
+/* setRoomsWeatherIndex(): sets weatherIndex to the right value (this function
+  is used in the scheduler)
+  PARAMETERS:
+    -  value (int): index of the weather struct to work with
+  RETURNS:
+    - int (possible error message)
+  Author: Océane Patiny
+ */
+int setRoomsWeatherIndex(int value) {
+  weatherIndex = value;
+  return 0;
+}
 
 /* updateRoomTemperature(): update temperature of a given room
   PARAMETERS:
@@ -43,7 +58,7 @@ ROOM rooms[2] = {{.temperature = {.current = 15,
   Author: Océane Patiny
  */
 int updateRoomTemperature(int index) {
-  double weatherTemperature = getWeatherTemperature(0);  // in °C
+  double weatherTemperature = getWeatherTemperature(weatherIndex);  // in °C
 
   roomTemperatureModel(&rooms[index].temperature.current, weatherTemperature,
                        rooms[index].temperature.weatherImpact,
@@ -61,7 +76,7 @@ int updateRoomTemperature(int index) {
   Author: Océane Patiny
  */
 int updateRoomLuminosity(int index) {
-  double weatherLuminosity = getWeatherLuminosity(index);
+  double weatherLuminosity = getWeatherLuminosity(weatherIndex);
 
   roomLuminosityModel(&rooms[index].luminosity.current, weatherLuminosity,
                       rooms[index].luminosity.weatherImpact);

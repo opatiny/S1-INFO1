@@ -1,6 +1,8 @@
 #ifndef ROOMS_H
 #define ROOMS_H
 
+// DEFINES
+
 // STRUCTURES
 typedef struct room_temperature {
   double current;           // in °C
@@ -21,6 +23,8 @@ typedef struct room {
 } ROOM;
 
 // PUBLIC FUNCTIONS
+
+int setRoomsWeatherIndex(int value);
 
 int updateRoomTemperature(int roomNumber);
 int updateRoomLuminosity(int roomNumber);

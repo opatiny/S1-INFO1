@@ -54,6 +54,8 @@ int Scheduler(void) {
   outputData.showControlValues = options.showControlValues;
   outputData.exportData = 0;
 
+  setRoomsWeatherIndex(options.weather);
+
   printf("Welcome to this basic domotics simulator.\n\n");
 
   printf("The TIC length is %i seconds.\n\n", options.ticLength);
