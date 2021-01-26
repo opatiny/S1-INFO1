@@ -21,6 +21,8 @@ typedef struct temperature_controller {
 } TEMPERATURE_CONTROLLER;
 
 // PUBLIC FUNCTIONS
+int announceControllers(void);
+
 int temperatureControl(int index);
 int phControl(int index);
 

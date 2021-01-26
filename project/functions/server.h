@@ -4,7 +4,9 @@
 // STRUCTURES
 
 // PUBLIC FUNCTIONS
-int initializeServer(void);
+int initServer(void);
+int closeServer(void);
+int server(void);
 
 #ifdef TEST_ENVIRONMENT
 #endif  // TEST_ENVIRONMENT

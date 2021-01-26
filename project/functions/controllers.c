@@ -34,23 +34,32 @@ PUMP pumps[NB_PUMPS] = {{.currentValue = 0, .phThreshold = 6.5, .factor = 1}};
 // FUNCTIONS
 
 int announceControllers(void) {
+  printf("Announcing controllers\n");
   for (int i = 0; i < NB_TEMPERATURE_CONTROLLERS; i++) {
     char address[] = "temperature control room ";
     char roomNumber[10];
-    int id = i;
-    sprintf(roomNumber, "%i", i);
-    strcat(address, roomNumber);
+    int id = i + 1;
+
+    // setting temperature controllers IDs
+    temperature_controllers[i].identifier = id;
+
+    sprintf(roomNumber, "%i", i + 1);
+    strcat(address, roomNumber);  // creating the controller address
     write_MSG1(id, address);
     write_MSG2(id, TEMPERATURE_EVENT, "temperature");
   }
   for (int i = 0; i < NB_PUMPS; i++) {
     char address[] = "PH control aquarium ";
     char roomNumber[10];
-    int id = i + NB_TEMPERATURE_CONTROLLERS;  // to be sure to have no overlap
-                                              // in controllers IDs
-    sprintf(roomNumber, "%i", i);
+    int id =
+        i + 1 + NB_TEMPERATURE_CONTROLLERS;  // to be sure to have no overlap
+
+    // setting pumps IDs
+    pumps[i].identifier = id;
+
+    sprintf(roomNumber, "%i", i + 1);
     strcat(address, roomNumber);
-    write_MSG1(i, address);
+    write_MSG1(id, address);
     write_MSG2(id, TEMPERATURE_EVENT, "PH");
   }
 }

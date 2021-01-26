@@ -23,7 +23,7 @@
 #define TEMPERATURE_CONTROL_SAMPLING 1
 #define LIGHT_CONTROL_SAMPLING 1
 #define PH_CONTROL_SAMPLING 1
-#define SERVER_SAMPLING 1
+#define SERVER_SAMPLING 6
 
 // indexes in weather structures array
 #define LAUSANNE_SUMMER 0
@@ -58,10 +58,12 @@ int Scheduler(void) {
   outputData.exportData = 0;
   // set the weather struct to use in rooms
   setRoomsWeatherIndex(options.weather);
-  // initialize server
-  initializeServer();
+  // initialize server (open log files)
+  // initServer();
+  // announce controllers to data handler
+  announceControllers();
 
-  // PROGRAM
+  // SCHEDULER
   if (options.showOutputData) {
     printf("Welcome to this basic domotics simulator.\n\n");
 
@@ -137,11 +139,15 @@ int Scheduler(void) {
       }
     }
     if (!(currentTIC % SERVER_SAMPLING)) {
+      server();
     }
+
     if (options.showOutputData) {
       printDataLine(&outputData);
     }
   }
+
+  // closeServer();
 
   return 0;
 }
