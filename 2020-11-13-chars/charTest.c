@@ -42,5 +42,7 @@ int main(void) {
 
   printf("size of string: %lu\n", sizeof("1234"));
 
+  printf("Size of empty string: %i\n", sizeof(""));
+
   return EXIT_SUCCESS;
 }
