@@ -84,8 +84,8 @@ int write_MSG3(int controllerCode,
 
 int read_buffer_MSG(MSG message) {
   strcpy(message, buffer[readIndex]);
-  stpcpy(buffer[readIndex], "");  // erasing message that was read to avoid
-                                  // looping over and reading it twice
+  buffer[readIndex][0] = '\0';  // erasing message that was read to avoid
+                                // looping over and reading it twice
   incrementReadIndex();
   return 0;
 }
@@ -103,10 +103,10 @@ int incrementReadIndex(void) {
 
 int incrementWriteIndex(void) {
   // handling edge effect
-  if (readIndex == BUFFER_SIZE - 1) {
-    readIndex = 0;
+  if (writeIndex == BUFFER_SIZE - 1) {
+    writeIndex = 0;
   } else {
-    readIndex++;
+    writeIndex++;
   }
 
   return 0;
