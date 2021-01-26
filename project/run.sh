@@ -7,5 +7,3 @@ if gcc -g $C_FILES ./main.c -lm -o ./main.out ; then
 else
     echo "Compilation failed!"
 fi
-
-
