@@ -33,8 +33,14 @@ PUMP pumps[NB_PUMPS] = {{.currentValue = 0, .phThreshold = 6.5, .factor = 1}};
 
 // FUNCTIONS
 
+/* announceControllers(): announces the controllers to the dataHandler. Has to
+  be run before any controller-related function! PARAMETERS:
+    - void
+  RETURNS:
+    - (int): possible error message
+  Author: Océane Patiny
+ */
 int announceControllers(void) {
-  printf("Announcing controllers\n");
   for (int i = 0; i < NB_TEMPERATURE_CONTROLLERS; i++) {
     char address[] = "temperature control room ";
     char roomNumber[10];
@@ -62,6 +68,7 @@ int announceControllers(void) {
     write_MSG1(id, address);
     write_MSG2(id, TEMPERATURE_EVENT, "PH");
   }
+  return 0;
 }
 
 /* temperatureControl(): update current value of given temperature controller
@@ -123,7 +130,8 @@ int phControl(int index, u_int64_t currentTime) {
 }
 
 /* phControlModel(): sets current value of a pump struct instance depending on
-  the current PH of the corresponding aquarium PARAMETERS:
+  the current PH of the corresponding aquarium
+  PARAMETERS:
     - currentPH (double): current PH of the aquarium
     - pump (PUMP*): pointer on pump struct instance
 
