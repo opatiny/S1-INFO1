@@ -38,7 +38,7 @@
 USER_OPTIONS options = {.nbTics = 24,
                         .ticLength = 60 * 60,  //  in seconds
                         .weather = LAUSANNE_WINTER,
-                        .showOutputData = 0,
+                        .showOutputData = 1,
                         .showControlValues = 1};
 DATA outputData;
 
