@@ -57,18 +57,18 @@ int server(void) {
     switch (msgType) {
       case '1':
         parse_MSG1(msg_s, &msg1);
-        fprintf(msg1_log_file, "%1i, %4i, %45s\n", msg1.type,
-                msg1.controllerCode, msg1.address);
+        fprintf(msg1_log_file, "%4i, %45s\n", msg1.controllerCode,
+                msg1.address);
         break;
       case '2':
         parse_MSG2(msg_s, &msg2);
-        fprintf(msg2_log_file, "%1i, %4i, %4i, %20s\n", msg2.type,
-                msg2.controllerCode, msg2.eventCode, msg2.eventName);
+        fprintf(msg2_log_file, "%4i, %4i, %20s\n", msg2.controllerCode,
+                msg2.eventCode, msg2.eventName);
         break;
       case '3':
         parse_MSG3(msg_s, &msg3);
-        fprintf(msg3_log_file, "%1i, %4i, %10lu, %10.3lf\n", msg3.type,
-                msg3.controllerCode, msg3.timestamp, msg3.measurement);
+        fprintf(msg3_log_file, "%4i, %10lu, %10.3lf\n", msg3.controllerCode,
+                msg3.timestamp, msg3.measurement);
         break;
       default:
         break;

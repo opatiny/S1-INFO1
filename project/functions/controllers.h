@@ -23,8 +23,8 @@ typedef struct temperature_controller {
 // PUBLIC FUNCTIONS
 int announceControllers(void);
 
-int temperatureControl(int index);
-int phControl(int index);
+int temperatureControl(int index, u_int64_t currentTime);
+int phControl(int index, u_int64_t currentTime);
 
 double getTemperatureControlValue(int index);
 double getPhControlValue(int index);

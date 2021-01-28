@@ -71,11 +71,14 @@ int announceControllers(void) {
     - (int): possible error message
   Author: Océane Patiny
  */
-int temperatureControl(int index) {
+int temperatureControl(int index, u_int64_t currentTime) {
   double roomTemperature = getRoomTemperature(index);
   temperatureControlModel(roomTemperature, &temperature_controllers[index]);
+  // set the new controller value in room structure
   setTemperatureControllerValue(index,
                                 temperature_controllers[index].currentValue);
+  write_MSG3(temperature_controllers[index].identifier, TEMPERATURE_EVENT,
+             currentTime, temperature_controllers[index].currentValue);
   return 0;
 }
 
@@ -110,10 +113,12 @@ int temperatureControlModel(double roomTemperature,
     - (int): possible error message
   Author: Océane Patiny
  */
-int phControl(int index) {
+int phControl(int index, u_int64_t currentTime) {
   double currentPH = getPH(index);
   phControlModel(currentPH, &pumps[index]);
   setPumpValue(index, pumps[index].currentValue);
+  write_MSG3(pumps[index].identifier, PH_EVENT, currentTime,
+             pumps[index].currentValue);
   return 0;
 }
 

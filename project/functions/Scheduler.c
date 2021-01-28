@@ -75,10 +75,10 @@ int Scheduler(void) {
   for (int currentTIC = 1; currentTIC < options.nbTics + 1; currentTIC++) {
     outputData.TIC = currentTIC;
 
-    u_int32_t currentTimeOfDay =
-        currentTIC * options.ticLength %
-        (24 * 3600);  // current time of day in seconds
-                      // has to be on 32 bites because 24*3600 = 84'600 > 65'535
+    u_int32_t currentTimeOfDay = currentTIC * options.ticLength %
+                                 (24 * 3600);  // current time of day in seconds
+    // has to be on 32 bites because 24*3600 = 84'600 > 65'535
+    u_int64_t currentTime = currentTIC * options.ticLength;
 
     if (currentTIC == 1 | !(currentTIC % WEATHER_LIGHT_SAMPLING)) {
       updateWeatherLuminosity(currentTimeOfDay, options.weather);
@@ -119,7 +119,7 @@ int Scheduler(void) {
     }
     if (!(currentTIC % TEMPERATURE_CONTROL_SAMPLING)) {
       for (int i = 0; i < NB_ROOMS; i++) {
-        temperatureControl(i);
+        temperatureControl(i, currentTime);
         double temperatureControlValue = getTemperatureControlValue(i);
         if (i < NB_ROOMS_OUTPUT) {
           outputData.temperatureControllers[i] = temperatureControlValue;
@@ -131,7 +131,7 @@ int Scheduler(void) {
     }
     if (!(currentTIC % PH_CONTROL_SAMPLING)) {
       for (int i = 0; i < NB_AQUARIUMS; i++) {
-        phControl(i);
+        phControl(i, currentTime);
         double phControlValue = getPhControlValue(i);
         if (i < NB_AQUARIUMS_OUTPUT) {
           outputData.phControllers[i] = phControlValue;
