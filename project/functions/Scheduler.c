@@ -59,7 +59,7 @@ int Scheduler(void) {
   // set the weather struct to use in rooms
   setRoomsWeatherIndex(options.weather);
   // initialize server (open log files)
-  // initServer();
+  initServer();
   // announce controllers to data handler
   announceControllers();
 
@@ -147,7 +147,7 @@ int Scheduler(void) {
     }
   }
 
-  // closeServer();
+  closeServer();
 
   return 0;
 }
