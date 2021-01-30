@@ -1,5 +1,7 @@
 # C Project: Entities control simulator
 
+Link to the GitHub: [https://github.com/opatiny/S1-INFO1/tree/master/project](https://github.com/opatiny/S1-INFO1/tree/master/project)
+
 Refer to the [changelog](./CHANGELOG.md) to know the enhancement made in V2 of the project.
 
 ## Running the project
