@@ -66,7 +66,7 @@ int announceControllers(void) {
     sprintf(roomNumber, "%i", i + 1);
     strcat(address, roomNumber);
     write_MSG1(id, address);
-    write_MSG2(id, TEMPERATURE_EVENT, "PH");
+    write_MSG2(id, PH_EVENT, "PH");
   }
   return 0;
 }
