@@ -80,7 +80,7 @@ int Scheduler(void) {
     // has to be on 32 bites because 24*3600 = 84'600 > 65'535
     u_int64_t currentTime = currentTIC * options.ticLength;
 
-    if (currentTIC == 1 | !(currentTIC % WEATHER_LIGHT_SAMPLING)) {
+    if (currentTIC == 1 || !(currentTIC % WEATHER_LIGHT_SAMPLING)) {
       updateWeatherLuminosity(currentTimeOfDay, options.weather);
       double weatherLuminosity = getWeatherLuminosity(options.weather);
       outputData.weatherLuminosity = weatherLuminosity;

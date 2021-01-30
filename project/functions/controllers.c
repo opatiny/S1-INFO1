@@ -42,7 +42,7 @@ PUMP pumps[NB_PUMPS] = {{.currentValue = 0, .phThreshold = 6.5, .factor = 1}};
  */
 int announceControllers(void) {
   for (int i = 0; i < NB_TEMPERATURE_CONTROLLERS; i++) {
-    char address[] = "temperature control room ";
+    char address[MAX_ADDRESS_LENGTH] = "temperature control room ";
     char roomNumber[10];
     int id = i + 1;
 

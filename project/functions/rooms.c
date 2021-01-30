@@ -93,6 +93,7 @@ double getRoomLuminosity(int index) {
 
 int setTemperatureControllerValue(int index, double value) {
   rooms[index].temperature.controllerValue = value;
+  return 0;
 }
 
 // PRIVATE FUNCTIONS
