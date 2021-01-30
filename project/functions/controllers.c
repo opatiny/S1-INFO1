@@ -55,7 +55,7 @@ int announceControllers(void) {
     write_MSG2(id, TEMPERATURE_EVENT, "temperature");
   }
   for (int i = 0; i < NB_PUMPS; i++) {
-    char address[] = "PH control aquarium ";
+    char address[MAX_ADDRESS_LENGTH] = "PH control aquarium ";
     char roomNumber[10];
     int id =
         i + 1 + NB_TEMPERATURE_CONTROLLERS;  // to be sure to have no overlap
